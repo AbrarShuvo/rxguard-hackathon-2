@@ -1,0 +1,413 @@
+@import "tailwindcss";
+
+/* ── Design tokens (light theme only) ─────────────── */
+:root {
+  --ink: #0B1220;
+  --ink-soft: #334155;
+  --bg: #F6F8FA;
+  --surface: #FFFFFF;
+  --hairline: rgba(15, 23, 42, 0.08);
+  --accent: #10B981;
+  --accent-2: #0D9488;
+  --accent-glow: rgba(16, 185, 129, 0.35);
+  --radius-card: 1rem;
+  --radius-control: 0.75rem;
+  --shadow-card: 0 1px 2px rgba(15, 23, 42, 0.04), 0 4px 12px -2px rgba(15, 23, 42, 0.05), 0 12px 32px -8px rgba(15, 23, 42, 0.06);
+  --shadow-lift: 0 2px 4px rgba(15, 23, 42, 0.05), 0 12px 24px -6px rgba(15, 23, 42, 0.12);
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+}
+
+/* ── Type ──────────────────────────────────────────── */
+h1, h2, h3, h4 {
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+p { text-wrap: pretty; }
+
+.text-gradient {
+  background: linear-gradient(100deg, var(--accent-2) 0%, var(--accent) 55%, #34D399 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ── Base animations (only when motion is allowed) ── */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+
+  @keyframes barGrow {
+    from { width: 0%; }
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.45s ease-out forwards;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.45s ease-out forwards;
+  }
+
+  .animate-shimmer {
+    background: linear-gradient(90deg, #e5e7eb 25%, #f3f4f6 50%, #e5e7eb 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+
+  .animate-bar-grow {
+    animation: barGrow 0.45s ease-out forwards;
+  }
+
+  /* Stagger children animations */
+  .stagger-children > * {
+    opacity: 0;
+    animation: fadeIn 0.4s ease-out forwards;
+  }
+  .stagger-children > *:nth-child(1) { animation-delay: 0.05s; }
+  .stagger-children > *:nth-child(2) { animation-delay: 0.1s; }
+  .stagger-children > *:nth-child(3) { animation-delay: 0.15s; }
+  .stagger-children > *:nth-child(4) { animation-delay: 0.2s; }
+  .stagger-children > *:nth-child(5) { animation-delay: 0.25s; }
+  .stagger-children > *:nth-child(6) { animation-delay: 0.3s; }
+  .stagger-children > *:nth-child(7) { animation-delay: 0.35s; }
+  .stagger-children > *:nth-child(8) { animation-delay: 0.4s; }
+}
+
+/* ── Print Styles (compact, colour-safe patient card) ── */
+@page { size: A4; margin: 10mm; }
+
+@media print {
+  *, *::before, *::after {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .no-print,
+  .print-hide {
+    display: none !important;
+  }
+
+  body {
+    font-size: 11px;
+    color: #000;
+    background: #fff !important;
+  }
+  body::before { display: none !important; }
+
+  .patient-card {
+    max-width: 100%;
+    border: 1px solid #000;
+    padding: 10px !important;
+    font-size: 11px;
+  }
+  .patient-card > * {
+    margin: 0 0 8px !important;
+  }
+  .patient-card > *,
+  .results-stagger > *,
+  .stagger-children > * {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .patient-card :is(p, span, h3, h4, dt, div):not(.stat-num) {
+    font-size: 11px !important;
+    line-height: 1.35 !important;
+  }
+  .patient-card h2 { font-size: 13px !important; }
+
+  /* decorative surfaces off */
+  .card-surface,
+  .hero-card {
+    background: #fff !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    box-shadow: none !important;
+    padding: 8px !important;
+  }
+  .hero-card { border: 1.5px solid var(--sev) !important; }
+
+  /* keep blocks whole */
+  .card-surface,
+  .hero-card,
+  .stagger-children > *,
+  .patient-card .rounded-xl,
+  [role="checkbox"] {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  .patient-card .rounded-xl { padding: 6px 8px !important; }
+  .patient-card .space-y-3 > *,
+  .patient-card .space-y-2 > * { margin-top: 4px !important; margin-bottom: 0 !important; }
+
+  /* pills + labs side by side */
+  .print-cols {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 8px !important;
+    align-items: start;
+  }
+
+  /* severity pills: readable on paper */
+  .severity-critical,
+  .severity-warning,
+  .severity-info {
+    background: #fff !important;
+    border: 1px solid currentColor;
+  }
+  .severity-critical { color: #B91C1C !important; }
+  .severity-warning { color: #92400E !important; }
+  .severity-info { color: #1D4ED8 !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ── Atmosphere: soft mesh + fading dot grid ───────── */
+body {
+  background-image:
+    radial-gradient(60rem 36rem at 12% -8%, rgba(16, 185, 129, 0.10), transparent 60%),
+    radial-gradient(48rem 30rem at 92% 4%, rgba(56, 189, 248, 0.09), transparent 60%),
+    radial-gradient(40rem 28rem at 60% 100%, rgba(13, 148, 136, 0.06), transparent 65%);
+  background-attachment: fixed;
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: radial-gradient(rgba(15, 23, 42, 0.10) 1px, transparent 1px);
+  background-size: 22px 22px;
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.55), transparent 55%);
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.55), transparent 55%);
+}
+
+/* ── Surfaces: hairline border, layered shadow, top highlight ── */
+.card-surface {
+  border: 1px solid var(--hairline);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9), var(--shadow-card);
+}
+
+/* ── Primary button ────────────────────────────────── */
+.btn-primary {
+  position: relative;
+  background: linear-gradient(180deg, #14C48E 0%, var(--accent-2) 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    0 1px 2px rgba(13, 148, 136, 0.4),
+    0 8px 20px -6px var(--accent-glow);
+  transition: box-shadow 0.2s ease, filter 0.2s ease, transform 0.12s ease;
+}
+.btn-primary:hover:not(:disabled) {
+  filter: brightness(1.05);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    0 1px 2px rgba(13, 148, 136, 0.4),
+    0 12px 28px -6px var(--accent-glow);
+}
+.btn-primary:disabled {
+  background: #D1D5DB;
+  box-shadow: none;
+}
+
+/* ── Upload cards: gradient border on hover / drag-over ── */
+.upload-card::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  padding: 2px;
+  background: linear-gradient(135deg, #34D399, #0D9488 50%, #38BDF8);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+.upload-card:hover::before,
+.upload-card.is-drag::before {
+  opacity: 1;
+}
+
+/* ── Sample cards: lift + colored edge glow ────────── */
+.sample-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.sample-card:hover {
+  transform: translateY(-2px);
+}
+.sample-card--red:hover {
+  box-shadow: 0 10px 24px -8px rgba(220, 38, 38, 0.35), 0 0 0 1px rgba(220, 38, 38, 0.25);
+}
+.sample-card--blue:hover {
+  box-shadow: 0 10px 24px -8px rgba(37, 99, 235, 0.35), 0 0 0 1px rgba(37, 99, 235, 0.25);
+}
+
+/* ── Language switch: sliding active pill ──────────── */
+.lang-pill {
+  position: absolute;
+  top: 2px;
+  bottom: 2px;
+  left: 2px;
+  width: calc((100% - 4px) / 3);
+  border-radius: 0.5rem;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.12), 0 2px 6px -1px rgba(15, 23, 42, 0.08);
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── Sliding tab indicator ─────────────────────────── */
+.tab-pill {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: 4px;
+  width: calc((100% - 8px) / var(--tabs, 3));
+  border-radius: 0.5rem;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.12), 0 2px 6px -1px rgba(15, 23, 42, 0.08);
+  transform: translateX(calc(var(--i, 0) * 100%));
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── Overview numbers: CSS counter so they can count up ── */
+@property --n {
+  syntax: "<integer>";
+  inherits: false;
+  initial-value: 0;
+}
+.stat-num {
+  font-size: 0;
+  line-height: 2rem;
+  counter-reset: n var(--n);
+}
+.stat-num::before {
+  content: counter(n);
+  font-size: 1.5rem;
+}
+
+/* ── Brand-glow focus rings ────────────────────────── */
+button:focus-visible,
+[role="checkbox"]:focus-visible,
+a:focus-visible,
+input:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--accent), 0 0 14px 2px var(--accent-glow);
+}
+
+/* ── Results motion (transform / opacity only, < 500ms) ── */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes countUp {
+    from { --n: 0; }
+  }
+  @keyframes markerIn {
+    from { opacity: 0; transform: translateX(-36px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes ringPulse {
+    0% { opacity: 0; transform: scale(1); }
+    35% { opacity: 0.9; }
+    100% { opacity: 0; transform: scale(1.02); }
+  }
+
+  .results-stagger > * {
+    opacity: 0;
+    animation: fadeUp 0.4s ease-out both;
+  }
+  .results-stagger > *:nth-child(1) { animation-delay: 0ms; }
+  .results-stagger > *:nth-child(2) { animation-delay: 50ms; }
+  .results-stagger > *:nth-child(3) { animation-delay: 100ms; }
+  .results-stagger > *:nth-child(4) { animation-delay: 150ms; }
+  .results-stagger > *:nth-child(5) { animation-delay: 200ms; }
+  .results-stagger > *:nth-child(6) { animation-delay: 250ms; }
+  .results-stagger > *:nth-child(n + 7) { animation-delay: 300ms; }
+
+  .stat-num { animation: countUp 0.45s ease-out both; }
+  .marker-in { animation: markerIn 0.45s ease-out both; animation-delay: 0.2s; }
+
+  .animate-pulse-alert { position: relative; }
+  .animate-pulse-alert::after {
+    content: "";
+    position: absolute;
+    inset: -3px;
+    border-radius: inherit;
+    border: 2px solid rgba(220, 38, 38, 0.55);
+    pointer-events: none;
+    opacity: 0;
+    animation: ringPulse 0.48s ease-out 0.35s 1 both;
+  }
+
+  button:active:not(:disabled) { transform: scale(0.98); }
+}
+
+/* ── Pass 2: hero verdict card, header line, glass cards ── */
+.hero-card {
+  --sev: #059669;
+  --sev-glow: rgba(5, 150, 105, 0.32);
+  border: 1.5px solid transparent !important;
+  background:
+    linear-gradient(180deg, #ffffff 0%, color-mix(in srgb, var(--sev) 7%, #ffffff) 100%) padding-box,
+    linear-gradient(135deg, var(--sev), color-mix(in srgb, var(--sev) 25%, #ffffff) 55%, var(--sev)) border-box !important;
+  box-shadow:
+    inset 0 0 44px -14px var(--sev-glow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    var(--shadow-card);
+}
+.hero-card--critical { --sev: #DC2626; --sev-glow: rgba(220, 38, 38, 0.38); }
+.hero-card--warning { --sev: #D97706; --sev-glow: rgba(217, 119, 6, 0.36); }
+.hero-card--low { --sev: #059669; --sev-glow: rgba(5, 150, 105, 0.32); }
+
+.app-header { position: sticky; overflow: hidden; }
+.app-header::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 200%;
+  height: 2px;
+  opacity: 0.75;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, #34D399, #38BDF8, #34D399, transparent) 0 0 / 50% 100% repeat-x;
+}
+
+.card-surface {
+  background-color: rgba(255, 255, 255, 0.8);
+  -webkit-backdrop-filter: blur(12px) saturate(1.2);
+  backdrop-filter: blur(12px) saturate(1.2);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes headerFlow {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  .app-header::after { animation: headerFlow 8s linear infinite; }
+}

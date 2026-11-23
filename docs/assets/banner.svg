@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="320" viewBox="0 0 1280 320" role="img" aria-labelledby="t d">
+  <title id="t">RxGuard</title>
+  <desc id="d">RxGuard: Prescription &amp; Lab Safety Decoder</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0B1220"/>
+      <stop offset="1" stop-color="#0E1B2C"/>
+    </linearGradient>
+    <radialGradient id="glowL" cx="0.16" cy="0.5" r="0.55">
+      <stop offset="0" stop-color="#10B981" stop-opacity="0.28"/>
+      <stop offset="1" stop-color="#10B981" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowR" cx="0.95" cy="0.1" r="0.5">
+      <stop offset="0" stop-color="#38BDF8" stop-opacity="0.16"/>
+      <stop offset="1" stop-color="#38BDF8" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="logo" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#10B981"/>
+      <stop offset="1" stop-color="#0F766E"/>
+    </linearGradient>
+    <!-- slow gradient sweep across the title -->
+    <linearGradient id="sweep" gradientUnits="userSpaceOnUse" x1="-500" y1="0" x2="-100" y2="0">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="0.5" stop-color="#6EE7B7"/>
+      <stop offset="1" stop-color="#FFFFFF"/>
+      <animate attributeName="x1" values="-500;1300" dur="7s" repeatCount="indefinite"/>
+      <animate attributeName="x2" values="-100;1700" dur="7s" repeatCount="indefinite"/>
+    </linearGradient>
+    <linearGradient id="line" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="1280" y2="0">
+      <stop offset="0" stop-color="#10B981" stop-opacity="0"/>
+      <stop offset="0.5" stop-color="#34D399"/>
+      <stop offset="1" stop-color="#38BDF8" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="blur" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="22"/>
+    </filter>
+    <pattern id="dots" width="24" height="24" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1" fill="#94A3B8" fill-opacity="0.18"/>
+    </pattern>
+    <linearGradient id="fade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fff" stop-opacity="1"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+    <mask id="dotMask"><rect width="1280" height="320" fill="url(#fade)"/></mask>
+  </defs>
+
+  <rect width="1280" height="320" fill="url(#bg)"/>
+  <rect width="1280" height="320" fill="url(#glowL)"/>
+  <rect width="1280" height="320" fill="url(#glowR)"/>
+  <rect width="1280" height="320" fill="url(#dots)" mask="url(#dotMask)"/>
+
+  <!-- pulsing shield glow -->
+  <circle cx="190" cy="160" r="86" fill="#10B981" filter="url(#blur)" opacity="0.5">
+    <animate attributeName="opacity" values="0.25;0.7;0.25" dur="3.2s" repeatCount="indefinite"/>
+    <animate attributeName="r" values="76;96;76" dur="3.2s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="190" cy="160" r="74" fill="none" stroke="#34D399" stroke-width="2" opacity="0">
+    <animate attributeName="r" values="64;118" dur="3.2s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.55;0" dur="3.2s" repeatCount="indefinite"/>
+  </circle>
+
+  <!-- shield logo -->
+  <g transform="translate(130 100)">
+    <rect width="120" height="120" rx="30" fill="url(#logo)"/>
+    <rect x="1" y="1" width="118" height="118" rx="29" fill="none" stroke="#FFFFFF" stroke-opacity="0.25"/>
+    <g transform="translate(24 24) scale(3)" fill="none" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/>
+      <path d="m9 12 2 2 4-4"/>
+    </g>
+  </g>
+
+  <!-- title + tagline -->
+  <text x="300" y="178" font-family="Inter, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="104" font-weight="800" letter-spacing="-3" fill="url(#sweep)">RxGuard</text>
+  <text x="304" y="226" font-family="Inter, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="30" font-weight="500" letter-spacing="0.5" fill="#94A3B8">Prescription &amp; Lab Safety Decoder</text>
+
+  <!-- accent line -->
+  <rect x="0" y="316" width="1280" height="4" fill="url(#line)">
+    <animate attributeName="opacity" values="0.4;1;0.4" dur="4s" repeatCount="indefinite"/>
+  </rect>
+</svg>
