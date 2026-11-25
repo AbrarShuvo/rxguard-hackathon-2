@@ -120,10 +120,10 @@ export default function SourceDocumentModal({
 
               {caseType === "A" ? (
                 <div className="space-y-3 font-mono text-xs text-[#12312A] leading-relaxed pl-3 border-l-2 border-emerald-400">
-                  <div className="bg-red-50/70 p-2 rounded border border-red-200">
-                    <p className="font-bold text-red-900">1. Tab. Ibuprofen 400mg</p>
-                    <p className="text-[11px] text-red-700">Sig: 1 - 0 - 1 PC × 5 days (Pain/Joints)</p>
-                    <span className="text-[10px] bg-red-200 text-red-900 px-1 rounded font-sans font-bold">
+                  <div className="bg-[#F6E9E4]/70 p-2 rounded border border-[#A44A3A]/25">
+                    <p className="font-bold text-[#7A3327]">1. Tab. Ibuprofen 400mg</p>
+                    <p className="text-[11px] text-[#8C3B2E]">Sig: 1 - 0 - 1 PC × 5 days (Pain/Joints)</p>
+                    <span className="text-[10px] bg-[#E5C9BE] text-[#7A3327] px-1 rounded font-sans font-bold">
                       ⚠ HIGH RISK FOR RENAL MARKERS
                     </span>
                   </div>
@@ -195,17 +195,17 @@ export default function SourceDocumentModal({
                   <tbody className="divide-y divide-[#0B5F51]/10">
                     {caseType === "A" ? (
                       <>
-                        <tr className="bg-red-50/70 font-semibold text-red-900">
+                        <tr className="bg-[#F6E9E4]/70 font-semibold text-[#7A3327]">
                           <td className="py-1.5">Serum Creatinine</td>
                           <td className="py-1.5 font-bold">1.8 mg/dL</td>
                           <td className="py-1.5 text-[#3D5A50]">0.7 - 1.3</td>
-                          <td className="py-1.5 text-red-600 font-bold">HIGH ⚠</td>
+                          <td className="py-1.5 text-[#A44A3A] font-bold">HIGH ⚠</td>
                         </tr>
-                        <tr className="bg-red-50/50 font-semibold text-red-900">
+                        <tr className="bg-[#F6E9E4]/50 font-semibold text-[#7A3327]">
                           <td className="py-1.5">eGFR (MDRD)</td>
                           <td className="py-1.5 font-bold">52 mL/min</td>
                           <td className="py-1.5 text-[#3D5A50]">90 - 120</td>
-                          <td className="py-1.5 text-red-600 font-bold">LOW ⚠</td>
+                          <td className="py-1.5 text-[#A44A3A] font-bold">LOW ⚠</td>
                         </tr>
                         <tr className="bg-amber-50/50 text-amber-900 font-medium">
                           <td className="py-1.5">Blood Urea Nitrogen (BUN)</td>

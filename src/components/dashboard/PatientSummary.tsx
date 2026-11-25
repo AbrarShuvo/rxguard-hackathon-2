@@ -13,11 +13,11 @@ interface PatientSummaryProps {
 /* Calm severity config — one accent colour each, no gradients. */
 const riskConfig = {
   CRITICAL: {
-    accent: "#dc2626",
-    accentSoft: "bg-red-50 text-red-700",
-    ring: "#dc2626",
+    accent: "#A44A3A",
+    accentSoft: "bg-[#F6E9E4] text-[#8C3B2E]",
+    ring: "#A44A3A",
     icon: ShieldAlert,
-    iconColor: "text-red-600",
+    iconColor: "text-[#A44A3A]",
     labelKey: "riskHigh" as const,
   },
   WARNING: {
@@ -53,7 +53,7 @@ export default function PatientSummary({ result, lang = "en" }: PatientSummaryPr
   const ringFrac = totalAlerts === 0 ? 0 : result.overall_risk_level === "LOW" ? 0.08 : result.overall_risk_level === "CRITICAL" ? 1 : 0.55;
 
   const stats = [
-    { label: t.statCritical, value: critical, tone: "text-red-600" },
+    { label: t.statCritical, value: critical, tone: "text-[#A44A3A]" },
     { label: t.statWarnings, value: warnings, tone: "text-amber-600" },
     { label: t.statAbnormal, value: abnormal, tone: "text-[#0B1F1B]" },
     { label: t.statMeds, value: result.medications.length, tone: "text-[#0B1F1B]" },
@@ -63,7 +63,7 @@ export default function PatientSummary({ result, lang = "en" }: PatientSummaryPr
   const isWarning = result.overall_risk_level === "WARNING";
   // STOP / CHECK / SAFE stamp — word + icon + colour, never colour alone.
   const stamp = isCritical
-    ? { word: "STOP", label: "Do not take — act now", icon: OctagonX, cls: "border-red-600 text-red-600" }
+    ? { word: "STOP", label: "Do not take — act now", icon: OctagonX, cls: "border-[#A44A3A] text-[#A44A3A]" }
     : isWarning
     ? { word: "CHECK", label: "Review with your doctor", icon: AlertTriangle, cls: "border-amber-600 text-amber-600" }
     : { word: "SAFE", label: "No critical flags found", icon: CircleCheck, cls: "border-emerald-600 text-emerald-600" };

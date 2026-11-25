@@ -110,7 +110,7 @@ export function ScrollProgress() {
       ref={ref}
       aria-hidden
       className="scroll-progress fixed left-0 top-0 z-[60] h-[3px] w-full origin-left"
-      style={{ transform: "scaleX(0)", background: "linear-gradient(90deg,#0d9488,#10b981 45%,#f43f5e)" }}
+      style={{ transform: "scaleX(0)", background: "linear-gradient(90deg,#0d9488,#10b981 45%,#B05A44)" }}
     />
   );
 }

@@ -359,7 +359,7 @@ export default function Home() {
         />
 
         {/* Action Toolbar */}
-        <div className="w-full glass border-b border-[color:var(--hairline)] sm:sticky sm:top-14 z-40 no-print shadow-sm">
+        <div className="w-full bg-[#F0FBEF]/55 backdrop-blur-xl sm:sticky sm:top-14 z-40 no-print">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 flex flex-wrap items-center justify-between gap-2">
             <button
               onClick={handleReset}
@@ -372,14 +372,14 @@ export default function Home() {
             <div className="flex flex-wrap items-center gap-2">
               <button
                 onClick={() => setIsModalOpen(true)}
-                className={`${btn} bg-[#F4FBF6] hover:bg-[#EFFAF3] text-[#2C4A42] border-[#0B5F51]/15`}
+                className={`${btn} bg-[#F4FBF6]/70 hover:bg-[#EFFAF3]/80 text-[#2C4A42] border-[#0B5F51]/15`}
               >
                 <Eye className="w-3.5 h-3.5 text-[#5A7268]" />
                 <span>{t.sourceDocBtn}</span>
               </button>
               <button
                 onClick={handleExportCalendar}
-                className={`${btn} bg-[#F4FBF6] hover:bg-[#EFFAF3] text-[#2C4A42] border-[#0B5F51]/15`}
+                className={`${btn} bg-[#F4FBF6]/70 hover:bg-[#EFFAF3]/80 text-[#2C4A42] border-[#0B5F51]/15`}
                 title="Download .ics file for Google Calendar, Apple Calendar, or Outlook"
               >
                 <Calendar className="w-3.5 h-3.5 text-[#5A7268]" />
@@ -388,7 +388,7 @@ export default function Home() {
               </button>
               <button
                 onClick={handleExportFhir}
-                className={`${btn} bg-[#F4FBF6] hover:bg-[#EFFAF3] text-[#2C4A42] border-[#0B5F51]/15`}
+                className={`${btn} bg-[#F4FBF6]/70 hover:bg-[#EFFAF3]/80 text-[#2C4A42] border-[#0B5F51]/15`}
                 title="Export a FHIR-style JSON bundle"
               >
                 <FileCode className="w-3.5 h-3.5 text-[#5A7268]" />
@@ -533,17 +533,19 @@ export default function Home() {
         onOpenApiKeyModal={() => setIsKeyModalOpen(true)}
       />
 
-      <main className="relative flex-1 px-4 sm:px-6 lg:px-8 py-10 sm:py-14 overflow-hidden">
+      <main className="relative flex-1 px-4 sm:px-6 lg:px-8 py-6 sm:py-8 overflow-hidden">
         <div className="relative w-full max-w-7xl mx-auto space-y-12">
           {/* ── HERO: upload in the middle, over the full-page gradient ── */}
-          <div className="relative px-4 sm:px-8 py-10 sm:py-12">
+          <div className="relative px-4 sm:px-8 py-6 sm:py-8">
 
-            <div className="relative mx-auto max-w-6xl space-y-6 text-center">
+            <div className="relative mx-auto max-w-6xl space-y-5 text-center">
             <div className="hero-fade inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#0B1F1B] text-white text-xs font-bold shadow-lg shadow-[#0B1F1B]/25" style={{ animationDelay: "0ms" }}>
               <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
               CODEFESTTHON 2026 · HealthTech Track
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-soft-pulse" />
-              <span className="text-emerald-300">No login needed</span>
+              <span className="hidden min-[480px]:inline-flex items-center gap-1.5">
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-soft-pulse" />
+                <span className="text-emerald-300">No login needed</span>
+              </span>
             </div>
             <h2 className="font-display text-[clamp(2.75rem,7vw,5.75rem)] font-black tracking-tight leading-[1.05] text-[#0B1F1B]">
               {[heroWords.slice(0, heroHalf), heroWords.slice(heroHalf)].map((line, li) => (
@@ -570,7 +572,7 @@ export default function Home() {
             </p>
             </div>
 
-            <div className="relative mx-auto mt-8 max-w-3xl space-y-6 text-center">
+            <div className="relative mx-auto mt-6 max-w-3xl space-y-6 text-center">
 
             {/* ── THE upload — one big action, impossible to miss ── */}
             <div className="hero-panel space-y-3 pt-2">
@@ -602,7 +604,7 @@ export default function Home() {
 
               {/* Error Message */}
               {(errorMsg || appState === "error") && (
-                <div className="animate-pop-in p-4 rounded-2xl bg-red-50 border border-red-200 text-sm text-red-800 space-y-2 shadow-sm">
+                <div className="animate-pop-in p-4 rounded-2xl bg-[#F6E9E4] border border-[#A44A3A]/25 text-sm text-[#7A3327] space-y-2 shadow-sm">
                   <div className="flex items-start gap-2">
                     <span>⚠️</span>
                     <span className="flex-1 leading-relaxed">
@@ -653,7 +655,7 @@ export default function Home() {
             <div className="hero-fade grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-1 text-left" style={{ animationDelay: "520ms" }}>
               {[
                 { icon: FileSearch, num: 2, suffix: "", big: " docs", small: "checked together", tile: "bg-emerald-600 text-white shadow-lg shadow-emerald-600/30", iconCls: "text-white" },
-                { icon: TriangleAlert, num: null, big: "Drug × Lab", small: "conflict detection", tile: "bg-red-600 text-white shadow-lg shadow-red-600/30", iconCls: "text-white" },
+                { icon: TriangleAlert, num: null, big: "Drug × Lab", small: "conflict detection", tile: "bg-[#A44A3A] text-white shadow-lg shadow-[#A44A3A]/25", iconCls: "text-white" },
                 { icon: Languages, num: 3, suffix: "", big: " languages", small: "EN · हिन्दी · ES", tile: "bg-teal-600 text-white shadow-lg shadow-teal-600/30", iconCls: "text-white" },
                 { icon: Timer, num: 90, suffix: "", big: " seconds", small: "to a full verdict", tile: "bg-amber-500 text-white shadow-lg shadow-amber-500/30", iconCls: "text-white" },
               ].map((x) => (
@@ -711,7 +713,7 @@ export default function Home() {
                   {["Ibuprofen", "Metformin", "Atorvastatin", "Amlodipine", "Pantoprazole", "Vitamin D3", "Creatinine", "eGFR", "BUN", "Glucose", "Hemoglobin", "LDL", "HbA1c", "Cholesterol"].map((name) => (
                     <span key={`${dup}-${name}`} className="flex items-center gap-6 whitespace-nowrap">
                       <span className="font-mono">{name}</span>
-                      <span className="text-red-500">✚</span>
+                      <span className="text-[#A44A3A]">✚</span>
                     </span>
                   ))}
                 </span>

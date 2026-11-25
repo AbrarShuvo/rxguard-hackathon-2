@@ -107,18 +107,18 @@ export default function PillSchedule({ medications, alerts = [] }: PillScheduleP
           interactive ? "cursor-pointer" : ""
         } ${
           held
-            ? "border-red-300 border-l-4 border-l-red-600 bg-red-50/40"
+            ? "border-[#A44A3A]/30 border-l-4 border-l-[#A44A3A] bg-[#F6E9E4]/40"
             : taken
             ? "bg-emerald-50/60 border-emerald-200"
-            : "bg-[#F4FBF6] border-[#0B5F51]/15 hover:border-[#0B5F51]/25"
+            : "bg-[#F4FBF6]/60 border-[#0B5F51]/15 hover:border-[#0B5F51]/25"
         } ${taken ? "animate-check-pop" : ""}`}
       >
         {held && (
-          <div className="flex items-start gap-2.5 rounded-xl bg-red-600 px-3.5 py-2.5 text-white shadow-sm shadow-red-600/30">
+          <div className="flex items-start gap-2.5 rounded-xl bg-[#A44A3A] px-3.5 py-2.5 text-white shadow-sm shadow-[#A44A3A]/25">
             <OctagonAlert className="mt-0.5 h-4 w-4 shrink-0" aria-hidden />
             <p className="leading-tight">
               <span className="block text-xs font-black uppercase tracking-wide">Hold — don&apos;t take this one</span>
-              <span className="block text-[11px] text-red-100 mt-0.5">Ask your doctor first before taking it again.</span>
+              <span className="block text-[11px] text-[#F6E9E4] mt-0.5">Ask your doctor first before taking it again.</span>
             </p>
           </div>
         )}
@@ -132,7 +132,7 @@ export default function PillSchedule({ medications, alerts = [] }: PillScheduleP
                 <Circle className="w-4 h-4 mt-0.5 shrink-0 text-[#9DB3A8]" aria-hidden />
               ))}
             <div className="min-w-0">
-              <h4 className={`text-base font-extrabold leading-tight ${taken ? "line-through text-[#7A938A]" : held ? "text-red-900" : "text-[#0B1F1B]"}`}>
+              <h4 className={`text-base font-extrabold leading-tight ${taken ? "line-through text-[#7A938A]" : held ? "text-[#7A3327]" : "text-[#0B1F1B]"}`}>
                 {med.name}
               </h4>
               {/* Dose first, big and plain — this is what you actually take */}
@@ -253,7 +253,7 @@ export default function PillSchedule({ medications, alerts = [] }: PillScheduleP
                 onClick={() => !held && toggle(key)}
                 className={`flex shrink-0 items-center gap-2.5 rounded-xl border px-3 py-2.5 text-left transition-all ${
                   held
-                    ? "border-red-200 bg-[#F4FBF6]"
+                    ? "border-[#A44A3A]/25 bg-[#F4FBF6]"
                     : taken
                     ? "border-emerald-200 bg-emerald-50/60"
                     : "border-[#0B5F51]/15 bg-[#F4FBF6] hover:border-[#0B5F51]/25"
@@ -265,7 +265,7 @@ export default function PillSchedule({ medications, alerts = [] }: PillScheduleP
                 <span className="min-w-0">
                   <span className="block text-[10px] font-semibold uppercase tracking-wide text-[#7A938A]">{s.id} · {s.time.split(" - ")[0]}</span>
                   <span className={`block truncate text-xs font-bold ${taken ? "text-[#7A938A] line-through" : "text-[#0B1F1B]"}`}>{m.name}</span>
-                  <span className={`block text-[10px] font-semibold ${held ? "text-red-600" : taken ? "text-emerald-700" : "text-[#5A7268]"}`}>
+                  <span className={`block text-[10px] font-semibold ${held ? "text-[#A44A3A]" : taken ? "text-emerald-700" : "text-[#5A7268]"}`}>
                     {held ? "Hold — ask doctor first" : taken ? "Taken" : "Tap when taken"}
                   </span>
                 </span>

@@ -122,7 +122,7 @@ export default function DropZone({
           </div>
           <button
             onClick={handleRemove}
-            className="flex items-center gap-1 text-xs text-red-500 hover:text-red-700 transition-colors mt-1"
+            className="flex items-center gap-1 text-xs text-[#A44A3A] hover:text-[#8C3B2E] transition-colors mt-1"
           >
             <X className="w-3 h-3" />
             Remove

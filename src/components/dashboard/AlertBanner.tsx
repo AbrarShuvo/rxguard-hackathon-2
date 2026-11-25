@@ -14,13 +14,13 @@ import { Reveal } from "@/components/shared/Reveal";
 /* Calm severity config — one flat accent per severity, white cards. */
 const severityConfig = {
   CRITICAL: {
-    bar: "bg-red-600",
-    iconWrap: "bg-red-50 text-red-600",
+    bar: "bg-[#A44A3A]",
+    iconWrap: "bg-[#F6E9E4] text-[#A44A3A]",
     icon: ShieldAlert,
-    badge: "bg-red-600 text-white",
+    badge: "bg-[#A44A3A] text-white",
     titleColor: "text-[#0B1F1B]",
     textColor: "text-[#3D5A50]",
-    actionColor: "text-red-700",
+    actionColor: "text-[#8C3B2E]",
   },
   WARNING: {
     bar: "bg-amber-500",
@@ -60,7 +60,7 @@ export default function AlertBanner({ alerts }: SafetyAlertProps) {
     <section aria-label="Safety alerts" className="space-y-4">
       <div className="flex flex-wrap items-baseline justify-between gap-2">
         <h2 className="font-display text-lg font-bold text-[#0B1F1B] flex items-center gap-2">
-          <ShieldAlert className="h-5 w-5 text-red-600" aria-hidden />
+          <ShieldAlert className="h-5 w-5 text-[#A44A3A]" aria-hidden />
           What needs your attention
         </h2>
         <span className="rounded-full bg-[#F4FBF6]/85 px-2.5 py-1 text-xs font-semibold text-[#5A7268] tabular-nums shadow-sm ring-1 ring-[#0B1F1B]/5">
@@ -76,7 +76,7 @@ export default function AlertBanner({ alerts }: SafetyAlertProps) {
             type="button"
             data-active={filter === f}
             onClick={() => setFilter(f)}
-            className="triage-pill inline-flex min-h-9 items-center gap-1.5 rounded-full border border-[#0B5F51]/15 bg-[#F4FBF6] px-3.5 py-1.5 text-xs font-semibold text-[#3D5A50]"
+            className="triage-pill inline-flex min-h-9 items-center gap-1.5 rounded-full border border-[#0B5F51]/15 bg-[#F4FBF6]/70 px-3.5 py-1.5 text-xs font-semibold text-[#3D5A50]"
           >
             {f === "ALL" ? "All" : f.charAt(0) + f.slice(1).toLowerCase()} ({counts[f]})
           </button>

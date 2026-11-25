@@ -53,7 +53,7 @@ export default function BiomarkerChart({ markers }: BiomarkerChartProps) {
           <button
             onClick={() => setFilterType("abnormal")}
             className={`relative z-10 flex-1 min-h-11 px-2.5 rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 ${
-              filterType === "abnormal" ? "text-red-700 font-bold" : "text-[#5A7268] hover:text-red-700"
+              filterType === "abnormal" ? "text-[#8C3B2E] font-bold" : "text-[#5A7268] hover:text-[#8C3B2E]"
             }`}
           >
             Abnormal ({abnormalCount})
@@ -100,7 +100,7 @@ export default function BiomarkerChart({ markers }: BiomarkerChartProps) {
 
                   <div className="text-right shrink-0">
                     <div className="flex items-baseline justify-end gap-1">
-                      <span className={`text-2xl font-bold tabular-nums ${isHigh ? "text-red-600" : isLow ? "text-amber-600" : "text-[#0B1F1B]"}`}>
+                      <span className={`text-2xl font-bold tabular-nums ${isHigh ? "text-[#A44A3A]" : isLow ? "text-amber-600" : "text-[#0B1F1B]"}`}>
                         {marker.value}
                       </span>
                       <span className="text-xs text-[#7A938A] font-medium">
@@ -110,7 +110,7 @@ export default function BiomarkerChart({ markers }: BiomarkerChartProps) {
                     <span
                       className={`inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full mt-1 ${
                         isHigh
-                          ? "bg-red-50 text-red-700"
+                          ? "bg-[#F6E9E4] text-[#8C3B2E]"
                           : isLow
                           ? "bg-amber-50 text-amber-700"
                           : "bg-emerald-50 text-emerald-700"
@@ -134,11 +134,11 @@ export default function BiomarkerChart({ markers }: BiomarkerChartProps) {
                   <div className="lab-bar lab-bar--slim w-full bg-[#E3F2E9] rounded-full overflow-hidden flex relative">
                     <div className="animate-bar-fill w-[25%] bg-amber-300/80" title="Low zone" />
                     <div className="animate-bar-fill w-[50%] bg-emerald-400/80" title="Normal zone" style={{ animationDelay: "80ms" }} />
-                    <div className="animate-bar-fill w-[25%] bg-red-400/80" title="High zone" style={{ animationDelay: "160ms" }} />
+                    <div className="animate-bar-fill w-[25%] bg-[#C07A66]/70" title="High zone" style={{ animationDelay: "160ms" }} />
                     <div
                       className={`lab-marker marker-in absolute -top-[2px] -bottom-[2px] w-3.5 rounded-full border-2 border-[#F4FBF6] ${
                         isHigh
-                          ? "bg-red-600 left-[85%]"
+                          ? "bg-[#A44A3A] left-[85%]"
                           : isLow
                           ? "bg-amber-500 left-[12%]"
                           : "bg-emerald-600 left-[50%]"

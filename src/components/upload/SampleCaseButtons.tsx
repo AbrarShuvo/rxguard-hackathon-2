@@ -23,7 +23,7 @@ export default function SampleCaseButtons({
         <button
           onClick={() => onSelect("A")}
           disabled={disabled}
-          className="group inline-flex min-h-10 items-center gap-1.5 rounded-full border border-red-200 bg-red-50/70 px-3.5 py-2 text-xs font-bold text-red-700 transition-all hover:bg-red-50 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="group inline-flex min-h-10 items-center gap-1.5 rounded-full border border-[#A44A3A]/25 bg-[#F6E9E4]/70 px-3.5 py-2 text-xs font-bold text-[#8C3B2E] transition-all hover:bg-[#F6E9E4] hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 disabled:opacity-50 disabled:cursor-not-allowed"
         >
           <AlertTriangle className="h-3.5 w-3.5" aria-hidden />
           Try Case A — critical kidney risk

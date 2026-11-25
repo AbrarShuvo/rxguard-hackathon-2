@@ -34,7 +34,7 @@ export default function DoctorQuestions({ questions }: DoctorQuestionsProps) {
         </h2>
         <button
           onClick={handleCopyAll}
-          className="print-hide inline-flex items-center gap-1.5 rounded-full border border-[#0B5F51]/15 bg-[#F4FBF6] px-3 py-1.5 text-[11px] font-semibold text-[#3D5A50] hover:border-[#0B5F51]/25 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
+          className="print-hide inline-flex items-center gap-1.5 rounded-full border border-[#0B5F51]/15 bg-[#F4FBF6]/70 px-3 py-1.5 text-[11px] font-semibold text-[#3D5A50] hover:border-[#0B5F51]/25 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
         >
           {copiedAll ? <><Check className="h-3.5 w-3.5 text-emerald-600" /> Copied all</> : <><ClipboardCopy className="h-3.5 w-3.5" /> Copy all</>}
         </button>

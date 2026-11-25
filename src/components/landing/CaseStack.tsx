@@ -50,10 +50,10 @@ const CARDS = [
 
 const toneCls: Record<string, { card: string; stamp: string; chip: string; btn: string }> = {
   red: {
-    card: "border-red-200 bg-gradient-to-br from-red-50 via-[#F4FBF6] to-[#F4FBF6]",
-    stamp: "border-red-600 text-red-600",
-    chip: "border-red-200 bg-[#F4FBF6] text-red-700",
-    btn: "bg-red-600 hover:bg-red-700 text-white",
+    card: "border-[#A44A3A]/25 bg-gradient-to-br from-[#F6E9E4] via-[#F4FBF6] to-[#F4FBF6]",
+    stamp: "border-[#A44A3A] text-[#A44A3A]",
+    chip: "border-[#A44A3A]/25 bg-[#F4FBF6]/70 text-[#8C3B2E]",
+    btn: "bg-[#A44A3A] hover:bg-[#8C3B2E] text-white",
   },
   amber: {
     card: "border-amber-200 bg-gradient-to-br from-amber-50 via-[#F4FBF6] to-[#F4FBF6]",

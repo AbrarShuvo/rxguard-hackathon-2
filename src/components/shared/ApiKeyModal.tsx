@@ -121,7 +121,7 @@ export default function ApiKeyModal({
           <button
             type="button"
             onClick={handleClear}
-            className="text-xs text-[#5A7268] hover:text-red-600 transition-colors"
+            className="text-xs text-[#5A7268] hover:text-[#A44A3A] transition-colors"
           >
             Clear Key
           </button>

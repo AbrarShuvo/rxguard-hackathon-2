@@ -23,7 +23,9 @@ export default function Header({
   onOpenApiKeyModal,
 }: HeaderProps) {
   return (
-    <header className="app-header w-full border-b border-[color:var(--hairline)] bg-[#F4FBF6]/80 backdrop-blur-md sticky top-0 z-50 no-print">
+    /* ROUND 11: no white bar, no divider — the header sits directly
+       on the living gradient as one section with the hero. */
+    <header className="app-header w-full sticky top-0 z-50 no-print backdrop-blur-xl bg-[#F0FBEF]/35">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-wrap items-center justify-between gap-x-3 gap-y-2">
         {/* Logo & Clinical Brand */}
         <div className="flex items-center gap-3">
@@ -59,27 +61,27 @@ export default function Header({
               title={isSpeaking ? "Stop Voice Assistant" : "Listen to Safety Report Aloud"}
               className={`flex items-center gap-1.5 text-xs font-semibold px-2.5 min-h-11 rounded-lg border transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 ${
                 isSpeaking
-                  ? "bg-red-50 text-red-700 border-red-300 animate-pulse"
-                  : "bg-[#EFFAF3] hover:bg-[#E3F2E9] text-[#2C4A42] border-[#0B5F51]/15"
+                  ? "bg-[#8C3B2E] text-white border-[#8C3B2E] animate-pulse"
+                  : "bg-[#0B1F1B] hover:bg-[#12312A] text-white border-[#0B1F1B] shadow-lg shadow-[#0B1F1B]/20"
               }`}
             >
               {isSpeaking ? (
                 <>
-                  <VolumeX className="w-3.5 h-3.5 text-red-600" />
+                  <VolumeX className="w-3.5 h-3.5 text-white" />
                   <span className="hidden sm:inline">Stop Audio</span>
                 </>
               ) : (
                 <>
-                  <Volume2 className="w-3.5 h-3.5 text-emerald-600" />
+                  <Volume2 className="w-3.5 h-3.5 text-emerald-300" />
                   <span className="hidden sm:inline">Listen Aloud</span>
                 </>
               )}
             </button>
           )}
 
-          {/* Language Selector (segmented, sliding pill) */}
+          {/* Language Selector (segmented, sliding pill) — dark pill on the gradient */}
           {onLanguageChange && (
-            <div className="lang-switch relative grid grid-cols-3 bg-[#E3F2E9]/80 p-0.5 rounded-xl border border-[color:var(--hairline)] text-xs" role="group" aria-label="Language">
+            <div className="lang-switch relative grid grid-cols-3 bg-[#0B1F1B]/90 backdrop-blur p-0.5 rounded-xl border border-white/15 shadow-lg shadow-[#0B1F1B]/20 text-xs" role="group" aria-label="Language">
               <span
                 aria-hidden
                 className="lang-pill"
@@ -92,7 +94,7 @@ export default function Header({
                   onClick={() => onLanguageChange(code)}
                   aria-pressed={currentLang === code}
                   className={`relative z-10 w-14 min-h-10 rounded-lg transition-colors ${
-                    currentLang === code ? "text-[#0B1F1B] font-bold" : "text-[#5A7268] hover:text-[#0B1F1B]"
+                    currentLang === code ? "text-[#0B1F1B] font-bold" : "text-[#9DB3A8] hover:text-white"
                   }`}
                 >
                   {label}
@@ -101,27 +103,27 @@ export default function Header({
             </div>
           )}
 
-          {/* API Key Modal Button (Optional Developer Override) */}
+          {/* API Key Modal Button (Optional Developer Override) — dark pill */}
           {onOpenApiKeyModal && (
             <button
               onClick={onOpenApiKeyModal}
               title="Configure Custom AI API Key (Optional)"
-              className={`flex items-center gap-1.5 text-xs font-semibold px-2.5 min-h-11 rounded-lg border transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 ${
+              className={`flex items-center gap-1.5 text-xs font-semibold px-2.5 min-h-11 rounded-lg border transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 shadow-lg shadow-[#0B1F1B]/20 ${
                 hasApiKey
-                  ? "bg-emerald-50 text-emerald-800 border-emerald-300 hover:bg-emerald-100"
-                  : "bg-[#EFFAF3] text-[#2C4A42] border-[#0B5F51]/15 hover:bg-[#E3F2E9]"
+                  ? "bg-[#0B1F1B] text-white border-emerald-400/50 hover:bg-[#12312A]"
+                  : "bg-[#0B1F1B] text-white border-[#0B1F1B] hover:bg-[#12312A]"
               }`}
             >
-              <Key className={`w-3.5 h-3.5 ${hasApiKey ? "text-emerald-600" : "text-[#5A7268]"}`} />
+              <Key className="w-3.5 h-3.5 text-emerald-300" />
               <span className="hidden sm:inline">
                 {hasApiKey ? "AI Cloud Ready" : "API Key (Optional)"}
               </span>
             </button>
           )}
 
-          {/* Privacy Badge */}
-          <div className="hidden md:flex items-center gap-1.5 text-xs font-medium text-emerald-800 bg-emerald-50/80 border border-emerald-200/80 rounded-full px-3 py-1">
-            <Lock className="w-3 h-3 text-emerald-600" />
+          {/* Privacy Badge — dark pill on the gradient */}
+          <div className="hidden md:flex items-center gap-1.5 text-xs font-medium text-emerald-100 bg-[#0B1F1B]/90 backdrop-blur border border-white/15 rounded-full px-3 py-1 shadow-lg shadow-[#0B1F1B]/20">
+            <Lock className="w-3 h-3 text-emerald-300" />
             <span>100% Stateless &amp; Zero DB</span>
           </div>
         </div>
