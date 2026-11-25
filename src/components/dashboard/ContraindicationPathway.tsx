@@ -4,18 +4,22 @@ import { Activity, ArrowRight, ArrowDown } from "lucide-react";
 import { SafetyAlert } from "@/types/analysis";
 import { Language, TRANSLATIONS } from "@/lib/translations";
 import { resolvePathway } from "@/lib/pathway";
+import { Reveal } from "@/components/shared/Reveal";
 
 interface ContraindicationPathwayProps {
   alerts: SafetyAlert[];
   lang?: Language;
 }
 
+/* Clean step connector — a thin hairline with a small arrow, left to right. */
 const Arrow = ({ label }: { label?: string }) => (
-  <div className="flex flex-row md:flex-col items-center justify-center gap-1.5 md:gap-0 text-slate-400">
-    <ArrowRight className="hidden md:block w-4 h-4 text-red-400" aria-hidden />
-    <ArrowDown className="md:hidden w-4 h-4 text-red-400" aria-hidden />
+  <div className="flex flex-row md:flex-col items-center justify-center gap-1.5 text-slate-400">
+    <span className="flex h-7 w-7 items-center justify-center rounded-full bg-slate-100">
+      <ArrowRight className="hidden md:block w-4 h-4 text-slate-500" aria-hidden />
+      <ArrowDown className="md:hidden w-4 h-4 text-slate-500" aria-hidden />
+    </span>
     {label && (
-      <span className="text-[10px] text-slate-300 text-center font-mono leading-tight max-w-[8rem]">
+      <span className="text-[10px] text-slate-400 text-center leading-tight max-w-[8rem]">
         {label}
       </span>
     )}
@@ -28,20 +32,21 @@ export default function ContraindicationPathway({ alerts, lang = "en" }: Contrai
   const t = TRANSLATIONS[lang];
 
   return (
-    <div className="bg-gradient-to-br from-slate-900 to-slate-800 text-white rounded-2xl p-5 shadow-sm border border-slate-700 space-y-4 no-print">
-      <div className="flex items-center gap-2.5 border-b border-slate-700/80 pb-3">
-        <div className="w-8 h-8 rounded-lg bg-red-500/20 text-red-400 flex items-center justify-center border border-red-500/30">
-          <Activity className="w-4 h-4" />
+    <section aria-label="Contraindication pathway" className="dash-card p-6 sm:p-8">
+      <div className="flex items-center gap-3 pb-5 border-b border-slate-100">
+        <div className="w-10 h-10 rounded-xl bg-red-50 text-red-600 flex items-center justify-center">
+          <Activity className="w-5 h-5" aria-hidden />
         </div>
-        <div>
-          <h3 className="text-sm font-bold tracking-tight text-white">
+        <div className="flex-1 min-w-0">
+          <h3 className="font-display text-lg font-bold text-slate-900">
             {t.pathwayTitle}
           </h3>
-          <p className="text-[11px] text-slate-400">How each flagged medicine could lead to harm</p>
+          <p className="text-xs text-slate-500">How each flagged medicine could lead to harm</p>
         </div>
+        <span className="hidden sm:inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-slate-500">Drug → Lab → Harm</span>
       </div>
 
-      <div className="space-y-4">
+      <div className="space-y-6 pt-6">
         {items.map((alert, idx) => {
           const p = resolvePathway(alert, lang);
           const hasLab = !!alert.related_lab?.trim();
@@ -50,52 +55,63 @@ export default function ContraindicationPathway({ alerts, lang = "en" }: Contrai
             : "md:grid-cols-[1fr_auto_1fr]";
 
           return (
-            <div key={idx} className="p-4 rounded-xl bg-slate-800/90 border border-slate-700 space-y-3">
-              <div className="flex items-center justify-between gap-2">
-                <span
-                  className={`text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider ${
-                    alert.severity === "CRITICAL" ? "bg-red-500 text-white" : "bg-amber-500 text-slate-900"
-                  }`}
-                >
-                  {alert.severity}
-                </span>
-                <span className="text-xs text-slate-400 font-mono">{alert.type}</span>
-              </div>
-
-              <div className={`grid grid-cols-1 ${cols} gap-2 items-stretch text-xs`}>
-                <div className="p-3 rounded-lg bg-slate-900 border border-slate-700 text-center space-y-1">
-                  <span className="text-[10px] text-slate-400 uppercase font-mono">{t.pwMedicine}</span>
-                  <p className="font-bold text-emerald-400 break-words">
-                    {alert.related_medication || "Prescribed medicine"}
-                  </p>
+            <Reveal key={idx} from="left" delay={idx * 120}>
+              <div className="space-y-3">
+                <div className="flex items-center justify-between gap-2">
+                  <span
+                    className={`text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider ${
+                      alert.severity === "CRITICAL" ? "bg-red-600 text-white" : "bg-amber-500 text-white"
+                    }`}
+                  >
+                    {alert.severity}
+                  </span>
+                  <span className="text-xs text-slate-400 font-mono">{alert.type}</span>
                 </div>
 
-                <Arrow label={p.mechanism} />
+                <div className={`grid grid-cols-1 ${cols} gap-3 items-center text-sm`}>
+                  <div className="rounded-xl border border-slate-200 bg-white px-4 py-3.5 text-center">
+                    <span className="text-[10px] text-slate-400 uppercase tracking-wider flex items-center justify-center gap-1.5">
+                      <span className="flex h-4 w-4 items-center justify-center rounded-full bg-slate-100 text-slate-500 text-[9px] font-bold">1</span>
+                      {t.pwMedicine}
+                    </span>
+                    <p className="font-bold text-slate-900 mt-1 break-words">
+                      {alert.related_medication || "Prescribed medicine"}
+                    </p>
+                  </div>
 
-                {hasLab && (
-                  <>
-                    <div className="p-3 rounded-lg bg-slate-900 border border-red-900/50 text-center space-y-1">
-                      <span className="text-[10px] text-red-400 uppercase font-mono">{t.pwLab}</span>
-                      <p className="font-bold text-red-300 break-words tabular-nums">{alert.related_lab}</p>
-                    </div>
-                    <Arrow label={p.biomarkerEffect} />
-                  </>
-                )}
+                  <Arrow label={p.mechanism} />
 
-                <div className="p-3 rounded-lg bg-red-950/60 border border-red-800 text-center space-y-1">
-                  <span className="text-[10px] text-red-300 uppercase font-mono">{t.pwOutcome}</span>
-                  <p className="font-bold text-red-200 break-words">{p.outcome}</p>
+                  {hasLab && (
+                    <>
+                      <div className="rounded-xl border border-slate-200 bg-white px-4 py-3.5 text-center">
+                        <span className="text-[10px] text-slate-400 uppercase tracking-wider flex items-center justify-center gap-1.5">
+                          <span className="flex h-4 w-4 items-center justify-center rounded-full bg-slate-100 text-slate-500 text-[9px] font-bold">2</span>
+                          {t.pwLab}
+                        </span>
+                        <p className="font-bold text-red-700 mt-1 break-words tabular-nums">{alert.related_lab}</p>
+                      </div>
+                      <Arrow label={p.biomarkerEffect} />
+                    </>
+                  )}
+
+                  <div className="rounded-xl border border-red-200 bg-red-50/60 px-4 py-3.5 text-center">
+                    <span className="text-[10px] text-red-500 uppercase tracking-wider flex items-center justify-center gap-1.5">
+                      <span className="flex h-4 w-4 items-center justify-center rounded-full bg-red-100 text-red-600 text-[9px] font-bold">{hasLab ? "3" : "2"}</span>
+                      {t.pwOutcome}
+                    </span>
+                    <p className="font-bold text-base text-red-800 mt-1 break-words">{p.outcome}</p>
+                  </div>
                 </div>
-              </div>
 
-              <div className="text-[11px] text-slate-300 bg-slate-900/70 p-2.5 rounded-lg border border-slate-700/60 leading-relaxed">
-                <span className="font-bold text-red-400">Why: </span>
-                {alert.explanation}
+                <p className="text-xs text-slate-500 leading-relaxed">
+                  <span className="font-bold text-slate-700">Why: </span>
+                  {alert.explanation}
+                </p>
               </div>
-            </div>
+            </Reveal>
           );
         })}
       </div>
-    </div>
+    </section>
   );
 }

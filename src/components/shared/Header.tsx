@@ -27,14 +27,22 @@ export default function Header({
       <div className="max-w-6xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-x-3 gap-y-2">
         {/* Logo & Clinical Brand */}
         <div className="flex items-center gap-3">
-          <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-600 to-teal-700 text-white shadow-md shadow-emerald-600/20">
+          <div className="relative flex items-center justify-center w-10 h-10 rounded-2xl bg-gradient-to-br from-emerald-500 via-teal-600 to-cyan-600 text-white shadow-lg shadow-emerald-600/30 ring-1 ring-white/40">
             <ShieldCheck className="w-6 h-6" />
+            <span className="absolute -right-1 -top-1 flex h-3 w-3">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75 motion-reduce:animate-none" />
+              <span className="relative inline-flex h-3 w-3 rounded-full bg-emerald-400 ring-2 ring-white" />
+            </span>
           </div>
           <div>
             <div className="flex items-center gap-2">
               <h1 className="text-lg font-black tracking-tight text-gray-900 leading-none">
                 RxGuard
               </h1>
+              <span className="hidden sm:inline-flex items-center gap-1 rounded-full bg-emerald-600 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white shadow-sm shadow-emerald-600/40">
+                <span className="h-1.5 w-1.5 rounded-full bg-white animate-soft-pulse" />
+                Live demo
+              </span>
             </div>
             <p className="hidden sm:block text-[11px] text-gray-500 leading-tight mt-0.5">
               Prescription &amp; Diagnostic Lab Safety Decoder

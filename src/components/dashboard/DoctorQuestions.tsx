@@ -1,6 +1,6 @@
 "use client";
 
-import { MessageSquareCheck, Copy, Check } from "lucide-react";
+import { Copy, Check, ClipboardCopy, MessageSquareText } from "lucide-react";
 import { useState } from "react";
 
 interface DoctorQuestionsProps {
@@ -9,6 +9,13 @@ interface DoctorQuestionsProps {
 
 export default function DoctorQuestions({ questions }: DoctorQuestionsProps) {
   const [copiedIdx, setCopiedIdx] = useState<number | null>(null);
+  const [copiedAll, setCopiedAll] = useState(false);
+
+  const handleCopyAll = () => {
+    navigator.clipboard.writeText(questions.map((q, i) => `${i + 1}. ${q}`).join("\n"));
+    setCopiedAll(true);
+    setTimeout(() => setCopiedAll(false), 2000);
+  };
 
   const handleCopy = (text: string, idx: number) => {
     navigator.clipboard.writeText(text);
@@ -17,31 +24,37 @@ export default function DoctorQuestions({ questions }: DoctorQuestionsProps) {
   };
 
   return (
-    <div className="bg-white rounded-2xl p-5 card-surface space-y-3">
-      <div className="flex items-center justify-between">
-        <h2 className="text-base font-bold text-gray-900 flex items-center gap-2">
-          <span>🩺</span> Doctor Follow-Up Questions
+    <div className="dash-card p-6 sm:p-8">
+      <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-slate-100">
+        <h2 className="font-display text-lg font-bold text-slate-900 flex items-center gap-2.5">
+          <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-slate-100 text-slate-600" aria-hidden>
+            <MessageSquareText className="h-4.5 w-4.5" />
+          </span>
+          Doctor Follow-Up Questions
         </h2>
-        <span className="text-[11px] text-gray-400 font-medium">
-          Ready to ask your physician
-        </span>
+        <button
+          onClick={handleCopyAll}
+          className="print-hide inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-3 py-1.5 text-[11px] font-semibold text-slate-600 hover:border-slate-300 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
+        >
+          {copiedAll ? <><Check className="h-3.5 w-3.5 text-emerald-600" /> Copied all</> : <><ClipboardCopy className="h-3.5 w-3.5" /> Copy all</>}
+        </button>
       </div>
 
-      <p className="text-xs text-gray-500">
+      <p className="text-xs text-slate-500 mt-4">
         Based on your extracted markers and medications, here are priority questions to ask at your next appointment:
       </p>
 
-      <div className="space-y-2 pt-1">
+      <div className="pt-2">
         {questions.map((q, idx) => (
           <div
             key={idx}
-            className="flex items-center justify-between gap-3 px-3 py-3.5 rounded-xl bg-gray-50 border border-gray-100 hover:bg-emerald-50/30 hover:border-emerald-200 transition-colors group"
+            className={`flex items-center justify-between gap-3 py-3.5 ${idx > 0 ? "border-t border-slate-100" : ""} ${copiedIdx === idx ? "bg-emerald-50/60 -mx-2 px-2 rounded-lg" : ""}`}
           >
-            <div className="flex flex-1 min-w-0 items-center gap-2.5">
-              <span className="shrink-0 flex items-center justify-center w-5 h-5 rounded-full bg-emerald-100 text-emerald-800 text-[11px] font-bold">
+            <div className="flex flex-1 min-w-0 items-center gap-3">
+              <span className="shrink-0 flex items-center justify-center w-6 h-6 rounded-full bg-slate-100 text-slate-600 text-[11px] font-bold">
                 {idx + 1}
               </span>
-              <p className="text-xs text-gray-800 leading-relaxed font-medium">
+              <p className="text-sm text-slate-700 leading-relaxed">
                 {q}
               </p>
             </div>
@@ -50,12 +63,12 @@ export default function DoctorQuestions({ questions }: DoctorQuestionsProps) {
               onClick={() => handleCopy(q, idx)}
               title="Copy question"
               aria-label="Copy question"
-              className="print-hide shrink-0 -my-3 -mr-1 min-h-11 min-w-11 flex items-center justify-center rounded-md text-gray-700 hover:text-emerald-700 hover:bg-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
+              className="print-hide shrink-0 min-h-9 min-w-9 flex items-center justify-center rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
             >
               {copiedIdx === idx ? (
-                <Check className="w-3.5 h-3.5 text-emerald-600" />
+                <Check className="w-4 h-4 text-emerald-600" />
               ) : (
-                <Copy className="w-3.5 h-3.5 opacity-90 group-hover:opacity-100 transition-opacity" />
+                <Copy className="w-4 h-4" />
               )}
             </button>
           </div>

@@ -1,70 +1,143 @@
 "use client";
 
-import { ShieldCheck, ShieldAlert, AlertTriangle } from "lucide-react";
+import { ShieldCheck, ShieldAlert, AlertTriangle, OctagonAlert, OctagonX, CircleCheck } from "lucide-react";
 import { AnalysisResult } from "@/types/analysis";
 import { Language, TRANSLATIONS } from "@/lib/translations";
+import { CountUp } from "@/components/shared/Reveal";
 
 interface PatientSummaryProps {
   result: AnalysisResult;
   lang?: Language;
 }
 
+/* Calm severity config — one accent colour each, no gradients. */
 const riskConfig = {
   CRITICAL: {
-    wrap: "border-red-300 bg-red-50/60",
-    hero: "hero-card--critical",
-    badge: "bg-red-100 text-red-800 border-red-300",
+    accent: "#dc2626",
+    accentSoft: "bg-red-50 text-red-700",
+    ring: "#dc2626",
     icon: ShieldAlert,
     iconColor: "text-red-600",
     labelKey: "riskHigh" as const,
   },
   WARNING: {
-    wrap: "border-amber-300 bg-amber-50/60",
-    hero: "hero-card--warning",
-    badge: "bg-amber-100 text-amber-800 border-amber-300",
+    accent: "#b45309",
+    accentSoft: "bg-amber-50 text-amber-700",
+    ring: "#d97706",
     icon: AlertTriangle,
     iconColor: "text-amber-600",
     labelKey: "riskAttention" as const,
   },
   LOW: {
-    wrap: "border-emerald-300 bg-emerald-50/60",
-    hero: "hero-card--low",
-    badge: "bg-emerald-100 text-emerald-800 border-emerald-300",
+    accent: "#047857",
+    accentSoft: "bg-emerald-50 text-emerald-700",
+    ring: "#059669",
     icon: ShieldCheck,
     iconColor: "text-emerald-600",
     labelKey: "riskRoutine" as const,
   },
 };
 
+const RING_C = 2 * Math.PI * 40; // r=40
+
 export default function PatientSummary({ result, lang = "en" }: PatientSummaryProps) {
   const t = TRANSLATIONS[lang];
   const config = riskConfig[result.overall_risk_level] || riskConfig.LOW;
   const Icon = config.icon;
   const count = (sev: string) => result.safety_alerts.filter((a) => a.severity === sev).length;
+  const critical = count("CRITICAL");
+  const warnings = count("WARNING");
+  const abnormal = result.lab_markers.filter((m) => m.status !== "NORMAL").length;
+  // Ring shows the share of alerts that are critical — a visual severity gauge, not a medical score.
+  const totalAlerts = result.safety_alerts.length;
+  const ringFrac = totalAlerts === 0 ? 0 : result.overall_risk_level === "LOW" ? 0.08 : result.overall_risk_level === "CRITICAL" ? 1 : 0.55;
+
   const stats = [
-    { label: t.statCritical, value: count("CRITICAL"), color: "text-red-700" },
-    { label: t.statWarnings, value: count("WARNING"), color: "text-amber-700" },
-    { label: t.statAbnormal, value: result.lab_markers.filter((m) => m.status !== "NORMAL").length, color: "text-purple-700" },
-    { label: t.statMeds, value: result.medications.length, color: "text-gray-900" },
+    { label: t.statCritical, value: critical, tone: "text-red-600" },
+    { label: t.statWarnings, value: warnings, tone: "text-amber-600" },
+    { label: t.statAbnormal, value: abnormal, tone: "text-slate-900" },
+    { label: t.statMeds, value: result.medications.length, tone: "text-slate-900" },
   ];
 
+  const isCritical = result.overall_risk_level === "CRITICAL";
+  const isWarning = result.overall_risk_level === "WARNING";
+  // STOP / CHECK / SAFE stamp — word + icon + colour, never colour alone.
+  const stamp = isCritical
+    ? { word: "STOP", label: "Do not take — act now", icon: OctagonX, cls: "border-red-600 text-red-600" }
+    : isWarning
+    ? { word: "CHECK", label: "Review with your doctor", icon: AlertTriangle, cls: "border-amber-600 text-amber-600" }
+    : { word: "SAFE", label: "No critical flags found", icon: CircleCheck, cls: "border-emerald-600 text-emerald-600" };
+  const StampIcon = stamp.icon;
+  // One suggested action: the top-priority alert's action, in plain words.
+  const topAlert = [...result.safety_alerts].sort((a, b) => ({ CRITICAL: 0, WARNING: 1, INFO: 2 }[a.severity] - { CRITICAL: 0, WARNING: 1, INFO: 2 }[b.severity]))[0];
+
   return (
-    <div className={`rounded-2xl p-5 border-2 shadow-sm space-y-4 hero-card ${config.hero} ${config.wrap}`}>
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <h2 className="text-base font-bold text-gray-900 flex items-center gap-2">
-          <span>📋</span> {t.overviewTitle}
-        </h2>
-        <span className={`inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-full border ${config.badge}`}>
-          <Icon className={`w-3.5 h-3.5 ${config.iconColor}`} aria-hidden />
-          {t[config.labelKey]}
-        </span>
+    <div className="dash-card relative overflow-hidden p-6 sm:p-8">
+      {/* One strong accent: a single left bar, in the severity colour. */}
+      <span className="absolute left-0 top-0 bottom-0 w-1" style={{ background: config.accent }} aria-hidden />
+
+      <div className="flex flex-col sm:flex-row gap-6 sm:items-start">
+        {/* Severity ring — thin, draws in left to right */}
+        <div className="relative shrink-0 mx-auto sm:mx-0" aria-hidden>
+          <svg className="sev-ring h-24 w-24" viewBox="0 0 96 96">
+            <circle className="ring-track" cx="48" cy="48" r="40" />
+            <circle
+              className="ring-value ring-draw"
+              cx="48"
+              cy="48"
+              r="40"
+              stroke={config.ring}
+              strokeDasharray={RING_C}
+              strokeDashoffset={RING_C * (1 - ringFrac)}
+              style={{ "--ring-c": RING_C } as React.CSSProperties}
+            />
+          </svg>
+          <div className="absolute inset-0 flex flex-col items-center justify-center">
+            <Icon className={`h-6 w-6 ${config.iconColor}`} aria-hidden />
+            <span className="text-[9px] font-bold uppercase tracking-wider mt-0.5 text-slate-400">Risk</span>
+          </div>
+        </div>
+
+        <div className="flex-1 min-w-0 text-center sm:text-left">
+          <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
+            <h2 className="font-display text-xl sm:text-2xl font-bold text-slate-900">
+              {t.overviewTitle}
+            </h2>
+            <span className={`inline-flex items-center gap-1.5 text-xs font-bold px-2.5 py-1 rounded-full ${config.accentSoft}`}>
+              <Icon className="w-3.5 h-3.5" aria-hidden />
+              {t[config.labelKey]}
+            </span>
+          </div>
+          <p className="text-sm sm:text-[15px] leading-relaxed mt-2 text-slate-600 max-w-2xl">{result.patient_summary}</p>
+          {topAlert && (
+            <div className="mt-4 flex items-start gap-2.5 rounded-xl bg-slate-50 border-l-2 px-4 py-3 text-left" style={{ borderLeftColor: config.accent }}>
+              <OctagonAlert className="mt-0.5 h-4 w-4 shrink-0 text-slate-500" aria-hidden />
+              <p className="text-sm leading-relaxed text-slate-700">
+                <span className="block text-[10px] font-bold uppercase tracking-wider text-slate-400">One next step</span>
+                {topAlert.action}
+              </p>
+            </div>
+          )}
+        </div>
+
+        {/* Verdict stamp — flat outline, no fill, no shadow */}
+        <div className="shrink-0 mx-auto sm:mx-0 text-center">
+          <div className={`inline-flex flex-col items-center gap-1 rounded-xl border-2 px-4 py-2.5 ${stamp.cls}`}>
+            <StampIcon className="h-5 w-5" aria-hidden />
+            <span className="text-lg font-black tracking-widest leading-none">{stamp.word}</span>
+            <span className="text-[9px] font-semibold uppercase tracking-wide opacity-70">{stamp.label}</span>
+          </div>
+        </div>
       </div>
-      <p className="text-sm text-gray-700 leading-relaxed">{result.patient_summary}</p>
-      <dl className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-        {stats.map((s) => (
-          <div key={s.label} className="rounded-xl bg-white/80 border border-gray-200 px-3 py-2 text-center">
-            <dd className={`stat-num font-black tabular-nums ${s.color}`} style={{ "--n": s.value } as React.CSSProperties}>{s.value}</dd>
-            <dt className="text-[11px] text-gray-500 font-medium">{s.label}</dt>
+
+      {/* Stats — plain numbers, hairline dividers, no icon tiles */}
+      <dl className="mt-7 pt-6 grid grid-cols-2 sm:grid-cols-4 gap-6 border-t border-slate-100">
+        {stats.map((s, i) => (
+          <div key={s.label} className={i > 0 ? "sm:border-l sm:border-slate-100 sm:pl-6" : ""}>
+            <dd className={`font-bold tabular-nums text-3xl leading-none ${s.tone}`}>
+              <CountUp to={s.value} />
+            </dd>
+            <dt className="text-xs font-medium text-slate-500 mt-1.5">{s.label}</dt>
           </div>
         ))}
       </dl>

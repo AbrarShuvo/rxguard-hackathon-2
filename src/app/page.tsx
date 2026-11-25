@@ -12,12 +12,27 @@ import {
   Eye,
   CheckCircle2,
   Loader2,
+  ArrowRight,
+  Sparkles,
+  ShieldCheck,
+  Languages,
+  Timer,
+  FileSearch,
+  CalendarCheck,
+  TriangleAlert,
+  ScanLine,
+  HeartPulse,
+  Stethoscope,
+  Pill,
 } from "lucide-react";
 import Header from "@/components/shared/Header";
 import Disclaimer from "@/components/shared/Disclaimer";
 import DropZone from "@/components/upload/DropZone";
 import SampleCaseButtons from "@/components/upload/SampleCaseButtons";
 import LoadingAnalysis from "@/components/shared/LoadingAnalysis";
+import { Reveal, CountUp, ScrollProgress } from "@/components/shared/Reveal";
+import CaseStack from "@/components/landing/CaseStack";
+import DashboardPreview from "@/components/landing/DashboardPreview";
 import AlertBanner from "@/components/dashboard/AlertBanner";
 import PatientSummary from "@/components/dashboard/PatientSummary";
 import PillSchedule from "@/components/dashboard/PillSchedule";
@@ -331,7 +346,7 @@ export default function Home() {
 
   // ── Results View ──────────────────────────────────
   if (appState === "results" && result && displayResult) {
-    const btn = `flex items-center gap-1.5 text-xs font-semibold px-3 min-h-11 rounded-lg border transition-colors ${focusRing}`;
+    const btn = `pressable flex items-center gap-1.5 text-xs font-semibold px-3.5 min-h-11 rounded-full border shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md ${focusRing}`;
     return (
       <div className="min-h-screen flex flex-col">
         <Header
@@ -345,7 +360,7 @@ export default function Home() {
         />
 
         {/* Action Toolbar */}
-        <div className="w-full bg-white/80 backdrop-blur-md border-b border-[color:var(--hairline)] sm:sticky sm:top-14 z-40 no-print">
+        <div className="w-full glass border-b border-[color:var(--hairline)] sm:sticky sm:top-14 z-40 no-print shadow-sm">
           <div className="max-w-6xl mx-auto px-4 py-2 flex flex-wrap items-center justify-between gap-2">
             <button
               onClick={handleReset}
@@ -358,32 +373,32 @@ export default function Home() {
             <div className="flex flex-wrap items-center gap-2">
               <button
                 onClick={() => setIsModalOpen(true)}
-                className={`${btn} bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border-emerald-200`}
+                className={`${btn} bg-white hover:bg-slate-50 text-slate-700 border-slate-200`}
               >
-                <Eye className="w-3.5 h-3.5 text-emerald-600" />
+                <Eye className="w-3.5 h-3.5 text-slate-500" />
                 <span>{t.sourceDocBtn}</span>
               </button>
               <button
                 onClick={handleExportCalendar}
-                className={`${btn} bg-blue-50 hover:bg-blue-100 text-blue-800 border-blue-200`}
+                className={`${btn} bg-white hover:bg-slate-50 text-slate-700 border-slate-200`}
                 title="Download .ics file for Google Calendar, Apple Calendar, or Outlook"
               >
-                <Calendar className="w-3.5 h-3.5 text-blue-600" />
+                <Calendar className="w-3.5 h-3.5 text-slate-500" />
                 <span className="hidden sm:inline">{t.calendarExport}</span>
                 <span className="sm:hidden">.ics</span>
               </button>
               <button
                 onClick={handleExportFhir}
-                className={`${btn} bg-purple-50 hover:bg-purple-100 text-purple-800 border-purple-200`}
+                className={`${btn} bg-white hover:bg-slate-50 text-slate-700 border-slate-200`}
                 title="Export a FHIR-style JSON bundle"
               >
-                <FileCode className="w-3.5 h-3.5 text-purple-600" />
+                <FileCode className="w-3.5 h-3.5 text-slate-500" />
                 <span className="hidden sm:inline">{t.fhirExport}</span>
                 <span className="sm:hidden">FHIR</span>
               </button>
               <button
                 onClick={() => window.print()}
-                className={`${btn} bg-gray-900 hover:bg-black text-white border-gray-900`}
+                className={`${btn} bg-slate-900 hover:bg-slate-800 text-white border-slate-900`}
               >
                 <Printer className="w-3.5 h-3.5" />
                 <span>{t.printCard}</span>
@@ -392,7 +407,7 @@ export default function Home() {
           </div>
         </div>
 
-        <main className="results-stagger flex-1 max-w-6xl mx-auto w-full px-4 py-6 patient-card space-y-6">
+        <main className="flex-1 max-w-5xl mx-auto w-full px-4 py-8 patient-card space-y-8">
           {/* Translation status */}
           {!sampleId && currentLang !== "en" && tStatus !== "idle" && (
             <div
@@ -414,41 +429,41 @@ export default function Home() {
             </div>
           )}
 
-          {/* Verdict */}
-          <div className="animate-fade-in">
+          {/* Verdict — enters from the left */}
+          <Reveal from="left" delay={0}>
             <PatientSummary result={displayResult} lang={currentLang} />
-          </div>
+          </Reveal>
 
           {displayResult.safety_alerts.length > 0 && (
-            <div className="animate-fade-in">
+            <Reveal from="left" delay={100}>
               <AlertBanner alerts={displayResult.safety_alerts} />
-            </div>
+            </Reveal>
           )}
 
           {displayResult.safety_alerts.length > 0 && (
-            <div className="animate-fade-in">
+            <Reveal from="left" delay={200}>
               <ContraindicationPathway alerts={displayResult.safety_alerts} lang={currentLang} />
-            </div>
+            </Reveal>
           )}
 
           {/* Pill Timeline | Lab Biomarkers */}
           <div className="print-cols grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
             {displayResult.medications.length > 0 && (
-              <div className="animate-fade-in">
+              <Reveal from="left" delay={300}>
                 <PillSchedule medications={displayResult.medications} alerts={displayResult.safety_alerts} />
-              </div>
+              </Reveal>
             )}
             {displayResult.lab_markers.length > 0 && (
-              <div className="animate-fade-in">
+              <Reveal from="right" delay={380}>
                 <BiomarkerChart markers={displayResult.lab_markers} />
-              </div>
+              </Reveal>
             )}
           </div>
 
           {displayResult.doctor_questions.length > 0 && (
-            <div className="animate-fade-in">
+            <Reveal from="left" delay={460}>
               <DoctorQuestions questions={displayResult.doctor_questions} />
-            </div>
+            </Reveal>
           )}
 
           {/* Print-only sign-off */}
@@ -507,6 +522,7 @@ export default function Home() {
   // ── Upload Landing View (default) ─────────────────
   return (
     <div className="min-h-screen flex flex-col">
+      <ScrollProgress />
       <Header
         currentLang={currentLang}
         onLanguageChange={setCurrentLang}
@@ -514,43 +530,124 @@ export default function Home() {
         onOpenApiKeyModal={() => setIsKeyModalOpen(true)}
       />
 
-      <main className="flex-1 flex items-center justify-center px-4 py-8">
-        <div className="w-full max-w-2xl space-y-6 animate-fade-in">
+      <main className="hero-mesh relative flex-1 px-4 py-10 sm:py-14 overflow-hidden">
+        <div className="hero-grid absolute inset-0 pointer-events-none" aria-hidden />
+        <div className="orb orb-teal" aria-hidden />
+        <div className="orb orb-sky" aria-hidden />
+        <div className="orb orb-rose" aria-hidden />
+        <div className="relative w-full max-w-3xl mx-auto space-y-7">
           {/* Hero Branding */}
-          <div className="text-center space-y-2">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-semibold mb-1">
-              <span>🚀</span> CODEFESTTHON 2026 · HealthTech Track
+          <div className="text-center space-y-5">
+            <div className="hero-anim inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-slate-900 text-white text-xs font-bold shadow-lg shadow-slate-900/25" style={{ animationDelay: "0ms" }}>
+              <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
+              CODEFESTTHON 2026 · HealthTech Track
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-soft-pulse" />
+              <span className="text-emerald-300">No login needed</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight">
+            <h2 className="hero-anim font-display text-5xl sm:text-6xl lg:text-7xl font-black tracking-tight leading-[0.98] text-gray-900" style={{ animationDelay: "80ms" }}>
               {t.heroTitle.slice(0, t.heroTitle.lastIndexOf(" ") + 1)}
-              <span className="text-gradient">{t.heroTitle.slice(t.heroTitle.lastIndexOf(" ") + 1)}</span>
+              <span className="text-gradient-animated">{t.heroTitle.slice(t.heroTitle.lastIndexOf(" ") + 1)}</span>
             </h2>
-            <p className="text-sm text-gray-600 max-w-lg mx-auto leading-relaxed">
+            <p className="hero-anim text-base sm:text-lg text-gray-600 max-w-xl mx-auto leading-relaxed" style={{ animationDelay: "160ms" }}>
               {t.heroSubtitle}
             </p>
+
+            {/* Floating verdict mock — the product, at a glance */}
+            <div className="hero-anim relative mx-auto max-w-xl pt-6 pb-6" style={{ animationDelay: "240ms" }}>
+              <div className="mock-card animate-float-slow relative rounded-3xl p-4 text-left">
+                <div className="flex items-center gap-3">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-red-500 to-rose-600 text-white shadow-lg shadow-red-600/40">
+                    <TriangleAlert className="h-5 w-5" aria-hidden />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <p className="text-[11px] font-bold uppercase tracking-wider text-red-600">Live verdict · Case A</p>
+                    <p className="truncate text-sm font-extrabold text-gray-900">Ibuprofen 400mg × Creatinine 1.8 mg/dL</p>
+                  </div>
+                  <span className="animate-glow-pulse shrink-0 rounded-full bg-red-600 px-2.5 py-1 text-[10px] font-black uppercase tracking-wider text-white">Critical</span>
+                </div>
+                <div className="mt-3 h-2.5 overflow-hidden rounded-full bg-gray-100">
+                  <div className="animate-bar-fill h-full w-full rounded-full bg-gradient-to-r from-red-500 via-rose-500 to-red-600" />
+                </div>
+                <p className="mt-2 text-xs font-semibold text-red-800">Hold — ask your doctor first · safer alternative suggested</p>
+              </div>
+              <div className="mock-chip animate-float-slow2 absolute -left-2 sm:-left-8 -top-1 hidden sm:flex items-center gap-1.5 rounded-full bg-white px-3 py-1.5 text-[11px] font-bold text-red-700">
+                <FlaskConical className="h-3.5 w-3.5" /> Creatinine 1.8 · HIGH
+              </div>
+              <div className="mock-chip animate-float-slow absolute -right-2 sm:-right-8 -bottom-1 hidden sm:flex items-center gap-1.5 rounded-full bg-white px-3 py-1.5 text-[11px] font-bold text-amber-700" style={{ animationDelay: "0.6s" }}>
+                <Timer className="h-3.5 w-3.5" /> eGFR 52 · LOW
+              </div>
+            </div>
+
+            {/* Trust stats — count up when scrolled into view */}
+            <div className="hero-anim grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-1 text-left" style={{ animationDelay: "320ms" }}>
+              {[
+                { icon: FileSearch, num: 2, suffix: "", big: " docs", small: "checked together", tile: "bg-emerald-600 text-white shadow-lg shadow-emerald-600/30", iconCls: "text-white" },
+                { icon: TriangleAlert, num: null, big: "Drug × Lab", small: "conflict detection", tile: "bg-red-600 text-white shadow-lg shadow-red-600/30", iconCls: "text-white" },
+                { icon: Languages, num: 3, suffix: "", big: " languages", small: "EN · हिन्दी · ES", tile: "bg-sky-600 text-white shadow-lg shadow-sky-600/30", iconCls: "text-white" },
+                { icon: Timer, num: 90, suffix: "", big: " seconds", small: "to a full verdict", tile: "bg-amber-500 text-white shadow-lg shadow-amber-500/30", iconCls: "text-white" },
+              ].map((x) => (
+                <div key={x.big} className="card-lift rounded-2xl bg-white/90 border border-gray-200/70 px-3 py-3 shadow-sm">
+                  <span className={`mb-2 flex h-8 w-8 items-center justify-center rounded-xl ${x.tile}`}><x.icon className={`w-4 h-4 ${x.iconCls}`} aria-hidden /></span>
+                  <p className="text-base font-black text-gray-900 leading-none">
+                    {x.num !== null ? <CountUp to={x.num} /> : null}{x.big}
+                  </p>
+                  <p className="text-[11px] text-gray-500 mt-1 leading-tight">{x.small}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* How it works — alternating left/right scrollytelling rows */}
+          <div className="space-y-10 pt-4">
+            {[
+              { n: "01", icon: ScanLine, title: "Drop the documents in", sub: "A photo, scan or PDF of the prescription and the lab report — handwriting OK. RxGuard reads both in memory and never stores them.", visual: "Prescription + Lab report", from: "left" as const },
+              { n: "02", icon: HeartPulse, title: "Every drug meets every lab", sub: "The AI reads drug names, doses and biomarkers, then a deterministic rule engine cross-checks each medicine against each lab value — the check most tools skip.", visual: "Drug × Lab cross-check", from: "right" as const },
+              { n: "03", icon: Stethoscope, title: "One plain-language verdict", sub: "STOP, CHECK or SAFE — with the reason, the one next step, a daily pill plan and questions to ask your doctor. No jargon, no login.", visual: "Verdict + daily plan", from: "left" as const },
+            ].map((row) => (
+              <Reveal key={row.n} from={row.from}>
+                <div className={`flex flex-col ${row.from === "right" ? "sm:flex-row-reverse" : "sm:flex-row"} items-center gap-5 sm:gap-8`}>
+                  <div className="flex-1 text-center sm:text-left">
+                    <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-slate-900 text-xs font-black text-white shadow-md">{row.n}</span>
+                    <h3 className="mt-3 font-display text-2xl sm:text-3xl font-black tracking-tight text-gray-900">{row.title}</h3>
+                    <p className="mt-2 text-sm sm:text-base text-gray-600 leading-relaxed max-w-md mx-auto sm:mx-0">{row.sub}</p>
+                  </div>
+                  <div className="w-full sm:w-64 shrink-0">
+                    <div className="card-lift rounded-3xl border border-gray-200/80 bg-white/90 p-5 shadow-lg shadow-slate-900/5 text-center">
+                      <row.icon className="mx-auto h-8 w-8 text-emerald-600" aria-hidden />
+                      <p className="mt-3 text-sm font-black text-gray-900">{row.visual}</p>
+                      <p className="mt-1 text-[11px] font-semibold uppercase tracking-wider text-gray-400">Step {row.n} of 3</p>
+                    </div>
+                  </div>
+                </div>
+              </Reveal>
+            ))}
           </div>
 
           {/* Dual Upload Zones */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <DropZone
               label={t.dropRxLabel}
-              icon={<ClipboardList className="w-6 h-6 text-gray-400" />}
+              icon={<ClipboardList className="w-6 h-6 text-emerald-600" />}
               accept="image/*,.pdf"
               file={prescriptionFile}
               onFileSelect={setPrescriptionFile}
+              step="Step 1 · Prescription"
+              hint="Photo, scan or PDF — handwriting OK"
             />
             <DropZone
               label={t.dropLabLabel}
-              icon={<FlaskConical className="w-6 h-6 text-gray-400" />}
+              icon={<FlaskConical className="w-6 h-6 text-sky-600" />}
               accept="image/*,.pdf"
               file={labReportFile}
               onFileSelect={setLabReportFile}
+              step="Step 2 · Lab report"
+              hint="Blood / pathology report, photo or PDF"
             />
           </div>
 
           {/* Error Message */}
           {(errorMsg || appState === "error") && (
-            <div className="p-3.5 rounded-xl bg-red-50 border border-red-200 text-sm text-red-800 space-y-2">
+            <div className="animate-pop-in p-4 rounded-2xl bg-red-50 border border-red-200 text-sm text-red-800 space-y-2 shadow-sm">
               <div className="flex items-start gap-2">
                 <span>⚠️</span>
                 <span className="flex-1 leading-relaxed">
@@ -573,14 +670,22 @@ export default function Home() {
           )}
 
           {/* Analyze CTA Button */}
-          <button
-            onClick={handleAnalyze}
-            disabled={!prescriptionFile && !labReportFile}
-            className="btn-primary w-full py-3.5 px-6 text-white font-bold rounded-xl flex items-center justify-center gap-2 disabled:cursor-not-allowed"
-          >
-            <Search className="w-5 h-5" />
-            {t.analyzeBtn}
-          </button>
+          <div className="space-y-2">
+            <button
+              onClick={handleAnalyze}
+              disabled={!prescriptionFile && !labReportFile}
+              className="btn-primary group w-full py-4 px-6 text-white font-bold rounded-2xl flex items-center justify-center gap-2 text-base disabled:cursor-not-allowed"
+            >
+              <Search className="w-5 h-5" />
+              {t.analyzeBtn}
+              <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+            </button>
+            <p className="text-center text-xs text-gray-400">
+              {!prescriptionFile && !labReportFile
+                ? "Upload at least one document above — or jump straight to a sample case below."
+                : "Ready — your files are processed in memory and never stored."}
+            </p>
+          </div>
 
           {/* One-Click Interactive Sample Cases (Crucial for Devfolio Judges) */}
           <SampleCaseButtons
@@ -588,22 +693,61 @@ export default function Home() {
             disabled={false}
           />
 
+          {/* Marquee ticker — drug & lab names, pause on hover */}
+          <div className="marquee no-print -mx-4 border-y border-gray-200/70 bg-white/70 py-3" aria-hidden>
+            <div className="marquee-track items-center gap-6 text-sm font-bold text-gray-500">
+              {[...Array(2)].map((_, dup) => (
+                <span key={dup} className="flex items-center gap-6 pr-6">
+                  {["Ibuprofen", "Metformin", "Atorvastatin", "Amlodipine", "Pantoprazole", "Vitamin D3", "Creatinine", "eGFR", "BUN", "Glucose", "Hemoglobin", "LDL", "HbA1c", "Cholesterol"].map((name) => (
+                    <span key={`${dup}-${name}`} className="flex items-center gap-6 whitespace-nowrap">
+                      <span className="font-mono">{name}</span>
+                      <span className="text-red-500">✚</span>
+                    </span>
+                  ))}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* Sticky stacking case cards — scroll through the verdicts */}
+          <CaseStack onSelect={handleSampleCase} />
+
+          {/* Dashboard preview — bento glimpse of the real verdict view */}
+          <DashboardPreview onRun={() => handleSampleCase("A")} />
+
+          {/* Quiet final CTA */}
+          <Reveal>
+            <div className="rounded-3xl bg-slate-900 px-6 py-10 text-center text-white shadow-2xl shadow-slate-900/30">
+              <p className="eyebrow text-emerald-300">No login · No storage · 90 seconds</p>
+              <h2 className="mt-3 font-display text-3xl font-black tracking-tight">Check a prescription before it&apos;s too late.</h2>
+              <p className="mx-auto mt-2 max-w-md text-sm text-slate-300">Drop your documents above, or run a sample case and watch the verdict land.</p>
+              <div className="mt-5 flex flex-wrap items-center justify-center gap-3">
+                <button
+                  type="button"
+                  onClick={() => handleSampleCase("A")}
+                  className="btn-primary pressable inline-flex min-h-11 items-center gap-2 rounded-full px-6 py-3 text-sm font-bold text-white"
+                >
+                  <Pill className="h-4 w-4" aria-hidden /> Run Case A — the critical one
+                </button>
+                <button
+                  type="button"
+                  onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+                  className="pressable inline-flex min-h-11 items-center gap-2 rounded-full border border-white/25 px-6 py-3 text-sm font-bold text-white hover:bg-white/10"
+                >
+                  Back to the upload
+                </button>
+              </div>
+            </div>
+          </Reveal>
+
           {/* Trust, Security & Privacy Indicators */}
-          <div className="pt-2 border-t border-gray-100 flex flex-wrap items-center justify-center gap-4 text-xs text-gray-400">
-            <span className="flex items-center gap-1">
-              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
-              Zero Login Required
-            </span>
-            <span>•</span>
-            <span className="flex items-center gap-1">
-              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
-              100% In-Memory Processing
-            </span>
-            <span>•</span>
-            <span className="flex items-center gap-1">
-              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
-              FHIR-style JSON &amp; iCal export
-            </span>
+          <div className="pt-3 border-t border-gray-200/70 flex flex-wrap items-center justify-center gap-2 text-xs">
+            {["Zero login required", "100% in-memory processing", "FHIR-style JSON & .ics export", "Works on any phone"].map((x) => (
+              <span key={x} className="inline-flex items-center gap-1.5 rounded-full bg-white/80 border border-gray-200/80 px-3 py-1.5 font-semibold text-gray-600 shadow-sm">
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                {x}
+              </span>
+            ))}
           </div>
         </div>
       </main>

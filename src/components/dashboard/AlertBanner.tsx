@@ -1,102 +1,131 @@
 "use client";
 
+import { useState } from "react";
 import {
   AlertTriangle,
   AlertCircle,
   Info,
   ShieldAlert,
+  ArrowRight,
 } from "lucide-react";
 import { SafetyAlert } from "@/types/analysis";
+import { Reveal } from "@/components/shared/Reveal";
 
-interface AlertBannerProps {
-  alerts: SafetyAlert[];
-}
-
+/* Calm severity config — one flat accent per severity, white cards. */
 const severityConfig = {
   CRITICAL: {
-    bg: "bg-red-50",
-    border: "border-red-300",
+    bar: "bg-red-600",
+    iconWrap: "bg-red-50 text-red-600",
     icon: ShieldAlert,
-    iconColor: "text-red-600",
-    titleColor: "text-red-800",
-    textColor: "text-red-700",
-    badgeBg: "bg-red-600",
-    animate: "animate-pulse-alert",
+    badge: "bg-red-600 text-white",
+    titleColor: "text-slate-900",
+    textColor: "text-slate-600",
+    actionColor: "text-red-700",
   },
   WARNING: {
-    bg: "bg-amber-50",
-    border: "border-amber-300",
+    bar: "bg-amber-500",
+    iconWrap: "bg-amber-50 text-amber-600",
     icon: AlertTriangle,
-    iconColor: "text-amber-600",
-    titleColor: "text-amber-800",
-    textColor: "text-amber-700",
-    badgeBg: "bg-amber-500",
-    animate: "",
+    badge: "bg-amber-500 text-white",
+    titleColor: "text-slate-900",
+    textColor: "text-slate-600",
+    actionColor: "text-amber-700",
   },
   INFO: {
-    bg: "bg-blue-50",
-    border: "border-blue-200",
+    bar: "bg-sky-500",
+    iconWrap: "bg-sky-50 text-sky-600",
     icon: Info,
-    iconColor: "text-blue-500",
-    titleColor: "text-blue-800",
-    textColor: "text-blue-700",
-    badgeBg: "bg-blue-500",
-    animate: "",
+    badge: "bg-sky-500 text-white",
+    titleColor: "text-slate-900",
+    textColor: "text-slate-600",
+    actionColor: "text-sky-700",
   },
 };
 
-export default function AlertBanner({ alerts }: AlertBannerProps) {
-  // Sort: CRITICAL first, then WARNING, then INFO
+export default function AlertBanner({ alerts }: SafetyAlertProps) {
+  const [filter, setFilter] = useState<"ALL" | "CRITICAL" | "WARNING" | "INFO">("ALL");
   const sorted = [...alerts].sort((a, b) => {
     const order = { CRITICAL: 0, WARNING: 1, INFO: 2 };
     return order[a.severity] - order[b.severity];
   });
+  const visible = filter === "ALL" ? sorted : sorted.filter((a) => a.severity === filter);
+  const counts = {
+    ALL: sorted.length,
+    CRITICAL: sorted.filter((a) => a.severity === "CRITICAL").length,
+    WARNING: sorted.filter((a) => a.severity === "WARNING").length,
+    INFO: sorted.filter((a) => a.severity === "INFO").length,
+  };
 
   return (
-    <div className="space-y-3 stagger-children">
-      {sorted.map((alert, i) => {
-        const config = severityConfig[alert.severity];
-        const Icon = config.icon;
+    <section aria-label="Safety alerts" className="space-y-4">
+      <div className="flex flex-wrap items-baseline justify-between gap-2">
+        <h2 className="font-display text-lg font-bold text-slate-900 flex items-center gap-2">
+          <ShieldAlert className="h-5 w-5 text-red-600" aria-hidden />
+          Safety alerts
+        </h2>
+        <span className="text-xs text-slate-400 tabular-nums">
+          {sorted.length} {sorted.length === 1 ? "flag" : "flags"} · most severe first
+        </span>
+      </div>
 
-        return (
-          <div
-            key={i}
-            className={`rounded-xl border-2 ${config.border} ${config.bg} p-4 ${config.animate}`}
+      {/* Filter pills — quiet, one dark active state */}
+      <div className="flex flex-wrap gap-2 no-print" role="group" aria-label="Filter alerts by severity">
+        {(["ALL", "CRITICAL", "WARNING", "INFO"] as const).map((f) => (
+          <button
+            key={f}
+            type="button"
+            data-active={filter === f}
+            onClick={() => setFilter(f)}
+            className="triage-pill inline-flex min-h-9 items-center gap-1.5 rounded-full border border-slate-200 bg-white px-3.5 py-1.5 text-xs font-semibold text-slate-600"
           >
-            <div className="flex items-start gap-3">
-              <div className="shrink-0 mt-0.5">
-                <Icon className={`w-5 h-5 ${config.iconColor}`} />
-              </div>
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-2 mb-1">
-                  <span
-                    className={`text-[10px] font-bold uppercase tracking-wider ${config.badgeBg} text-white px-2 py-0.5 rounded-full severity-${alert.severity.toLowerCase()}`}
-                  >
-                    {alert.severity}
-                  </span>
-                  {alert.type !== "GENERAL" && (
-                    <span className="text-[10px] text-gray-400 uppercase tracking-wide">
-                      {alert.type.replace("_", "-")}
-                    </span>
-                  )}
+            {f === "ALL" ? "All" : f.charAt(0) + f.slice(1).toLowerCase()} ({counts[f]})
+          </button>
+        ))}
+      </div>
+
+      <div className="space-y-3">
+        {visible.map((alert, i) => {
+          const config = severityConfig[alert.severity];
+          const Icon = config.icon;
+          return (
+            <Reveal key={`${alert.severity}-${i}`} from="left" delay={i * 90}>
+              <article className="dash-card relative overflow-hidden p-5 sm:p-6">
+                <span className={`absolute left-0 top-0 bottom-0 w-1 ${config.bar}`} aria-hidden />
+                <div className="flex items-start gap-4">
+                  <div className={`shrink-0 flex h-10 w-10 items-center justify-center rounded-xl ${config.iconWrap}`}>
+                    <Icon className="h-5 w-5" aria-hidden />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex flex-wrap items-center gap-2 mb-1">
+                      <span className={`text-[10px] font-bold uppercase tracking-wider ${config.badge} px-2 py-0.5 rounded-full`}>
+                        {alert.severity}
+                      </span>
+                      <span className="text-[11px] font-medium text-slate-400">
+                        Alert {i + 1} of {sorted.length}
+                        {alert.type !== "GENERAL" ? ` · ${alert.type.replace("_", "-")}` : ""}
+                      </span>
+                    </div>
+                    <h3 className={`font-display text-base font-bold ${config.titleColor}`}>{alert.title}</h3>
+                    <p className={`print-hide text-sm ${config.textColor} mt-1 leading-relaxed`}>{alert.explanation}</p>
+                    <div className="mt-4 pt-3 flex items-start gap-2 border-t border-slate-100">
+                      <AlertCircle className={`mt-0.5 h-4 w-4 shrink-0 ${config.actionColor}`} aria-hidden />
+                      <p className="text-sm leading-relaxed text-slate-700">
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mr-1.5">What to do</span>
+                        {alert.action}
+                      </p>
+                      <ArrowRight className="ml-auto mt-0.5 h-4 w-4 shrink-0 text-slate-300" aria-hidden />
+                    </div>
+                  </div>
                 </div>
-                <h3 className={`text-sm font-bold ${config.titleColor}`}>
-                  {alert.title}
-                </h3>
-                <p className={`print-hide text-xs ${config.textColor} mt-1 leading-relaxed`}>
-                  {alert.explanation}
-                </p>
-                <div className="mt-2 flex items-start gap-1.5">
-                  <AlertCircle className={`w-3.5 h-3.5 mt-0.5 shrink-0 ${config.iconColor}`} />
-                  <p className={`text-xs font-medium ${config.titleColor}`}>
-                    {alert.action}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        );
-      })}
-    </div>
+              </article>
+            </Reveal>
+          );
+        })}
+      </div>
+    </section>
   );
+}
+
+interface SafetyAlertProps {
+  alerts: SafetyAlert[];
 }

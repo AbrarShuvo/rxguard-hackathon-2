@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { Sun, Sunset, Moon, CalendarDays, HelpCircle, Utensils, CheckCircle, Circle, OctagonAlert } from "lucide-react";
+import { Sun, Sunset, Moon, CalendarDays, HelpCircle, Utensils, CheckCircle2, Circle, OctagonAlert, Pill } from "lucide-react";
 import { Medication, SafetyAlert } from "@/types/analysis";
+import { Reveal } from "@/components/shared/Reveal";
 
 interface PillScheduleProps {
   medications: Medication[];
@@ -47,10 +48,13 @@ const cleanInstructions = (m: Medication) => {
 };
 
 const SLOTS: { id: SlotId; title: string; time: string; tab: string; iconBg: string; icon: React.ReactNode }[] = [
-  { id: "morning", title: "Morning Routine", time: "8:00 AM - 10:00 AM", tab: "☀️ Morning", iconBg: "bg-amber-50", icon: <Sun className="w-4 h-4 text-amber-500" /> },
-  { id: "afternoon", title: "Afternoon Routine", time: "1:00 PM - 2:00 PM", tab: "🌤️ Afternoon", iconBg: "bg-orange-50", icon: <Sunset className="w-4 h-4 text-orange-500" /> },
-  { id: "night", title: "Night Routine", time: "8:00 PM - 10:00 PM", tab: "🌙 Night", iconBg: "bg-indigo-50", icon: <Moon className="w-4 h-4 text-indigo-500" /> },
+  { id: "morning", title: "Morning Routine", time: "8:00 AM - 10:00 AM", tab: "Morning", iconBg: "bg-amber-50", icon: <Sun className="w-4 h-4 text-amber-500" /> },
+  { id: "afternoon", title: "Afternoon Routine", time: "1:00 PM - 2:00 PM", tab: "Afternoon", iconBg: "bg-orange-50", icon: <Sunset className="w-4 h-4 text-orange-500" /> },
+  { id: "night", title: "Night Routine", time: "8:00 PM - 10:00 PM", tab: "Night", iconBg: "bg-indigo-50", icon: <Moon className="w-4 h-4 text-indigo-500" /> },
 ];
+
+const slotIcon = (id: SlotId) =>
+  id === "morning" ? <Sun className="w-4 h-4 text-amber-500" /> : id === "afternoon" ? <Sunset className="w-4 h-4 text-orange-500" /> : <Moon className="w-4 h-4 text-indigo-500" />;
 
 export default function PillSchedule({ medications, alerts = [] }: PillScheduleProps) {
   const [takenMap, setTakenMap] = useState<Record<string, boolean>>({});
@@ -99,74 +103,74 @@ export default function PillSchedule({ medications, alerts = [] }: PillScheduleP
               }
             : undefined
         }
-        className={`p-3.5 rounded-xl border-2 transition-all select-none space-y-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 ${
+        className={`p-4 rounded-xl border transition-all duration-200 select-none space-y-2.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 ${
           interactive ? "cursor-pointer" : ""
         } ${
           held
-            ? "bg-red-50/60 border-red-400"
+            ? "border-red-200 bg-white"
             : taken
-            ? "bg-emerald-50/50 border-emerald-300 opacity-80"
-            : "bg-gray-50 border-gray-200 hover:border-emerald-300"
-        }`}
+            ? "bg-emerald-50/60 border-emerald-200"
+            : "bg-white border-slate-200 hover:border-slate-300"
+        } ${taken ? "animate-check-pop" : ""}`}
       >
         {held && (
-          <div className="flex items-center gap-1.5 text-[11px] font-bold text-red-800 bg-red-100 border border-red-300 rounded-lg px-2 py-1">
+          <span className="inline-flex items-center gap-1.5 text-[11px] font-bold text-red-700 bg-red-50 border border-red-200 rounded-full px-2.5 py-1 uppercase tracking-wide">
             <OctagonAlert className="w-3.5 h-3.5 shrink-0" aria-hidden />
             Hold — ask your doctor first
-          </div>
+          </span>
         )}
 
         <div className="flex items-start justify-between gap-2">
           <div className="flex items-start gap-2.5 min-w-0">
             {interactive &&
               (taken ? (
-                <CheckCircle className="w-4 h-4 mt-0.5 shrink-0 fill-emerald-600 text-white" aria-hidden />
+                <CheckCircle2 className="w-4 h-4 mt-0.5 shrink-0 text-emerald-600" aria-hidden />
               ) : (
-                <Circle className="w-4 h-4 mt-0.5 shrink-0 text-gray-300" aria-hidden />
+                <Circle className="w-4 h-4 mt-0.5 shrink-0 text-slate-300" aria-hidden />
               ))}
             <div className="min-w-0">
-              <h4 className={`text-sm font-bold leading-tight ${taken ? "line-through text-gray-400" : "text-gray-900"}`}>
+              <h4 className={`text-sm font-bold leading-tight ${taken ? "line-through text-slate-400" : "text-slate-900"}`}>
                 {med.name}
               </h4>
-              <p className="text-[11px] text-gray-500 font-medium">
-                {med.generic_name} • <span className="text-gray-400">{med.drug_class}</span>
+              <p className="text-[11px] text-slate-500">
+                {med.generic_name} • <span className="text-slate-400">{med.drug_class}</span>
               </p>
             </div>
           </div>
 
           {med.confidence !== "high" && (
-            <span className="shrink-0 text-[10px] font-semibold px-2 py-0.5 rounded bg-amber-100 text-amber-800 border border-amber-200 flex items-center gap-1">
-              <HelpCircle className="w-2.5 h-2.5" aria-hidden />
+            <span className="shrink-0 text-[10px] font-semibold px-2 py-0.5 rounded-full bg-amber-50 text-amber-700 border border-amber-100 flex items-center gap-1">
+              <HelpCircle className="w-2.5 h-2.5" />
               Verify handwriting
             </span>
           )}
         </div>
 
-        <p className={`print-hide text-xs text-gray-600 italic ${interactive ? "pl-6" : ""}`}>&ldquo;{med.purpose}&rdquo;</p>
+        <p className={`print-hide text-xs text-slate-500 italic ${interactive ? "pl-6" : ""}`}>&ldquo;{med.purpose}&rdquo;</p>
 
         <div className={`flex flex-wrap items-center gap-2 text-[11px] ${interactive ? "pl-6" : ""}`}>
-          <span className="inline-flex items-center gap-1 font-medium text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200/50">
+          <span className="inline-flex items-center gap-1 font-medium text-slate-600 bg-slate-50 px-2 py-0.5 rounded-full border border-slate-100">
             <Utensils className="w-3 h-3" aria-hidden />
             {med.food_instruction}
           </span>
           {duration && (
-            <span className="inline-flex items-center gap-1 font-semibold text-slate-700 bg-slate-100 px-2 py-0.5 rounded border border-slate-200">
+            <span className="inline-flex items-center gap-1 font-medium text-slate-600 bg-slate-50 px-2 py-0.5 rounded-full border border-slate-100">
               <CalendarDays className="w-3 h-3" aria-hidden />× {duration}
             </span>
           )}
-          <span className="print-hide font-mono text-gray-500 bg-gray-200/60 px-1.5 py-0.5 rounded text-[10px]">
-            Shorthand: {med.raw_dosage}
+          <span className="print-hide font-mono text-slate-400 bg-slate-50 px-1.5 py-0.5 rounded text-[10px]">
+            {med.raw_dosage}
           </span>
           {taken && (
-            <span className="text-[10px] font-bold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-full ml-auto">
-              ✓ Taken
+            <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full ml-auto">
+              Taken
             </span>
           )}
         </div>
 
         {instructions && (
-          <p className={`print-hide text-[11px] text-blue-700 bg-blue-50/70 p-2 rounded-lg border border-blue-100 ${interactive ? "ml-6" : ""}`}>
-            💡 {instructions}
+          <p className={`print-hide text-[11px] text-slate-500 leading-relaxed ${interactive ? "ml-6" : ""}`}>
+            {instructions}
           </p>
         )}
       </div>
@@ -174,16 +178,16 @@ export default function PillSchedule({ medications, alerts = [] }: PillScheduleP
   };
 
   const card = (title: string, sub: string, icon: React.ReactNode, iconBg: string, count: number, children: React.ReactNode) => (
-    <div className="bg-white rounded-2xl p-5 card-surface space-y-3">
-      <div className="flex items-center justify-between border-b border-gray-100 pb-3">
+    <div className="dash-card p-5 sm:p-6 space-y-3">
+      <div className="flex items-center justify-between border-b border-slate-100 pb-3">
         <div className="flex items-center gap-2.5">
-          <div className={`w-8 h-8 rounded-xl flex items-center justify-center ${iconBg}`}>{icon}</div>
+          <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${iconBg}`}>{icon}</div>
           <div>
-            <h3 className="text-sm font-bold text-gray-900">{title}</h3>
-            <p className="text-[11px] text-gray-500">{sub}</p>
+            <h3 className="text-sm font-bold text-slate-900">{title}</h3>
+            <p className="text-[11px] text-slate-500">{sub}</p>
           </div>
         </div>
-        <span className="text-xs font-semibold px-2 py-0.5 rounded-md bg-gray-100 text-gray-600">
+        <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-slate-100 text-slate-500">
           {count} {count === 1 ? "pill" : "pills"}
         </span>
       </div>
@@ -193,35 +197,75 @@ export default function PillSchedule({ medications, alerts = [] }: PillScheduleP
 
   const tabCls = (active: boolean) =>
     `relative z-10 flex-1 min-h-11 px-2 rounded-lg transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 ${
-      active ? "text-gray-900 font-bold" : "hover:text-gray-900"
+      active ? "text-slate-900 font-bold" : "hover:text-slate-900"
     }`;
 
   return (
-    <div className="space-y-4">
-      <div className="bg-white rounded-2xl p-4 card-surface flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+    <div className="space-y-5">
+      {/* Calm white header — title left, adherence right, no dark gradient */}
+      <div className="dash-card p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 className="text-base font-bold text-gray-900 flex items-center gap-2">
-            <span>💊</span> Daily Pill Timeline
+          <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
+            <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600" aria-hidden>
+              <Pill className="w-4.5 h-4.5" />
+            </span>
+            Daily Pill Timeline
           </h2>
-          <p className="print-hide text-xs text-gray-500">Tap a pill card to log the dose as taken</p>
+          <p className="print-hide text-xs text-slate-500 mt-1">Tap a pill card to log the dose as taken</p>
         </div>
         <div className="print-hide flex items-center gap-3">
-          <div className="text-right">
-            <span className="text-xs font-bold text-gray-800 tabular-nums">
-              {takenCount} of {totalDoses} Taken
-            </span>
-            <div className="w-24 bg-gray-200 rounded-full h-2 mt-1 overflow-hidden">
-              <div className="bg-emerald-500 h-full rounded-full transition-all duration-300" style={{ width: `${percent}%` }} />
-            </div>
+          <div className="relative h-14 w-14 shrink-0" role="img" aria-label={`${takenCount} of ${totalDoses} doses taken`}>
+            <svg className="sev-ring h-14 w-14" viewBox="0 0 56 56">
+              <circle className="ring-track" cx="28" cy="28" r="24" />
+              <circle className="ring-value" cx="28" cy="28" r="24" stroke="#059669" strokeDasharray={2 * Math.PI * 24} strokeDashoffset={2 * Math.PI * 24 * (1 - percent / 100)} />
+            </svg>
+            <span className="absolute inset-0 flex items-center justify-center text-xs font-bold text-slate-900 tabular-nums">{percent}%</span>
           </div>
-          <span className="text-xs font-bold px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-700 border border-emerald-200 tabular-nums">
-            {percent}%
-          </span>
+          <div>
+            <span className="block text-sm font-bold text-slate-900 tabular-nums">{takenCount} of {totalDoses} taken</span>
+            <span className="block text-[11px] text-slate-500">{totalDoses - takenCount} dose{totalDoses - takenCount === 1 ? "" : "s"} left today</span>
+          </div>
         </div>
       </div>
 
+      {/* Unified day timeline — quiet chips, HOLD in plain red text */}
+      <div className="day-strip no-print flex gap-2 overflow-x-auto pb-1" aria-label="Today's doses in order">
+        {activeSlots.flatMap((s) =>
+          slotMeds(s.id).map((m) => {
+            const held = isHeld(m, alerts);
+            const key = `${s.id}-${m.name}`;
+            const taken = !held && !!takenMap[key];
+            return (
+              <button
+                key={key}
+                type="button"
+                onClick={() => !held && toggle(key)}
+                className={`flex shrink-0 items-center gap-2.5 rounded-xl border px-3 py-2.5 text-left transition-all ${
+                  held
+                    ? "border-red-200 bg-white"
+                    : taken
+                    ? "border-emerald-200 bg-emerald-50/60"
+                    : "border-slate-200 bg-white hover:border-slate-300"
+                }`}
+              >
+                <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ${s.id === "morning" ? "bg-amber-50" : s.id === "afternoon" ? "bg-orange-50" : "bg-indigo-50"}`} aria-hidden>
+                  {slotIcon(s.id)}
+                </span>
+                <span className="min-w-0">
+                  <span className="block text-[10px] font-semibold uppercase tracking-wide text-slate-400">{s.id} · {s.time.split(" - ")[0]}</span>
+                  <span className={`block truncate text-xs font-bold ${taken ? "text-slate-400 line-through" : "text-slate-900"}`}>{m.name}</span>
+                  <span className={`block text-[10px] font-semibold ${held ? "text-red-600" : taken ? "text-emerald-700" : "text-slate-500"}`}>
+                    {held ? "Hold — ask doctor first" : taken ? "Taken" : "Tap to log taken"}
+                  </span>
+                </span>
+              </button>
+            );
+          })
+        )}
+      </div>
+
       {activeSlots.length > 1 && (
-        <div className="relative flex items-center bg-gray-100 p-1 rounded-xl text-xs font-medium text-gray-600 no-print" role="tablist">
+        <div className="relative flex items-center bg-slate-100 p-1 rounded-xl text-xs font-medium text-slate-500 no-print" role="tablist">
           <span aria-hidden className="tab-pill" style={{ "--tabs": activeSlots.length + 1, "--i": currentFilter === "all" ? 0 : 1 + activeSlots.findIndex((x) => x.id === currentFilter) } as React.CSSProperties} />
           <button type="button" className={tabCls(currentFilter === "all")} onClick={() => setFilter("all")}>
             All ({activeSlots.reduce((n, s) => n + slotMeds(s.id).length, 0)})
@@ -234,15 +278,15 @@ export default function PillSchedule({ medications, alerts = [] }: PillScheduleP
         </div>
       )}
 
-      <div className="space-y-3">
+      <div className="space-y-4">
         {activeSlots
           .filter((s) => currentFilter === "all" || currentFilter === s.id)
-          .map((s) => {
+          .map((s, i) => {
             const meds = slotMeds(s.id);
             return (
-              <div key={s.id}>
+              <Reveal key={s.id} from="left" delay={i * 100}>
                 {card(s.title, s.time, s.icon, s.iconBg, meds.length, meds.map((m) => renderMed(m, `${s.id}-${m.name}`, true)))}
-              </div>
+              </Reveal>
             );
           })}
 

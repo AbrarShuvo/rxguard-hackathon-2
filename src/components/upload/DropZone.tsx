@@ -9,6 +9,8 @@ interface DropZoneProps {
   accept: string;
   file: File | null;
   onFileSelect: (file: File | null) => void;
+  step?: string;
+  hint?: string;
 }
 
 export default function DropZone({
@@ -17,6 +19,8 @@ export default function DropZone({
   accept,
   file,
   onFileSelect,
+  step,
+  hint,
 }: DropZoneProps) {
   const [isDragOver, setIsDragOver] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -78,16 +82,16 @@ export default function DropZone({
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
       className={`
-        upload-card ${isDragOver ? "is-drag" : ""}
+        upload-card ${isDragOver ? "is-drag dropzone-hot" : ""}
         relative flex flex-col items-center justify-center
-        w-full min-h-[180px] rounded-xl border-2 border-dashed
-        transition-all duration-200 cursor-pointer
+        w-full min-h-[190px] rounded-3xl border-2 border-dashed
+        transition-all duration-200 cursor-pointer group
         ${
           file
-            ? "border-emerald-300 bg-emerald-50/50"
+            ? "border-emerald-300 bg-emerald-50/50 shadow-lg shadow-emerald-600/10"
             : isDragOver
             ? "border-emerald-500 bg-emerald-50 scale-[1.01]"
-            : "border-gray-300 bg-white hover:border-emerald-400 hover:bg-emerald-50/30"
+            : "border-gray-300 bg-white/90 hover:border-emerald-400 hover:bg-emerald-50/40 hover:shadow-lg hover:shadow-emerald-600/5 hover:-translate-y-0.5"
         }
       `}
     >
@@ -103,8 +107,9 @@ export default function DropZone({
       {file ? (
         /* ── File Selected State ── */
         <div className="flex flex-col items-center gap-2 px-4 py-3">
-          <div className="w-10 h-10 rounded-lg bg-emerald-100 flex items-center justify-center">
-            <FileText className="w-5 h-5 text-emerald-600" />
+          <div className="relative w-12 h-12 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 text-white flex items-center justify-center shadow-lg shadow-emerald-600/30 animate-pop-in">
+            <FileText className="w-6 h-6" />
+            <span className="absolute -bottom-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-white text-emerald-600 shadow ring-1 ring-emerald-100 text-[10px] font-black">✓</span>
           </div>
           <div className="text-center">
             <p className="text-sm font-medium text-gray-800 max-w-[200px] truncate">
@@ -123,13 +128,16 @@ export default function DropZone({
       ) : (
         /* ── Empty State ── */
         <div className="flex flex-col items-center gap-3 px-4 py-6">
-          <div className="w-12 h-12 rounded-xl bg-gray-100 flex items-center justify-center group-hover:bg-emerald-100 transition-colors">
+          {step && (
+            <span className="eyebrow rounded-full bg-gray-900 px-2.5 py-1 text-white shadow-sm">{step}</span>
+          )}
+          <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-gray-100 to-gray-50 flex items-center justify-center ring-1 ring-gray-200/80 group-hover:from-emerald-100 group-hover:to-teal-50 group-hover:ring-emerald-200 group-hover:scale-110 group-hover:-rotate-3 transition-all duration-200 shadow-sm">
             {icon}
           </div>
           <div className="text-center">
-            <p className="text-sm font-semibold text-gray-700">{label}</p>
+            <p className="font-display text-sm font-bold text-gray-800">{label}</p>
             <p className="text-xs text-gray-400 mt-1">
-              Drag &amp; drop or click to browse
+              {hint ?? "Drag & drop or click to browse"}
             </p>
           </div>
           <div className="flex items-center gap-2 text-[11px] text-gray-400">

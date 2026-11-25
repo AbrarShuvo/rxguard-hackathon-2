@@ -62,7 +62,7 @@ export default function SourceDocumentModal({
         aria-modal="true"
         aria-labelledby="source-doc-title"
         onClick={(e) => e.stopPropagation()}
-        className="relative w-full max-w-4xl max-h-[90vh] bg-white rounded-2xl shadow-2xl overflow-hidden flex flex-col">
+        className="relative w-full max-w-4xl max-h-[90vh] bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col animate-pop-in">
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200 bg-gray-50/80">
           <div className="flex items-center gap-2.5">
