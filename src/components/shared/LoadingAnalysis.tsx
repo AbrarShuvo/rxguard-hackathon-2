@@ -28,7 +28,7 @@ export default function LoadingAnalysis() {
         <div className="relative w-20 h-20 rounded-[1.75rem] bg-gradient-to-br from-emerald-500 to-teal-600 text-white flex items-center justify-center shadow-xl shadow-emerald-600/30 animate-float">
           <ShieldCheck className="w-10 h-10" />
         </div>
-        <span className="absolute -bottom-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-[#F4FBF6] shadow-md ring-1 ring-emerald-100">
+        <span className="absolute -bottom-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-[#F4FBF6]/80 backdrop-blur-sm shadow-md ring-1 ring-emerald-100">
           <Loader2 className="w-3.5 h-3.5 text-emerald-600 animate-spin motion-reduce:animate-none" aria-hidden />
         </span>
       </div>
@@ -46,7 +46,7 @@ export default function LoadingAnalysis() {
           { label: "Verdict", state: active >= 3 ? ("current" as const) : ("todo" as const) },
         ].map((chip, i) => (
           <span key={chip.label} className="flex items-center gap-1.5">
-            <span className={`rounded-full px-3 py-1.5 text-[11px] font-black uppercase tracking-wide ${chip.state === "done" ? "bg-emerald-600 text-white" : chip.state === "current" ? "bg-emerald-100 text-emerald-800 ring-1 ring-emerald-300" : "bg-[#E3F2E9] text-[#7A938A]"}`}>
+            <span className={`rounded-full px-3 py-1.5 text-[11px] font-black uppercase tracking-wide ${chip.state === "done" ? "bg-emerald-600 text-white" : chip.state === "current" ? "bg-emerald-100 text-emerald-800 ring-1 ring-emerald-300" : "bg-[#E3F2E9]/55 backdrop-blur-sm text-[#7A938A]"}`}>
               {chip.state === "done" ? "✓ " : ""}{chip.label}
             </span>
             {i < 2 && <span className="text-[#9DB3A8]">→</span>}
@@ -81,7 +81,7 @@ export default function LoadingAnalysis() {
                 current
                   ? "border-emerald-300 bg-emerald-50/70 shadow-sm shadow-emerald-600/10 scale-[1.01]"
                   : done
-                  ? "border-[#0B5F51]/10 bg-[#F4FBF6]/70"
+                  ? "glass-inner border-[#0B5F51]/10"
                   : "border-[#0B5F51]/10 bg-[#F4FBF6]/40 opacity-60"
               }`}
             >
@@ -90,8 +90,8 @@ export default function LoadingAnalysis() {
                   done
                     ? "bg-emerald-600 border-emerald-600 text-white"
                     : current
-                    ? "bg-[#F4FBF6] border-emerald-400 text-emerald-600 shadow-sm"
-                    : "bg-[#F4FBF6] border-[#0B5F51]/15 text-[#7A938A]"
+                    ? "bg-[#F4FBF6]/70 backdrop-blur-sm border-emerald-400 text-emerald-600 shadow-sm"
+                    : "bg-[#F4FBF6]/55 backdrop-blur-sm border-[#0B5F51]/15 text-[#7A938A]"
                 }`}
               >
                 {done ? (
@@ -115,13 +115,13 @@ export default function LoadingAnalysis() {
 
       {/* Skeleton preview of the dashboard to come */}
       <div className="w-full space-y-2" aria-hidden>
-        <div className="h-16 rounded-2xl border border-[#0B5F51]/10 bg-[#F4FBF6]/70 p-3">
+        <div className="glass-inner h-16 rounded-2xl border-[#0B5F51]/10 p-3">
           <div className="h-3 w-2/3 rounded-full animate-shimmer" />
           <div className="mt-2.5 h-3 w-1/2 rounded-full animate-shimmer" />
         </div>
         <div className="grid grid-cols-3 gap-2">
           {[0, 1, 2].map((i) => (
-            <div key={i} className="h-12 rounded-xl border border-[#0B5F51]/10 bg-[#F4FBF6]/60 p-2">
+            <div key={i} className="glass-inner h-12 rounded-xl border-[#0B5F51]/10 p-2">
               <div className="h-2.5 w-3/4 rounded-full animate-shimmer" />
               <div className="mt-2 h-2.5 w-1/2 rounded-full animate-shimmer" />
             </div>

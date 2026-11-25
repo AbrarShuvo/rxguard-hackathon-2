@@ -15,7 +15,7 @@ import { Reveal } from "@/components/shared/Reveal";
 const severityConfig = {
   CRITICAL: {
     bar: "bg-[#A44A3A]",
-    iconWrap: "bg-[#F6E9E4] text-[#A44A3A]",
+    iconWrap: "bg-[#F6E9E4]/70 backdrop-blur-sm text-[#A44A3A]",
     icon: ShieldAlert,
     badge: "bg-[#A44A3A] text-white",
     titleColor: "text-[#0B1F1B]",
@@ -24,7 +24,7 @@ const severityConfig = {
   },
   WARNING: {
     bar: "bg-amber-500",
-    iconWrap: "bg-amber-50 text-amber-600",
+    iconWrap: "bg-amber-50/70 backdrop-blur-sm text-amber-600",
     icon: AlertTriangle,
     badge: "bg-amber-500 text-white",
     titleColor: "text-[#0B1F1B]",
@@ -63,7 +63,7 @@ export default function AlertBanner({ alerts }: SafetyAlertProps) {
           <ShieldAlert className="h-5 w-5 text-[#A44A3A]" aria-hidden />
           What needs your attention
         </h2>
-        <span className="rounded-full bg-[#F4FBF6]/85 px-2.5 py-1 text-xs font-semibold text-[#5A7268] tabular-nums shadow-sm ring-1 ring-[#0B1F1B]/5">
+        <span className="glass-inner rounded-full px-2.5 py-1 text-xs font-semibold text-[#5A7268] tabular-nums shadow-sm ring-1 ring-[#0B1F1B]/5">
           {sorted.length} {sorted.length === 1 ? "thing to know" : "things to know"} · worst first
         </span>
       </div>
@@ -76,7 +76,7 @@ export default function AlertBanner({ alerts }: SafetyAlertProps) {
             type="button"
             data-active={filter === f}
             onClick={() => setFilter(f)}
-            className="triage-pill inline-flex min-h-9 items-center gap-1.5 rounded-full border border-[#0B5F51]/15 bg-[#F4FBF6]/70 px-3.5 py-1.5 text-xs font-semibold text-[#3D5A50]"
+            className="triage-pill inline-flex min-h-9 items-center gap-1.5 rounded-full border border-[#0B5F51]/15 bg-[#F4FBF6]/55 backdrop-blur-md px-3.5 py-1.5 text-xs font-semibold text-[#3D5A50]"
           >
             {f === "ALL" ? "All" : f.charAt(0) + f.slice(1).toLowerCase()} ({counts[f]})
           </button>

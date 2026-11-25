@@ -29,7 +29,7 @@ export default function DashboardPreview({ onRun }: { onRun: () => void }) {
       </Reveal>
 
       <Reveal from="up">
-        <div className="overflow-hidden rounded-3xl border border-[#0B5F51]/15 bg-[#F4FBF6]/80 shadow-2xl shadow-[#0B1F1B]/15">
+        <div className="glass-panel overflow-hidden rounded-3xl">
           {/* Mini verdict bar */}
           <div className="flex flex-col sm:flex-row sm:items-center gap-4 bg-[#8C3B2E] px-5 py-5 text-white">
             <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#F4FBF6]/15 ring-1 ring-white/30">
@@ -57,21 +57,21 @@ export default function DashboardPreview({ onRun }: { onRun: () => void }) {
 
           {/* Bento rows */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 p-4 sm:p-5">
-            <div className="rounded-2xl border border-[#A44A3A]/25 bg-[#F6E9E4]/70 p-4">
+            <div className="glass-inner rounded-2xl border-[#A44A3A]/25 p-4">
               <p className="flex items-center gap-1.5 text-[11px] font-black uppercase tracking-wider text-[#8C3B2E]">
                 <ShieldAlert className="h-3.5 w-3.5" aria-hidden /> Triage · Critical
               </p>
               <p className="mt-2 text-sm font-bold leading-snug text-[#0B1F1B]">NSAID prescribed with impaired kidney function</p>
               <p className="mt-1 text-xs text-[#3D5A50]">Creatinine 1.8 · eGFR 52 — kidneys already stressed.</p>
             </div>
-            <div className="rounded-2xl border border-[#0B5F51]/15 bg-[#EFFAF3]/70 p-4">
+            <div className="glass-inner rounded-2xl p-4">
               <p className="flex items-center gap-1.5 text-[11px] font-black uppercase tracking-wider text-[#2C4A42]">
                 <Activity className="h-3.5 w-3.5" aria-hidden /> Pathway
               </p>
               <p className="mt-2 text-sm font-bold leading-snug text-[#0B1F1B]">Ibuprofen → less kidney blood flow → acute kidney injury</p>
               <p className="mt-1 text-xs text-[#3D5A50]">Drug → lab → harm, traced step by step.</p>
             </div>
-            <div className="rounded-2xl border border-[#0B5F51]/15 bg-[#EFFAF3]/70 p-4">
+            <div className="glass-inner rounded-2xl p-4">
               <p className="flex items-center gap-1.5 text-[11px] font-black uppercase tracking-wider text-[#2C4A42]">
                 <Pill className="h-3.5 w-3.5" aria-hidden /> Today&apos;s plan
               </p>

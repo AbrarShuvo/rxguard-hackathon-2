@@ -62,9 +62,9 @@ export default function SourceDocumentModal({
         aria-modal="true"
         aria-labelledby="source-doc-title"
         onClick={(e) => e.stopPropagation()}
-        className="relative w-full max-w-4xl max-h-[90vh] bg-[#F4FBF6] rounded-3xl shadow-2xl overflow-hidden flex flex-col animate-pop-in">
+        className="glass-panel relative w-full max-w-4xl max-h-[90vh] rounded-3xl shadow-2xl overflow-hidden flex flex-col animate-pop-in">
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-[#0B5F51]/15 bg-[#EFFAF3]/80">
+        <div className="glass-inner flex items-center justify-between px-6 py-4 border-b border-[#0B5F51]/15">
           <div className="flex items-center gap-2.5">
             <div className="w-8 h-8 rounded-lg bg-emerald-100 flex items-center justify-center text-emerald-700">
               <FileText className="w-4 h-4" />
@@ -104,7 +104,7 @@ export default function SourceDocumentModal({
                       Dr. A. Sharma, MD (Internal Medicine) · Reg: #MH-88421
                     </p>
                   </div>
-                  <span className="text-xs font-mono font-bold text-[#3D5A50] bg-[#E3F2E9] px-2 py-0.5 rounded">
+                  <span className="text-xs font-mono font-bold text-[#3D5A50] bg-[#E3F2E9]/55 backdrop-blur-sm px-2 py-0.5 rounded">
                     Rx #8902-B
                   </span>
                 </div>
@@ -167,7 +167,7 @@ export default function SourceDocumentModal({
             </div>
 
             {/* Document 2: Pathology Diagnostic Lab Panel */}
-            <div className="border border-[#0B5F51]/15 rounded-xl p-5 bg-[#F4FBF6] shadow-sm font-sans">
+            <div className="glass-inner border border-[#0B5F51]/15 rounded-xl p-5 font-sans">
               <div className="flex justify-between items-center border-b border-[#0B5F51]/15 pb-3 mb-3">
                 <div>
                   <h4 className="font-bold text-[#0B1F1B] text-sm">
@@ -177,7 +177,7 @@ export default function SourceDocumentModal({
                     NABL Accredited Diagnostics · Barcode: #LAB-40912-KFT
                   </p>
                 </div>
-                <span className="text-xs font-semibold px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200">
+                <span className="text-xs font-semibold px-2 py-0.5 rounded bg-emerald-50/70 backdrop-blur-sm text-emerald-700 border border-emerald-200">
                   Verified Lab Report
                 </span>
               </div>

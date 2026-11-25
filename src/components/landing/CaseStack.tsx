@@ -50,22 +50,22 @@ const CARDS = [
 
 const toneCls: Record<string, { card: string; stamp: string; chip: string; btn: string }> = {
   red: {
-    card: "border-[#A44A3A]/25 bg-gradient-to-br from-[#F6E9E4] via-[#F4FBF6] to-[#F4FBF6]",
+    card: "border-[#A44A3A]/25",
     stamp: "border-[#A44A3A] text-[#A44A3A]",
-    chip: "border-[#A44A3A]/25 bg-[#F4FBF6]/70 text-[#8C3B2E]",
-    btn: "bg-[#A44A3A] hover:bg-[#8C3B2E] text-white",
+    chip: "border-[#A44A3A]/25 bg-[#F4FBF6]/55 backdrop-blur-md text-[#8C3B2E]",
+    btn: "btn-danger text-white",
   },
   amber: {
-    card: "border-amber-200 bg-gradient-to-br from-amber-50 via-[#F4FBF6] to-[#F4FBF6]",
+    card: "border-amber-500/30",
     stamp: "border-amber-600 text-amber-600",
-    chip: "border-amber-200 bg-[#F4FBF6] text-amber-700",
-    btn: "bg-amber-500 hover:bg-amber-600 text-white",
+    chip: "border-amber-500/30 bg-[#F4FBF6]/55 backdrop-blur-md text-amber-700",
+    btn: "btn-amber text-white",
   },
   green: {
-    card: "border-emerald-200 bg-gradient-to-br from-emerald-50 via-[#F4FBF6] to-[#F4FBF6]",
+    card: "border-emerald-600/30",
     stamp: "border-emerald-600 text-emerald-600",
-    chip: "border-emerald-200 bg-[#F4FBF6] text-emerald-700",
-    btn: "bg-emerald-600 hover:bg-emerald-700 text-white",
+    chip: "border-emerald-600/30 bg-[#F4FBF6]/55 backdrop-blur-md text-emerald-700",
+    btn: "btn-primary text-white",
   },
 };
 
@@ -93,7 +93,7 @@ export default function CaseStack({ onSelect }: { onSelect: (caseId: "A" | "B") 
           return (
             <article
               key={`${c.title}-${i}`}
-              className={`stack-card relative overflow-hidden rounded-3xl border-2 ${tone.card} p-5 sm:p-7 shadow-xl shadow-[#0B1F1B]/10`}
+              className={`stack-card glass-panel relative overflow-hidden rounded-3xl border-2 ${tone.card} p-5 sm:p-7`}
             >
               <div className="flex flex-col sm:flex-row sm:items-start gap-5">
                 <div className="flex-1 min-w-0 space-y-3">
@@ -126,7 +126,7 @@ export default function CaseStack({ onSelect }: { onSelect: (caseId: "A" | "B") 
                   <button
                     type="button"
                     onClick={() => onSelect(c.id)}
-                    className={`pressable mt-1 inline-flex min-h-11 items-center gap-2 rounded-full px-5 py-2.5 text-sm font-bold shadow-lg transition-all hover:-translate-y-0.5 ${tone.btn}`}
+                    className={`mt-1 inline-flex min-h-11 items-center gap-2 rounded-full px-5 py-2.5 text-sm font-bold shadow-xl ${tone.btn}`}
                   >
                     Run this case live
                     <ArrowRight className="h-4 w-4" aria-hidden />
@@ -135,7 +135,7 @@ export default function CaseStack({ onSelect }: { onSelect: (caseId: "A" | "B") 
 
                 {/* Verdict stamp — word + icon + colour, never colour alone */}
                 <div className="shrink-0 sm:pt-2">
-                  <div className={`stamp inline-flex flex-col items-center gap-1 rounded-2xl border-[3px] px-5 py-3 ${tone.stamp} bg-[#F4FBF6]/70`}>
+                  <div className={`stamp inline-flex flex-col items-center gap-1 rounded-2xl border-[3px] px-5 py-3 ${tone.stamp} bg-[#F4FBF6]/55 backdrop-blur-md`}>
                     <Icon className="h-6 w-6" aria-hidden />
                     <span className="text-2xl font-black tracking-widest">{c.stamp}</span>
                     <span className="text-[10px] font-bold uppercase tracking-wide opacity-80">{c.stampLabel}</span>

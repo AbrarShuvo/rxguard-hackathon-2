@@ -372,14 +372,14 @@ export default function Home() {
             <div className="flex flex-wrap items-center gap-2">
               <button
                 onClick={() => setIsModalOpen(true)}
-                className={`${btn} bg-[#F4FBF6]/70 hover:bg-[#EFFAF3]/80 text-[#2C4A42] border-[#0B5F51]/15`}
+                className={`${btn} btn-glass text-[#2C4A42]`}
               >
                 <Eye className="w-3.5 h-3.5 text-[#5A7268]" />
                 <span>{t.sourceDocBtn}</span>
               </button>
               <button
                 onClick={handleExportCalendar}
-                className={`${btn} bg-[#F4FBF6]/70 hover:bg-[#EFFAF3]/80 text-[#2C4A42] border-[#0B5F51]/15`}
+                className={`${btn} btn-glass text-[#2C4A42]`}
                 title="Download .ics file for Google Calendar, Apple Calendar, or Outlook"
               >
                 <Calendar className="w-3.5 h-3.5 text-[#5A7268]" />
@@ -388,7 +388,7 @@ export default function Home() {
               </button>
               <button
                 onClick={handleExportFhir}
-                className={`${btn} bg-[#F4FBF6]/70 hover:bg-[#EFFAF3]/80 text-[#2C4A42] border-[#0B5F51]/15`}
+                className={`${btn} btn-glass text-[#2C4A42]`}
                 title="Export a FHIR-style JSON bundle"
               >
                 <FileCode className="w-3.5 h-3.5 text-[#5A7268]" />
@@ -397,7 +397,7 @@ export default function Home() {
               </button>
               <button
                 onClick={() => window.print()}
-                className={`${btn} bg-[#0B1F1B] hover:bg-[#12312A] text-white border-[#0B1F1B]`}
+                className={`${btn} btn-primary text-white`}
               >
                 <Printer className="w-3.5 h-3.5" />
                 <span>{t.printCard}</span>
@@ -604,7 +604,7 @@ export default function Home() {
 
               {/* Error Message */}
               {(errorMsg || appState === "error") && (
-                <div className="animate-pop-in p-4 rounded-2xl bg-[#F6E9E4] border border-[#A44A3A]/25 text-sm text-[#7A3327] space-y-2 shadow-sm">
+                <div className="animate-pop-in p-4 rounded-2xl bg-[#F6E9E4]/70 backdrop-blur-md border border-[#A44A3A]/25 text-sm text-[#7A3327] space-y-2 shadow-sm">
                   <div className="flex items-start gap-2">
                     <span>⚠️</span>
                     <span className="flex-1 leading-relaxed">
@@ -615,7 +615,7 @@ export default function Home() {
                     <button
                       type="button"
                       onClick={() => setIsKeyModalOpen(true)}
-                      className="px-3 min-h-11 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-lg transition-colors shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2"
+                      className="btn-primary px-4 min-h-11 text-white font-bold text-xs rounded-full shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2"
                     >
                       🔑 Configure Custom API Key
                     </button>
@@ -631,7 +631,7 @@ export default function Home() {
                 <button
                   onClick={handleAnalyze}
                   disabled={!prescriptionFile && !labReportFile}
-                  className="btn-primary group w-full py-4 sm:py-5 px-6 text-white font-bold rounded-2xl flex items-center justify-center gap-2 text-base sm:text-lg disabled:cursor-not-allowed"
+                  className="btn-primary group w-full py-4 sm:py-5 px-6 text-white font-bold rounded-full flex items-center justify-center gap-2 text-base sm:text-lg shadow-xl disabled:cursor-not-allowed"
                 >
                   <Search className="w-5 h-5" />
                   {t.analyzeBtn}
@@ -659,7 +659,7 @@ export default function Home() {
                 { icon: Languages, num: 3, suffix: "", big: " languages", small: "EN · हिन्दी · ES", tile: "bg-teal-600 text-white shadow-lg shadow-teal-600/30", iconCls: "text-white" },
                 { icon: Timer, num: 90, suffix: "", big: " seconds", small: "to a full verdict", tile: "bg-amber-500 text-white shadow-lg shadow-amber-500/30", iconCls: "text-white" },
               ].map((x) => (
-                <div key={x.big} className="card-lift rounded-2xl bg-[#F4FBF6]/90 border border-[#0B5F51]/10 px-3 py-3 shadow-sm">
+                <div key={x.big} className="card-lift glass-inner rounded-2xl px-3 py-3">
                   <span className={`mb-2 flex h-8 w-8 items-center justify-center rounded-xl ${x.tile}`}><x.icon className={`w-4 h-4 ${x.iconCls}`} aria-hidden /></span>
                   <p className="text-base font-black text-[#0B1F1B] leading-none">
                     {x.num !== null ? <CountUp to={x.num} /> : null}{x.big}
@@ -692,7 +692,7 @@ export default function Home() {
                     <p className="mt-2 text-sm sm:text-base text-[#3D5A50] leading-relaxed max-w-xl mx-auto sm:mx-0">{row.sub}</p>
                   </div>
                   <div className="w-full sm:w-72 lg:w-80 shrink-0">
-                    <div className="card-lift rounded-3xl border border-[#0B5F51]/12 bg-[#F4FBF6]/90 p-5 shadow-lg shadow-[#0B1F1B]/5 text-center">
+                    <div className="card-lift glass-panel rounded-3xl p-5 text-center">
                       <row.icon className="mx-auto h-8 w-8 text-emerald-600" aria-hidden />
                       <p className="mt-3 text-sm font-black text-[#0B1F1B]">{row.visual}</p>
                       <p className="mt-1 text-[11px] font-semibold uppercase tracking-wider text-[#7A938A]">Step {row.n} of 3</p>
@@ -744,7 +744,7 @@ export default function Home() {
                 <button
                   type="button"
                   onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-                  className="pressable inline-flex min-h-11 items-center gap-2 rounded-full border border-[#F4FBF6]/25 px-6 py-3 text-sm font-bold text-white hover:bg-[#F4FBF6]/10"
+                  className="btn-ghost-light pressable inline-flex min-h-11 items-center gap-2 rounded-full px-6 py-3 text-sm font-bold text-white"
                 >
                   Back to the upload
                 </button>

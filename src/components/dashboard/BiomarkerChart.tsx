@@ -40,7 +40,7 @@ export default function BiomarkerChart({ markers }: BiomarkerChartProps) {
         </p>
 
         {/* Filter tabs — quiet segmented control */}
-        <div className="relative flex w-full items-center bg-[#E3F2E9] p-1 rounded-xl text-xs font-medium no-print mt-4">
+        <div className="relative flex w-full items-center bg-[#E3F2E9]/55 backdrop-blur-sm p-1 rounded-xl text-xs font-medium no-print mt-4">
           <span aria-hidden className="tab-pill" style={{ "--tabs": 3, "--i": ["all", "abnormal", "normal"].indexOf(filterType) } as React.CSSProperties} />
           <button
             onClick={() => setFilterType("all")}
@@ -110,7 +110,7 @@ export default function BiomarkerChart({ markers }: BiomarkerChartProps) {
                     <span
                       className={`inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full mt-1 ${
                         isHigh
-                          ? "bg-[#F6E9E4] text-[#8C3B2E]"
+                          ? "bg-[#F6E9E4]/70 backdrop-blur-sm text-[#8C3B2E]"
                           : isLow
                           ? "bg-amber-50 text-amber-700"
                           : "bg-emerald-50 text-emerald-700"
@@ -131,7 +131,7 @@ export default function BiomarkerChart({ markers }: BiomarkerChartProps) {
                     <span>Normal range</span>
                     <span>HIGH</span>
                   </div>
-                  <div className="lab-bar lab-bar--slim w-full bg-[#E3F2E9] rounded-full overflow-hidden flex relative">
+                  <div className="lab-bar lab-bar--slim w-full bg-[#0B5F51]/12 rounded-full overflow-hidden flex relative">
                     <div className="animate-bar-fill w-[25%] bg-amber-300/80" title="Low zone" />
                     <div className="animate-bar-fill w-[50%] bg-emerald-400/80" title="Normal zone" style={{ animationDelay: "80ms" }} />
                     <div className="animate-bar-fill w-[25%] bg-[#C07A66]/70" title="High zone" style={{ animationDelay: "160ms" }} />

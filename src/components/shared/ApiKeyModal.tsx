@@ -54,7 +54,7 @@ export default function ApiKeyModal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#04120E]/60 backdrop-blur-xs animate-fade-in no-print">
-      <div className="relative w-full max-w-md bg-[#F4FBF6] rounded-3xl shadow-2xl overflow-hidden border border-[#0B5F51]/15 animate-pop-in">
+      <div className="glass-panel relative w-full max-w-md rounded-3xl shadow-2xl overflow-hidden animate-pop-in">
         {/* Header */}
         <div className="flex items-center justify-between px-5 py-4 border-b border-[#0B5F51]/15 bg-[#EFFAF3]/80">
           <div className="flex items-center gap-2.5">

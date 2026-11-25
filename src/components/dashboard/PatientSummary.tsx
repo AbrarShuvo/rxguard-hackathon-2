@@ -14,7 +14,7 @@ interface PatientSummaryProps {
 const riskConfig = {
   CRITICAL: {
     accent: "#A44A3A",
-    accentSoft: "bg-[#F6E9E4] text-[#8C3B2E]",
+    accentSoft: "bg-[#F6E9E4]/70 backdrop-blur-sm text-[#8C3B2E]",
     ring: "#A44A3A",
     icon: ShieldAlert,
     iconColor: "text-[#A44A3A]",
@@ -22,7 +22,7 @@ const riskConfig = {
   },
   WARNING: {
     accent: "#b45309",
-    accentSoft: "bg-amber-50 text-amber-700",
+    accentSoft: "bg-amber-50/70 backdrop-blur-sm text-amber-700",
     ring: "#d97706",
     icon: AlertTriangle,
     iconColor: "text-amber-600",
@@ -30,7 +30,7 @@ const riskConfig = {
   },
   LOW: {
     accent: "#047857",
-    accentSoft: "bg-emerald-50 text-emerald-700",
+    accentSoft: "bg-emerald-50/70 backdrop-blur-sm text-emerald-700",
     ring: "#059669",
     icon: ShieldCheck,
     iconColor: "text-emerald-600",
@@ -110,7 +110,7 @@ export default function PatientSummary({ result, lang = "en" }: PatientSummaryPr
           </div>
           <p className="text-sm sm:text-[15px] leading-relaxed mt-2 text-[#3D5A50] max-w-2xl">{result.patient_summary}</p>
           {topAlert && (
-            <div className="mt-4 flex items-start gap-2.5 rounded-xl bg-[#EFFAF3] border-l-2 px-4 py-3 text-left" style={{ borderLeftColor: config.accent }}>
+            <div className="mt-4 flex items-start gap-2.5 rounded-xl bg-[#EFFAF3]/60 backdrop-blur-sm border-l-2 px-4 py-3 text-left" style={{ borderLeftColor: config.accent }}>
               <OctagonAlert className="mt-0.5 h-4 w-4 shrink-0 text-[#5A7268]" aria-hidden />
               <p className="text-sm leading-relaxed text-[#2C4A42]">
                 <span className="block text-[10px] font-bold uppercase tracking-wider text-[#7A938A]">One next step</span>

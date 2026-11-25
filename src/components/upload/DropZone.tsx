@@ -91,10 +91,10 @@ export default function DropZone({
         transition-all duration-200 cursor-pointer group
         ${
           file
-            ? "border-emerald-300 bg-emerald-50/50 shadow-lg shadow-emerald-600/10"
+            ? "border-emerald-300 bg-emerald-50/50 backdrop-blur-md shadow-lg shadow-emerald-600/10"
             : isDragOver
-            ? "border-emerald-500 bg-emerald-50 scale-[1.01]"
-            : "border-[#0B5F51]/25 bg-[#F4FBF6]/90 hover:border-emerald-400 hover:bg-emerald-50/40 hover:shadow-lg hover:shadow-emerald-600/5 hover:-translate-y-0.5"
+            ? "border-emerald-500 bg-emerald-50/70 backdrop-blur-md scale-[1.01]"
+            : "glass-panel border-[#0B5F51]/25 hover:border-emerald-400 hover:shadow-lg hover:shadow-emerald-600/10 hover:-translate-y-0.5"
         }
       `}
     >
@@ -112,7 +112,7 @@ export default function DropZone({
         <div className="flex flex-col items-center gap-2 px-4 py-3">
           <div className="relative w-12 h-12 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 text-white flex items-center justify-center shadow-lg shadow-emerald-600/30 animate-pop-in">
             <FileText className="w-6 h-6" />
-            <span className="absolute -bottom-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-[#F4FBF6] text-emerald-600 shadow ring-1 ring-emerald-100 text-[10px] font-black">✓</span>
+            <span className="absolute -bottom-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-[#F4FBF6]/80 backdrop-blur-sm text-emerald-600 shadow ring-1 ring-emerald-100 text-[10px] font-black">✓</span>
           </div>
           <div className="text-center">
             <p className="text-sm font-medium text-[#12312A] max-w-[200px] truncate">

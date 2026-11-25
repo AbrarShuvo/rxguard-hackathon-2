@@ -107,18 +107,18 @@ export default function PillSchedule({ medications, alerts = [] }: PillScheduleP
           interactive ? "cursor-pointer" : ""
         } ${
           held
-            ? "border-[#A44A3A]/30 border-l-4 border-l-[#A44A3A] bg-[#F6E9E4]/40"
+            ? "border-[#A44A3A]/30 border-l-4 border-l-[#A44A3A] bg-[#F6E9E4]/40 backdrop-blur-sm"
             : taken
-            ? "bg-emerald-50/60 border-emerald-200"
+            ? "bg-emerald-50/50 border-emerald-200/70 backdrop-blur-sm"
             : "bg-[#F4FBF6]/60 border-[#0B5F51]/15 hover:border-[#0B5F51]/25"
         } ${taken ? "animate-check-pop" : ""}`}
       >
         {held && (
-          <div className="flex items-start gap-2.5 rounded-xl bg-[#A44A3A] px-3.5 py-2.5 text-white shadow-sm shadow-[#A44A3A]/25">
-            <OctagonAlert className="mt-0.5 h-4 w-4 shrink-0" aria-hidden />
-            <p className="leading-tight">
-              <span className="block text-xs font-black uppercase tracking-wide">Hold — don&apos;t take this one</span>
-              <span className="block text-[11px] text-[#F6E9E4] mt-0.5">Ask your doctor first before taking it again.</span>
+          <div className="flex items-center gap-3 rounded-xl bg-[#A44A3A] px-4 py-3 text-white shadow-md shadow-[#A44A3A]/30">
+            <OctagonAlert className="h-5 w-5 shrink-0" aria-hidden />
+            <p className="leading-none">
+              <span className="block font-display text-[15px] font-black uppercase tracking-[0.18em]">Hold — don&apos;t take this one</span>
+              <span className="mt-1.5 block text-xs font-medium leading-relaxed text-[#F6E9E4]/90">Ask your doctor first before taking it again.</span>
             </p>
           </div>
         )}
@@ -146,27 +146,27 @@ export default function PillSchedule({ medications, alerts = [] }: PillScheduleP
           </div>
 
           {med.confidence !== "high" && (
-            <span className="shrink-0 text-[10px] font-semibold px-2 py-0.5 rounded-full bg-amber-50 text-amber-700 border border-amber-100 flex items-center gap-1">
+            <span className="shrink-0 text-[10px] font-semibold px-2 py-0.5 rounded-full bg-amber-50/70 backdrop-blur-sm text-amber-700 border border-amber-100 flex items-center gap-1">
               <HelpCircle className="w-2.5 h-2.5" />
               Verify handwriting
             </span>
           )}
         </div>
 
-        <p className={`print-hide text-xs text-[#5A7268] italic ${interactive ? "pl-6" : ""}`}>&ldquo;{med.purpose}&rdquo;</p>
+        <p className={`print-hide border-l-2 border-[#0B5F51]/30 pl-3 font-display text-[15px] font-semibold leading-snug text-[#2C4A42] ${interactive ? "ml-6" : ""}`}>&ldquo;{med.purpose}&rdquo;</p>
 
         <div className={`flex flex-wrap items-center gap-2 text-[11px] ${interactive ? "pl-6" : ""}`}>
-          <span className="inline-flex items-center gap-1 font-medium text-[#3D5A50] bg-[#EFFAF3] px-2 py-0.5 rounded-full border border-[#0B5F51]/10">
+          <span className="inline-flex items-center gap-1 font-medium text-[#3D5A50] bg-[#EFFAF3]/60 backdrop-blur-sm px-2 py-0.5 rounded-full border border-[#0B5F51]/10">
             <Utensils className="w-3 h-3" aria-hidden />
             {med.food_instruction}
           </span>
           {duration && (
-            <span className="inline-flex items-center gap-1 font-medium text-[#3D5A50] bg-[#EFFAF3] px-2 py-0.5 rounded-full border border-[#0B5F51]/10">
+            <span className="inline-flex items-center gap-1 font-medium text-[#3D5A50] bg-[#EFFAF3]/60 backdrop-blur-sm px-2 py-0.5 rounded-full border border-[#0B5F51]/10">
               <CalendarDays className="w-3 h-3" aria-hidden />× {duration}
             </span>
           )}
           {taken && (
-            <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full ml-auto">
+            <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50/70 backdrop-blur-sm px-2 py-0.5 rounded-full ml-auto">
               Taken
             </span>
           )}
@@ -192,7 +192,7 @@ export default function PillSchedule({ medications, alerts = [] }: PillScheduleP
             <h3 className="text-2xl font-black text-[#0B1F1B] tabular-nums leading-none mt-1">{bigTime}</h3>
           </div>
         </div>
-        <span className="text-xs font-medium px-2.5 py-1 rounded-full bg-[#E3F2E9] text-[#5A7268]">
+        <span className="text-xs font-medium px-2.5 py-1 rounded-full bg-[#E3F2E9]/55 backdrop-blur-sm text-[#5A7268]">
           {count} {count === 1 ? "pill" : "pills"}
         </span>
       </div>

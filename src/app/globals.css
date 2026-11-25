@@ -122,9 +122,9 @@ body::before {
    ROUND 11: glassier still (0.80, blur 16) so the living
    Velaris gradient breathes through every panel. */
 .card-surface {
-  background-color: rgba(244, 251, 246, 0.8);
-  -webkit-backdrop-filter: blur(16px) saturate(1.3);
-  backdrop-filter: blur(16px) saturate(1.3);
+  background-color: rgba(244, 251, 246, 0.66);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  backdrop-filter: blur(20px) saturate(1.4);
   border: 1px solid var(--hairline);
   box-shadow: inset 0 1px 0 rgba(244, 251, 246, 0.9), var(--shadow-card);
 }
@@ -137,9 +137,9 @@ body::before {
   border-color: rgba(16, 185, 129, 0.35);
 }
 .glass {
-  background: rgba(244, 251, 246, 0.82);
-  -webkit-backdrop-filter: blur(16px) saturate(1.3);
-  backdrop-filter: blur(16px) saturate(1.3);
+  background: rgba(244, 251, 246, 0.66);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  backdrop-filter: blur(20px) saturate(1.4);
 }
 .eyebrow {
   font-size: 0.6875rem;
@@ -148,18 +148,50 @@ body::before {
   text-transform: uppercase;
 }
 
-/* ── Primary button ────────────────────────────────── */
-.btn-primary {
+/* ── Buttons — ONE language, CTA style everywhere ──────
+   ROUND 12: .btn-primary is the reference CTA button — deep
+   green-black mixed with emerald (like the dark header pills),
+   white text, emerald sheen sweep, punchy shadow. Disabled
+   keeps the same green-black gradient at 55% opacity instead
+   of going flat grey, so "Analyze My Documents" never reads
+   pale. .btn-danger / .btn-amber / .btn-glass / .btn-ghost-light
+   share the same radius, weight, shadow rhythm and hover/press
+   feel — only the colour changes. */
+.btn-primary,
+.btn-danger,
+.btn-amber,
+.btn-glass,
+.btn-ghost-light {
   position: relative;
   overflow: hidden;
-  background: linear-gradient(180deg, #14c48e 0%, var(--accent-2) 100%);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.35),
-    0 1px 2px rgba(13, 148, 136, 0.4),
-    0 8px 20px -6px var(--accent-glow);
-  transition: box-shadow 0.2s ease, filter 0.2s ease, transform 0.12s ease;
+  transition: transform 0.15s var(--ease-out), box-shadow 0.2s ease, filter 0.2s ease, background-color 0.2s ease;
 }
-.btn-primary::after {
+.btn-primary:hover:not(:disabled),
+.btn-danger:hover:not(:disabled),
+.btn-amber:hover:not(:disabled),
+.btn-glass:hover:not(:disabled),
+.btn-ghost-light:hover:not(:disabled) {
+  transform: translateY(-1px);
+  filter: brightness(1.08);
+}
+.btn-primary:active:not(:disabled),
+.btn-danger:active:not(:disabled),
+.btn-amber:active:not(:disabled),
+.btn-glass:active:not(:disabled),
+.btn-ghost-light:active:not(:disabled) {
+  transform: translateY(0) scale(0.98);
+}
+.btn-primary {
+  background: linear-gradient(135deg, #0b1f1b 0%, #0b5f51 58%, #0d9488 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.25),
+    0 10px 24px -8px rgba(11, 95, 81, 0.55),
+    0 2px 6px rgba(11, 31, 27, 0.25);
+}
+.btn-primary::after,
+.btn-danger::after,
+.btn-amber::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -168,19 +200,83 @@ body::before {
   transition: transform 0.6s ease;
   pointer-events: none;
 }
-.btn-primary:hover:not(:disabled)::after { transform: translateX(120%); }
+.btn-primary:hover:not(:disabled)::after,
+.btn-danger:hover:not(:disabled)::after,
+.btn-amber:hover:not(:disabled)::after { transform: translateX(120%); }
 .btn-primary:hover:not(:disabled) {
-  filter: brightness(1.05);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.4),
-    0 1px 2px rgba(13, 148, 136, 0.4),
-    0 14px 32px -6px var(--accent-glow);
+    inset 0 1px 0 rgba(255, 255, 255, 0.25),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.25),
+    0 16px 32px -8px rgba(11, 95, 81, 0.6),
+    0 2px 6px rgba(11, 31, 27, 0.25);
 }
 .btn-primary:disabled {
-  background: #d1d5db;
-  box-shadow: none;
+  background: linear-gradient(135deg, #0b1f1b 0%, #0b5f51 58%, #0d9488 100%);
+  opacity: 0.55;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    0 6px 16px -8px rgba(11, 95, 81, 0.4);
+  cursor: not-allowed;
 }
 .btn-primary:disabled::after { display: none; }
+.btn-danger {
+  background: linear-gradient(135deg, #a44a3a 0%, #7a3327 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2),
+    0 10px 24px -8px rgba(164, 74, 58, 0.5),
+    0 2px 6px rgba(11, 31, 27, 0.2);
+}
+.btn-danger:disabled { opacity: 0.55; cursor: not-allowed; }
+.btn-danger:disabled::after { display: none; }
+.btn-amber {
+  background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.18),
+    0 10px 24px -8px rgba(217, 119, 6, 0.5),
+    0 2px 6px rgba(11, 31, 27, 0.2);
+}
+.btn-amber:disabled { opacity: 0.55; cursor: not-allowed; }
+.btn-amber:disabled::after { display: none; }
+.btn-glass {
+  background: rgba(244, 251, 246, 0.7);
+  -webkit-backdrop-filter: blur(14px) saturate(1.3);
+  backdrop-filter: blur(14px) saturate(1.3);
+  border: 1px solid rgba(11, 95, 81, 0.2);
+  box-shadow:
+    inset 0 1px 0 rgba(244, 251, 246, 0.9),
+    0 6px 16px -8px rgba(11, 31, 27, 0.18);
+}
+.btn-glass:disabled { opacity: 0.55; cursor: not-allowed; }
+.btn-ghost-light {
+  background: rgba(244, 251, 246, 0.08);
+  border: 1px solid rgba(244, 251, 246, 0.28);
+  box-shadow: 0 6px 16px -10px rgba(11, 31, 27, 0.4);
+}
+.btn-ghost-light:hover:not(:disabled) { background: rgba(244, 251, 246, 0.16); }
+
+/* ── Glass surfaces — ROUND 12 ─────────────────────────
+   Every box on the site is glass over the Velaris gradient.
+   .glass-panel = outer cards, .glass-inner = panels/chips
+   nested inside a card. The gradient must read through,
+   while the 20px blur keeps text crisp. */
+.glass-panel {
+  background: rgba(244, 251, 246, 0.66);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  backdrop-filter: blur(20px) saturate(1.4);
+  border: 1px solid rgba(11, 95, 81, 0.14);
+  box-shadow:
+    inset 0 1px 0 rgba(244, 251, 246, 0.85),
+    0 1px 2px rgba(11, 31, 27, 0.04),
+    0 16px 36px -14px rgba(11, 31, 27, 0.14);
+}
+.glass-inner {
+  background: rgba(244, 251, 246, 0.55);
+  -webkit-backdrop-filter: blur(12px) saturate(1.3);
+  backdrop-filter: blur(12px) saturate(1.3);
+  border: 1px solid rgba(11, 95, 81, 0.12);
+}
 
 /* ── Upload cards: gradient border on hover / drag ─── */
 .upload-card::before {
@@ -681,13 +777,28 @@ input:focus-visible {
    - Header merged into the hero: no white bar, no divider
      line; controls are dark pills (see Header.tsx).
    ══════════════════════════════════════════════════════════ */
+/* ══════════════════════════════════════════════════════════
+   ROUND 12 — all glass, one button language.
+   - .glass-panel (0.66, blur 20) / .glass-inner (0.55, blur 12):
+     every box on homepage + dashboard is glass over Velaris.
+     .card-surface / .glass / .dash-card regraded to match.
+   - Buttons: .btn-primary is now the deep green-black +
+     emerald CTA mix; disabled keeps the gradient at 55%
+     opacity (never flat grey). .btn-danger / .btn-amber /
+     .btn-glass / .btn-ghost-light share radius, weight,
+     shadow and hover/press feel.
+   - HOLD banner + medicine purpose quote got display type.
+   ══════════════════════════════════════════════════════════ */
 .dash-card {
-  background: rgba(244, 251, 246, 0.78);
-  border: 1px solid rgba(11, 95, 81, 0.12);
+  background: rgba(244, 251, 246, 0.66);
+  border: 1px solid rgba(11, 95, 81, 0.14);
   border-radius: 20px;
-  box-shadow: 0 1px 2px rgba(11, 31, 27, 0.04), 0 10px 28px -10px rgba(11, 95, 81, 0.16);
-  -webkit-backdrop-filter: blur(16px) saturate(1.3);
-  backdrop-filter: blur(16px) saturate(1.3);
+  box-shadow:
+    inset 0 1px 0 rgba(244, 251, 246, 0.85),
+    0 1px 2px rgba(11, 31, 27, 0.04),
+    0 16px 36px -14px rgba(11, 31, 27, 0.14);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  backdrop-filter: blur(20px) saturate(1.4);
 }
 .lab-bar--slim { height: 6px; }
 
