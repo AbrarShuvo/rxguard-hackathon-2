@@ -363,7 +363,7 @@ export default function Home() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 flex flex-wrap items-center justify-between gap-2">
             <button
               onClick={handleReset}
-              className={`flex items-center gap-1.5 text-xs font-semibold text-gray-700 hover:text-emerald-700 transition-colors min-h-11 px-1 rounded-lg ${focusRing}`}
+              className={`flex items-center gap-1.5 text-xs font-semibold text-[#2C4A42] hover:text-emerald-700 transition-colors min-h-11 px-1 rounded-lg ${focusRing}`}
             >
               <ArrowLeft className="w-4 h-4" />
               {t.newAnalysis}
@@ -372,32 +372,32 @@ export default function Home() {
             <div className="flex flex-wrap items-center gap-2">
               <button
                 onClick={() => setIsModalOpen(true)}
-                className={`${btn} bg-white hover:bg-slate-50 text-slate-700 border-slate-200`}
+                className={`${btn} bg-[#F4FBF6] hover:bg-[#EFFAF3] text-[#2C4A42] border-[#0B5F51]/15`}
               >
-                <Eye className="w-3.5 h-3.5 text-slate-500" />
+                <Eye className="w-3.5 h-3.5 text-[#5A7268]" />
                 <span>{t.sourceDocBtn}</span>
               </button>
               <button
                 onClick={handleExportCalendar}
-                className={`${btn} bg-white hover:bg-slate-50 text-slate-700 border-slate-200`}
+                className={`${btn} bg-[#F4FBF6] hover:bg-[#EFFAF3] text-[#2C4A42] border-[#0B5F51]/15`}
                 title="Download .ics file for Google Calendar, Apple Calendar, or Outlook"
               >
-                <Calendar className="w-3.5 h-3.5 text-slate-500" />
+                <Calendar className="w-3.5 h-3.5 text-[#5A7268]" />
                 <span className="hidden sm:inline">{t.calendarExport}</span>
                 <span className="sm:hidden">.ics</span>
               </button>
               <button
                 onClick={handleExportFhir}
-                className={`${btn} bg-white hover:bg-slate-50 text-slate-700 border-slate-200`}
+                className={`${btn} bg-[#F4FBF6] hover:bg-[#EFFAF3] text-[#2C4A42] border-[#0B5F51]/15`}
                 title="Export a FHIR-style JSON bundle"
               >
-                <FileCode className="w-3.5 h-3.5 text-slate-500" />
+                <FileCode className="w-3.5 h-3.5 text-[#5A7268]" />
                 <span className="hidden sm:inline">{t.fhirExport}</span>
                 <span className="sm:hidden">FHIR</span>
               </button>
               <button
                 onClick={() => window.print()}
-                className={`${btn} bg-slate-900 hover:bg-slate-800 text-white border-slate-900`}
+                className={`${btn} bg-[#0B1F1B] hover:bg-[#12312A] text-white border-[#0B1F1B]`}
               >
                 <Printer className="w-3.5 h-3.5" />
                 <span>{t.printCard}</span>
@@ -466,26 +466,26 @@ export default function Home() {
           )}
 
           {/* Print-only sign-off */}
-          <div className="hidden print:block border-t-2 border-gray-900 pt-6 mt-8 space-y-4">
+          <div className="hidden print:block border-t-2 border-[#0B1F1B] pt-6 mt-8 space-y-4">
             <div className="flex justify-between items-center text-xs">
               <div>
                 <p className="font-bold">RxGuard Clinical Safety Report</p>
-                <p className="text-gray-500">De-Identified · Generated {new Date().toLocaleDateString()}</p>
+                <p className="text-[#5A7268]">De-Identified · Generated {new Date().toLocaleDateString()}</p>
               </div>
               <div className="text-right">
-                <p className="text-gray-500 text-[10px]">Page 1 of 1</p>
+                <p className="text-[#5A7268] text-[10px]">Page 1 of 1</p>
               </div>
             </div>
             <div className="grid grid-cols-2 gap-6 pt-4 text-xs">
-              <div className="border border-gray-400 p-3 rounded">
-                <p className="font-bold text-gray-700">Attending Physician Sign-Off:</p>
+              <div className="border border-[#0B5F51]/30 p-3 rounded">
+                <p className="font-bold text-[#2C4A42]">Attending Physician Sign-Off:</p>
                 <div className="h-10"></div>
-                <p className="border-t border-gray-300 pt-1 text-[10px] text-gray-500">Doctor Signature &amp; Date</p>
+                <p className="border-t border-[#0B5F51]/25 pt-1 text-[10px] text-[#5A7268]">Doctor Signature &amp; Date</p>
               </div>
-              <div className="border border-gray-400 p-3 rounded">
-                <p className="font-bold text-gray-700">Dispensing Pharmacist Verification:</p>
+              <div className="border border-[#0B5F51]/30 p-3 rounded">
+                <p className="font-bold text-[#2C4A42]">Dispensing Pharmacist Verification:</p>
                 <div className="h-10"></div>
-                <p className="border-t border-gray-300 pt-1 text-[10px] text-gray-500">Pharmacist Signature &amp; Date</p>
+                <p className="border-t border-[#0B5F51]/25 pt-1 text-[10px] text-[#5A7268]">Pharmacist Signature &amp; Date</p>
               </div>
             </div>
           </div>
@@ -533,25 +533,19 @@ export default function Home() {
         onOpenApiKeyModal={() => setIsKeyModalOpen(true)}
       />
 
-      <main className="hero-mesh relative flex-1 px-4 sm:px-6 lg:px-8 py-10 sm:py-14 overflow-hidden">
-        <div className="hero-grid absolute inset-0 pointer-events-none" aria-hidden />
-        <div className="orb orb-teal" aria-hidden />
-        <div className="orb orb-sky" aria-hidden />
-        <div className="orb orb-rose" aria-hidden />
+      <main className="relative flex-1 px-4 sm:px-6 lg:px-8 py-10 sm:py-14 overflow-hidden">
         <div className="relative w-full max-w-7xl mx-auto space-y-12">
-          {/* ── HERO: wide two-line headline, upload in the middle ── */}
-          <div className="relative">
-            {/* Soft glow drifting slowly behind the headline (ambient, subtle) */}
-            <div className="hero-glow pointer-events-none absolute inset-x-0 -top-8 mx-auto h-80 w-[46rem] max-w-full rounded-full" aria-hidden />
+          {/* ── HERO: upload in the middle, over the full-page gradient ── */}
+          <div className="relative px-4 sm:px-8 py-10 sm:py-12">
 
             <div className="relative mx-auto max-w-6xl space-y-6 text-center">
-            <div className="hero-fade inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-slate-900 text-white text-xs font-bold shadow-lg shadow-slate-900/25" style={{ animationDelay: "0ms" }}>
+            <div className="hero-fade inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#0B1F1B] text-white text-xs font-bold shadow-lg shadow-[#0B1F1B]/25" style={{ animationDelay: "0ms" }}>
               <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
               CODEFESTTHON 2026 · HealthTech Track
               <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-soft-pulse" />
               <span className="text-emerald-300">No login needed</span>
             </div>
-            <h2 className="font-display text-[clamp(2.75rem,7vw,5.75rem)] font-black tracking-tight leading-[1.05] text-gray-900">
+            <h2 className="font-display text-[clamp(2.75rem,7vw,5.75rem)] font-black tracking-tight leading-[1.05] text-[#0B1F1B]">
               {[heroWords.slice(0, heroHalf), heroWords.slice(heroHalf)].map((line, li) => (
                 <span key={li} className="block">
                   {line.map((word, wi) => {
@@ -571,7 +565,7 @@ export default function Home() {
             <svg className="hero-ecg mx-auto h-7 w-64 sm:w-80" viewBox="0 0 384 32" fill="none" aria-hidden>
               <path d="M4 16 H68 L78 11 L87 21 L96 16 H138 L147 16 L156 4 L165 28 L174 16 H228 L238 11 L247 21 L256 16 H380" pathLength={600} stroke="#0d9488" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" />
             </svg>
-            <p className="hero-fade text-base sm:text-lg text-gray-600 max-w-xl mx-auto leading-relaxed" style={{ animationDelay: "200ms" }}>
+            <p className="hero-fade text-base sm:text-lg text-[#3D5A50] max-w-xl mx-auto leading-relaxed" style={{ animationDelay: "200ms" }}>
               {t.heroSubtitle}
             </p>
             </div>
@@ -581,7 +575,7 @@ export default function Home() {
             {/* ── THE upload — one big action, impossible to miss ── */}
             <div className="hero-panel space-y-3 pt-2">
               <p className="eyebrow text-emerald-700">Start here — drop your reports</p>
-              <div className="relative rounded-[2rem] bg-white/70 p-2 sm:p-3 ring-1 ring-emerald-200/80">
+              <div className="relative rounded-[2rem] bg-[#F4FBF6]/70 p-2 sm:p-3 ring-1 ring-emerald-200/80">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <DropZone
                     label={t.dropRxLabel}
@@ -596,7 +590,7 @@ export default function Home() {
                   <DropZone
                     label={t.dropLabLabel}
                     bigLabel="Drop your lab report here"
-                    icon={<FlaskConical className="w-6 h-6 text-sky-600" />}
+                    icon={<FlaskConical className="w-6 h-6 text-teal-600" />}
                     accept="image/*,.pdf"
                     file={labReportFile}
                     onFileSelect={setLabReportFile}
@@ -623,7 +617,7 @@ export default function Home() {
                     >
                       🔑 Configure Custom API Key
                     </button>
-                    <span className="text-xs text-gray-500">
+                    <span className="text-xs text-[#5A7268]">
                       or try a sample case below
                     </span>
                   </div>
@@ -641,7 +635,7 @@ export default function Home() {
                   {t.analyzeBtn}
                   <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
                 </button>
-                <p className="text-center text-xs text-gray-400">
+                <p className="text-center text-xs text-[#7A938A]">
                   {!prescriptionFile && !labReportFile
                     ? "Upload at least one document above — or jump straight to a sample case below."
                     : "Ready — your files are processed in memory and never stored."}
@@ -660,15 +654,15 @@ export default function Home() {
               {[
                 { icon: FileSearch, num: 2, suffix: "", big: " docs", small: "checked together", tile: "bg-emerald-600 text-white shadow-lg shadow-emerald-600/30", iconCls: "text-white" },
                 { icon: TriangleAlert, num: null, big: "Drug × Lab", small: "conflict detection", tile: "bg-red-600 text-white shadow-lg shadow-red-600/30", iconCls: "text-white" },
-                { icon: Languages, num: 3, suffix: "", big: " languages", small: "EN · हिन्दी · ES", tile: "bg-sky-600 text-white shadow-lg shadow-sky-600/30", iconCls: "text-white" },
+                { icon: Languages, num: 3, suffix: "", big: " languages", small: "EN · हिन्दी · ES", tile: "bg-teal-600 text-white shadow-lg shadow-teal-600/30", iconCls: "text-white" },
                 { icon: Timer, num: 90, suffix: "", big: " seconds", small: "to a full verdict", tile: "bg-amber-500 text-white shadow-lg shadow-amber-500/30", iconCls: "text-white" },
               ].map((x) => (
-                <div key={x.big} className="card-lift rounded-2xl bg-white/90 border border-gray-200/70 px-3 py-3 shadow-sm">
+                <div key={x.big} className="card-lift rounded-2xl bg-[#F4FBF6]/90 border border-[#0B5F51]/10 px-3 py-3 shadow-sm">
                   <span className={`mb-2 flex h-8 w-8 items-center justify-center rounded-xl ${x.tile}`}><x.icon className={`w-4 h-4 ${x.iconCls}`} aria-hidden /></span>
-                  <p className="text-base font-black text-gray-900 leading-none">
+                  <p className="text-base font-black text-[#0B1F1B] leading-none">
                     {x.num !== null ? <CountUp to={x.num} /> : null}{x.big}
                   </p>
-                  <p className="text-[11px] text-gray-500 mt-1 leading-tight">{x.small}</p>
+                  <p className="text-[11px] text-[#5A7268] mt-1 leading-tight">{x.small}</p>
                 </div>
               ))}
             </div>
@@ -676,11 +670,11 @@ export default function Home() {
           </div>
 
           {/* How it works — full-bleed band, alternating left/right rows */}
-          <section className="-mx-4 sm:-mx-6 lg:-mx-8 border-y border-slate-200/70 bg-white/70 px-4 sm:px-6 lg:px-8 py-12">
+          <section className="-mx-4 sm:-mx-6 lg:-mx-8 border-y border-[#0B5F51]/10 bg-[#F4FBF6]/25 px-4 sm:px-6 lg:px-8 py-12">
             <div className="mx-auto max-w-7xl">
               <div className="pb-10 text-center">
                 <p className="eyebrow text-emerald-700">How it works</p>
-                <h2 className="mt-2 font-display text-3xl font-black tracking-tight text-gray-900 sm:text-4xl">Three steps. One clear answer.</h2>
+                <h2 className="mt-2 font-display text-3xl font-black tracking-tight text-[#0B1F1B] sm:text-4xl">Three steps. One clear answer.</h2>
               </div>
               <div className="space-y-10">
             {[
@@ -691,15 +685,15 @@ export default function Home() {
               <Reveal key={row.n} from={row.from}>
                 <div className={`flex flex-col ${row.from === "right" ? "sm:flex-row-reverse" : "sm:flex-row"} items-center gap-5 sm:gap-12`}>
                   <div className="flex-1 text-center sm:text-left">
-                    <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-slate-900 text-xs font-black text-white shadow-md">{row.n}</span>
-                    <h3 className="mt-3 font-display text-2xl sm:text-3xl font-black tracking-tight text-gray-900">{row.title}</h3>
-                    <p className="mt-2 text-sm sm:text-base text-gray-600 leading-relaxed max-w-xl mx-auto sm:mx-0">{row.sub}</p>
+                    <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-[#0B1F1B] text-xs font-black text-white shadow-md">{row.n}</span>
+                    <h3 className="mt-3 font-display text-2xl sm:text-3xl font-black tracking-tight text-[#0B1F1B]">{row.title}</h3>
+                    <p className="mt-2 text-sm sm:text-base text-[#3D5A50] leading-relaxed max-w-xl mx-auto sm:mx-0">{row.sub}</p>
                   </div>
                   <div className="w-full sm:w-72 lg:w-80 shrink-0">
-                    <div className="card-lift rounded-3xl border border-gray-200/80 bg-white/90 p-5 shadow-lg shadow-slate-900/5 text-center">
+                    <div className="card-lift rounded-3xl border border-[#0B5F51]/12 bg-[#F4FBF6]/90 p-5 shadow-lg shadow-[#0B1F1B]/5 text-center">
                       <row.icon className="mx-auto h-8 w-8 text-emerald-600" aria-hidden />
-                      <p className="mt-3 text-sm font-black text-gray-900">{row.visual}</p>
-                      <p className="mt-1 text-[11px] font-semibold uppercase tracking-wider text-gray-400">Step {row.n} of 3</p>
+                      <p className="mt-3 text-sm font-black text-[#0B1F1B]">{row.visual}</p>
+                      <p className="mt-1 text-[11px] font-semibold uppercase tracking-wider text-[#7A938A]">Step {row.n} of 3</p>
                     </div>
                   </div>
                 </div>
@@ -710,8 +704,8 @@ export default function Home() {
           </section>
 
           {/* Marquee ticker — drug & lab names, pause on hover */}
-          <div className="marquee no-print -mx-4 sm:-mx-6 lg:-mx-8 border-y border-gray-200/70 bg-white/70 py-3" aria-hidden>
-            <div className="marquee-track items-center gap-6 text-sm font-bold text-gray-500">
+          <div className="marquee no-print -mx-4 sm:-mx-6 lg:-mx-8 border-y border-[#0B5F51]/10 bg-[#F4FBF6]/25 py-3" aria-hidden>
+            <div className="marquee-track items-center gap-6 text-sm font-bold text-[#5A7268]">
               {[...Array(2)].map((_, dup) => (
                 <span key={dup} className="flex items-center gap-6 pr-6">
                   {["Ibuprofen", "Metformin", "Atorvastatin", "Amlodipine", "Pantoprazole", "Vitamin D3", "Creatinine", "eGFR", "BUN", "Glucose", "Hemoglobin", "LDL", "HbA1c", "Cholesterol"].map((name) => (
@@ -733,10 +727,10 @@ export default function Home() {
 
           {/* Quiet final CTA */}
           <Reveal>
-            <div className="rounded-3xl bg-slate-900 px-6 py-10 text-center text-white shadow-2xl shadow-slate-900/30">
+            <div className="rounded-3xl bg-[#0B1F1B]/80 backdrop-blur-sm px-6 py-10 text-center text-white shadow-2xl shadow-[#0B1F1B]/30">
               <p className="eyebrow text-emerald-300">No login · No storage · 90 seconds</p>
               <h2 className="mt-3 font-display text-3xl font-black tracking-tight">Check a prescription before it&apos;s too late.</h2>
-              <p className="mx-auto mt-2 max-w-md text-sm text-slate-300">Drop your documents above, or run a sample case and watch the verdict land.</p>
+              <p className="mx-auto mt-2 max-w-md text-sm text-[#9DB3A8]">Drop your documents above, or run a sample case and watch the verdict land.</p>
               <div className="mt-5 flex flex-wrap items-center justify-center gap-3">
                 <button
                   type="button"
@@ -748,7 +742,7 @@ export default function Home() {
                 <button
                   type="button"
                   onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-                  className="pressable inline-flex min-h-11 items-center gap-2 rounded-full border border-white/25 px-6 py-3 text-sm font-bold text-white hover:bg-white/10"
+                  className="pressable inline-flex min-h-11 items-center gap-2 rounded-full border border-[#F4FBF6]/25 px-6 py-3 text-sm font-bold text-white hover:bg-[#F4FBF6]/10"
                 >
                   Back to the upload
                 </button>
@@ -757,9 +751,9 @@ export default function Home() {
           </Reveal>
 
           {/* Trust, Security & Privacy Indicators */}
-          <div className="pt-3 border-t border-gray-200/70 flex flex-wrap items-center justify-center gap-2 text-xs">
+          <div className="pt-3 border-t border-[#0B5F51]/10 flex flex-wrap items-center justify-center gap-2 text-xs">
             {["Zero login required", "100% in-memory processing", "FHIR-style JSON & .ics export", "Works on any phone"].map((x) => (
-              <span key={x} className="inline-flex items-center gap-1.5 rounded-full bg-white/80 border border-gray-200/80 px-3 py-1.5 font-semibold text-gray-600 shadow-sm">
+              <span key={x} className="inline-flex items-center gap-1.5 rounded-full bg-[#F4FBF6]/80 border border-[#0B5F51]/12 px-3 py-1.5 font-semibold text-[#3D5A50] shadow-sm">
                 <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
                 {x}
               </span>

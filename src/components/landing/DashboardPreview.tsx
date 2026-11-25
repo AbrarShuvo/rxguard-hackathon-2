@@ -18,10 +18,10 @@ export default function DashboardPreview({ onRun }: { onRun: () => void }) {
       <Reveal>
         <div className="text-center space-y-2 pb-6">
           <p className="eyebrow text-emerald-700">The verdict view</p>
-          <h2 className="font-display text-3xl sm:text-4xl font-black tracking-tight text-gray-900">
+          <h2 className="font-display text-3xl sm:text-4xl font-black tracking-tight text-[#0B1F1B]">
             This is what the answer looks like.
           </h2>
-          <p className="text-sm text-gray-500 max-w-lg mx-auto">
+          <p className="text-sm text-[#5A7268] max-w-lg mx-auto">
             A triage queue, not a wall of text. The worst flag sits on top, with one clear action each.
             Preview of sample Case A — run it live to use it.
           </p>
@@ -29,10 +29,10 @@ export default function DashboardPreview({ onRun }: { onRun: () => void }) {
       </Reveal>
 
       <Reveal from="up">
-        <div className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-2xl shadow-slate-900/15">
+        <div className="overflow-hidden rounded-3xl border border-[#0B5F51]/15 bg-[#F4FBF6] shadow-2xl shadow-[#0B1F1B]/15">
           {/* Mini verdict bar */}
           <div className="flex flex-col sm:flex-row sm:items-center gap-4 bg-gradient-to-r from-red-700 via-rose-700 to-red-800 px-5 py-5 text-white">
-            <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-white/15 ring-1 ring-white/30">
+            <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#F4FBF6]/15 ring-1 ring-white/30">
               <ShieldAlert className="h-6 w-6" aria-hidden />
             </span>
             <div className="min-w-0 flex-1">
@@ -47,7 +47,7 @@ export default function DashboardPreview({ onRun }: { onRun: () => void }) {
                 { n: abnormal, l: "Abnormal labs" },
                 { n: r.medications.length, l: "Medicines" },
               ].map((s) => (
-                <div key={s.l} className="rounded-xl bg-white/10 px-3 py-2 ring-1 ring-white/20">
+                <div key={s.l} className="rounded-xl bg-[#F4FBF6]/10 px-3 py-2 ring-1 ring-white/20">
                   <p className="text-lg font-black leading-none tabular-nums">{s.n}</p>
                   <p className="mt-1 text-[10px] font-semibold text-red-100">{s.l}</p>
                 </div>
@@ -61,28 +61,28 @@ export default function DashboardPreview({ onRun }: { onRun: () => void }) {
               <p className="flex items-center gap-1.5 text-[11px] font-black uppercase tracking-wider text-red-700">
                 <ShieldAlert className="h-3.5 w-3.5" aria-hidden /> Triage · Critical
               </p>
-              <p className="mt-2 text-sm font-bold leading-snug text-gray-900">NSAID prescribed with impaired kidney function</p>
-              <p className="mt-1 text-xs text-gray-600">Creatinine 1.8 · eGFR 52 — kidneys already stressed.</p>
+              <p className="mt-2 text-sm font-bold leading-snug text-[#0B1F1B]">NSAID prescribed with impaired kidney function</p>
+              <p className="mt-1 text-xs text-[#3D5A50]">Creatinine 1.8 · eGFR 52 — kidneys already stressed.</p>
             </div>
-            <div className="rounded-2xl border border-gray-200 bg-gray-50/70 p-4">
-              <p className="flex items-center gap-1.5 text-[11px] font-black uppercase tracking-wider text-gray-700">
+            <div className="rounded-2xl border border-[#0B5F51]/15 bg-[#EFFAF3]/70 p-4">
+              <p className="flex items-center gap-1.5 text-[11px] font-black uppercase tracking-wider text-[#2C4A42]">
                 <Activity className="h-3.5 w-3.5" aria-hidden /> Pathway
               </p>
-              <p className="mt-2 text-sm font-bold leading-snug text-gray-900">Ibuprofen → less kidney blood flow → acute kidney injury</p>
-              <p className="mt-1 text-xs text-gray-600">Drug → lab → harm, traced step by step.</p>
+              <p className="mt-2 text-sm font-bold leading-snug text-[#0B1F1B]">Ibuprofen → less kidney blood flow → acute kidney injury</p>
+              <p className="mt-1 text-xs text-[#3D5A50]">Drug → lab → harm, traced step by step.</p>
             </div>
-            <div className="rounded-2xl border border-gray-200 bg-gray-50/70 p-4">
-              <p className="flex items-center gap-1.5 text-[11px] font-black uppercase tracking-wider text-gray-700">
+            <div className="rounded-2xl border border-[#0B5F51]/15 bg-[#EFFAF3]/70 p-4">
+              <p className="flex items-center gap-1.5 text-[11px] font-black uppercase tracking-wider text-[#2C4A42]">
                 <Pill className="h-3.5 w-3.5" aria-hidden /> Today&apos;s plan
               </p>
-              <p className="mt-2 text-sm font-bold leading-snug text-gray-900">Ibuprofen on HOLD · Metformin + Atorvastatin as planned</p>
-              <p className="mt-1 flex items-center gap-1 text-xs text-gray-600">
+              <p className="mt-2 text-sm font-bold leading-snug text-[#0B1F1B]">Ibuprofen on HOLD · Metformin + Atorvastatin as planned</p>
+              <p className="mt-1 flex items-center gap-1 text-xs text-[#3D5A50]">
                 <FlaskConical className="h-3 w-3" aria-hidden /> 4 of 5 labs out of range
               </p>
             </div>
           </div>
 
-          <div className="border-t border-gray-100 px-4 sm:px-5 py-4">
+          <div className="border-t border-[#0B5F51]/10 px-4 sm:px-5 py-4">
             <button
               type="button"
               onClick={onRun}

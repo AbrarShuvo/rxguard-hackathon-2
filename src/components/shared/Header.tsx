@@ -23,11 +23,11 @@ export default function Header({
   onOpenApiKeyModal,
 }: HeaderProps) {
   return (
-    <header className="app-header w-full border-b border-[color:var(--hairline)] bg-white/80 backdrop-blur-md sticky top-0 z-50 no-print">
+    <header className="app-header w-full border-b border-[color:var(--hairline)] bg-[#F4FBF6]/80 backdrop-blur-md sticky top-0 z-50 no-print">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-wrap items-center justify-between gap-x-3 gap-y-2">
         {/* Logo & Clinical Brand */}
         <div className="flex items-center gap-3">
-          <div className="relative flex items-center justify-center w-10 h-10 rounded-2xl bg-gradient-to-br from-emerald-500 via-teal-600 to-cyan-600 text-white shadow-lg shadow-emerald-600/30 ring-1 ring-white/40">
+          <div className="relative flex items-center justify-center w-10 h-10 rounded-2xl bg-gradient-to-br from-emerald-500 via-teal-600 to-emerald-700 text-white shadow-lg shadow-emerald-600/30 ring-1 ring-white/40">
             <ShieldCheck className="w-6 h-6" />
             <span className="absolute -right-1 -top-1 flex h-3 w-3">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75 motion-reduce:animate-none" />
@@ -36,15 +36,15 @@ export default function Header({
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h1 className="text-lg font-black tracking-tight text-gray-900 leading-none">
+              <h1 className="text-lg font-black tracking-tight text-[#0B1F1B] leading-none">
                 RxGuard
               </h1>
               <span className="hidden sm:inline-flex items-center gap-1 rounded-full bg-emerald-600 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white shadow-sm shadow-emerald-600/40">
-                <span className="h-1.5 w-1.5 rounded-full bg-white animate-soft-pulse" />
+                <span className="h-1.5 w-1.5 rounded-full bg-[#F4FBF6] animate-soft-pulse" />
                 Live demo
               </span>
             </div>
-            <p className="hidden sm:block text-[11px] text-gray-500 leading-tight mt-0.5">
+            <p className="hidden sm:block text-[11px] text-[#5A7268] leading-tight mt-0.5">
               Prescription &amp; Diagnostic Lab Safety Decoder
             </p>
           </div>
@@ -60,7 +60,7 @@ export default function Header({
               className={`flex items-center gap-1.5 text-xs font-semibold px-2.5 min-h-11 rounded-lg border transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 ${
                 isSpeaking
                   ? "bg-red-50 text-red-700 border-red-300 animate-pulse"
-                  : "bg-gray-50 hover:bg-gray-100 text-gray-700 border-gray-200"
+                  : "bg-[#EFFAF3] hover:bg-[#E3F2E9] text-[#2C4A42] border-[#0B5F51]/15"
               }`}
             >
               {isSpeaking ? (
@@ -79,7 +79,7 @@ export default function Header({
 
           {/* Language Selector (segmented, sliding pill) */}
           {onLanguageChange && (
-            <div className="lang-switch relative grid grid-cols-3 bg-gray-100/80 p-0.5 rounded-xl border border-[color:var(--hairline)] text-xs" role="group" aria-label="Language">
+            <div className="lang-switch relative grid grid-cols-3 bg-[#E3F2E9]/80 p-0.5 rounded-xl border border-[color:var(--hairline)] text-xs" role="group" aria-label="Language">
               <span
                 aria-hidden
                 className="lang-pill"
@@ -92,7 +92,7 @@ export default function Header({
                   onClick={() => onLanguageChange(code)}
                   aria-pressed={currentLang === code}
                   className={`relative z-10 w-14 min-h-10 rounded-lg transition-colors ${
-                    currentLang === code ? "text-gray-900 font-bold" : "text-gray-500 hover:text-gray-900"
+                    currentLang === code ? "text-[#0B1F1B] font-bold" : "text-[#5A7268] hover:text-[#0B1F1B]"
                   }`}
                 >
                   {label}
@@ -109,10 +109,10 @@ export default function Header({
               className={`flex items-center gap-1.5 text-xs font-semibold px-2.5 min-h-11 rounded-lg border transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 ${
                 hasApiKey
                   ? "bg-emerald-50 text-emerald-800 border-emerald-300 hover:bg-emerald-100"
-                  : "bg-gray-50 text-gray-700 border-gray-200 hover:bg-gray-100"
+                  : "bg-[#EFFAF3] text-[#2C4A42] border-[#0B5F51]/15 hover:bg-[#E3F2E9]"
               }`}
             >
-              <Key className={`w-3.5 h-3.5 ${hasApiKey ? "text-emerald-600" : "text-gray-500"}`} />
+              <Key className={`w-3.5 h-3.5 ${hasApiKey ? "text-emerald-600" : "text-[#5A7268]"}`} />
               <span className="hidden sm:inline">
                 {hasApiKey ? "AI Cloud Ready" : "API Key (Optional)"}
               </span>

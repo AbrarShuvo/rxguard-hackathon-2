@@ -53,26 +53,26 @@ export default function ApiKeyModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-fade-in no-print">
-      <div className="relative w-full max-w-md bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-200 animate-pop-in">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#04120E]/60 backdrop-blur-xs animate-fade-in no-print">
+      <div className="relative w-full max-w-md bg-[#F4FBF6] rounded-3xl shadow-2xl overflow-hidden border border-[#0B5F51]/15 animate-pop-in">
         {/* Header */}
-        <div className="flex items-center justify-between px-5 py-4 border-b border-gray-200 bg-gray-50/80">
+        <div className="flex items-center justify-between px-5 py-4 border-b border-[#0B5F51]/15 bg-[#EFFAF3]/80">
           <div className="flex items-center gap-2.5">
             <div className="w-8 h-8 rounded-lg bg-emerald-100 flex items-center justify-center text-emerald-700">
               <Key className="w-4 h-4" />
             </div>
             <div>
-              <h3 className="text-sm font-bold text-gray-900">
+              <h3 className="text-sm font-bold text-[#0B1F1B]">
                 AI Vision API Key Configuration
               </h3>
-              <p className="text-[11px] text-gray-500">
+              <p className="text-[11px] text-[#5A7268]">
                 Supports Anthropic Claude &amp; Google Gemini
               </p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-1 rounded-lg text-gray-400 hover:text-gray-700 hover:bg-gray-200/60 transition-colors"
+            className="p-1 rounded-lg text-[#7A938A] hover:text-[#2C4A42] hover:bg-[#CDE7D8]/60 transition-colors"
           >
             <X className="w-4 h-4" />
           </button>
@@ -80,15 +80,15 @@ export default function ApiKeyModal({
 
         {/* Content */}
         <div className="p-5 space-y-4">
-          <p className="text-xs text-gray-600 leading-relaxed">
+          <p className="text-xs text-[#3D5A50] leading-relaxed">
             RxGuard uses <strong>Anthropic Claude Sonnet 5.5</strong>, <strong>OpenRouter</strong>, or <strong>Google Gemini</strong> to decode handwritten prescriptions and lab biomarkers.
             Your key is kept securely in your browser memory and never stored in any database.
           </p>
 
           <div className="space-y-1.5">
-            <label className="text-xs font-semibold text-gray-700 flex justify-between items-center">
+            <label className="text-xs font-semibold text-[#2C4A42] flex justify-between items-center">
               <span>API Key (Claude, OpenRouter, or Gemini)</span>
-              <span className="text-[11px] text-gray-400">sk-ant-..., sk-or-..., or AIza...</span>
+              <span className="text-[11px] text-[#7A938A]">sk-ant-..., sk-or-..., or AIza...</span>
             </label>
             <div className="relative">
               <input
@@ -96,12 +96,12 @@ export default function ApiKeyModal({
                 placeholder="sk-ant-..., sk-or-..., or AIzaSy..."
                 value={keyInput}
                 onChange={(e) => setKeyInput(e.target.value)}
-                className="w-full text-xs font-mono px-3 py-2.5 pr-9 border border-gray-300 rounded-xl focus:outline-hidden focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500"
+                className="w-full text-xs font-mono px-3 py-2.5 pr-9 border border-[#0B5F51]/25 rounded-xl focus:outline-hidden focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500"
               />
               <button
                 type="button"
                 onClick={() => setShowKey(!showKey)}
-                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[#7A938A] hover:text-[#3D5A50]"
               >
                 {showKey ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
               </button>
@@ -117,11 +117,11 @@ export default function ApiKeyModal({
         </div>
 
         {/* Actions */}
-        <div className="px-5 py-3 border-t border-gray-200 bg-gray-50 flex items-center justify-between">
+        <div className="px-5 py-3 border-t border-[#0B5F51]/15 bg-[#EFFAF3] flex items-center justify-between">
           <button
             type="button"
             onClick={handleClear}
-            className="text-xs text-gray-500 hover:text-red-600 transition-colors"
+            className="text-xs text-[#5A7268] hover:text-red-600 transition-colors"
           >
             Clear Key
           </button>
@@ -129,7 +129,7 @@ export default function ApiKeyModal({
             <button
               type="button"
               onClick={onClose}
-              className="px-3 py-1.5 text-xs font-medium text-gray-600 hover:bg-gray-200/60 rounded-lg transition-colors"
+              className="px-3 py-1.5 text-xs font-medium text-[#3D5A50] hover:bg-[#CDE7D8]/60 rounded-lg transition-colors"
             >
               Cancel
             </button>

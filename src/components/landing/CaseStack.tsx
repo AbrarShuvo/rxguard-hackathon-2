@@ -50,21 +50,21 @@ const CARDS = [
 
 const toneCls: Record<string, { card: string; stamp: string; chip: string; btn: string }> = {
   red: {
-    card: "border-red-200 bg-gradient-to-br from-red-50 via-white to-white",
+    card: "border-red-200 bg-gradient-to-br from-red-50 via-[#F4FBF6] to-[#F4FBF6]",
     stamp: "border-red-600 text-red-600",
-    chip: "border-red-200 bg-white text-red-700",
+    chip: "border-red-200 bg-[#F4FBF6] text-red-700",
     btn: "bg-red-600 hover:bg-red-700 text-white",
   },
   amber: {
-    card: "border-amber-200 bg-gradient-to-br from-amber-50 via-white to-white",
+    card: "border-amber-200 bg-gradient-to-br from-amber-50 via-[#F4FBF6] to-[#F4FBF6]",
     stamp: "border-amber-600 text-amber-600",
-    chip: "border-amber-200 bg-white text-amber-700",
+    chip: "border-amber-200 bg-[#F4FBF6] text-amber-700",
     btn: "bg-amber-500 hover:bg-amber-600 text-white",
   },
   green: {
-    card: "border-emerald-200 bg-gradient-to-br from-emerald-50 via-white to-white",
+    card: "border-emerald-200 bg-gradient-to-br from-emerald-50 via-[#F4FBF6] to-[#F4FBF6]",
     stamp: "border-emerald-600 text-emerald-600",
-    chip: "border-emerald-200 bg-white text-emerald-700",
+    chip: "border-emerald-200 bg-[#F4FBF6] text-emerald-700",
     btn: "bg-emerald-600 hover:bg-emerald-700 text-white",
   },
 };
@@ -75,12 +75,12 @@ export default function CaseStack({ onSelect }: { onSelect: (caseId: "A" | "B") 
       <Reveal>
         <div className="text-center space-y-2 pb-6">
           <p className="eyebrow text-emerald-700">Three verdicts · one checker</p>
-          <h2 className="font-display text-3xl sm:text-4xl font-black tracking-tight text-gray-900">
+          <h2 className="font-display text-3xl sm:text-4xl font-black tracking-tight text-[#0B1F1B]">
             Scroll through the cases.
             <br />
             <span className="text-gradient-animated">Feel the verdict land.</span>
           </h2>
-          <p className="text-sm text-gray-500 max-w-md mx-auto">
+          <p className="text-sm text-[#5A7268] max-w-md mx-auto">
             Each card pins while the next one rolls over it. Tap any card to run that case live.
           </p>
         </div>
@@ -93,20 +93,20 @@ export default function CaseStack({ onSelect }: { onSelect: (caseId: "A" | "B") 
           return (
             <article
               key={`${c.title}-${i}`}
-              className={`stack-card relative overflow-hidden rounded-3xl border-2 ${tone.card} p-5 sm:p-7 shadow-xl shadow-slate-900/10`}
+              className={`stack-card relative overflow-hidden rounded-3xl border-2 ${tone.card} p-5 sm:p-7 shadow-xl shadow-[#0B1F1B]/10`}
             >
               <div className="flex flex-col sm:flex-row sm:items-start gap-5">
                 <div className="flex-1 min-w-0 space-y-3">
                   <div className="flex items-center gap-2">
-                    <span className="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-slate-900 text-white shadow-lg">
+                    <span className="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-[#0B1F1B] text-white shadow-lg">
                       <Icon className="h-5 w-5" aria-hidden />
                     </span>
-                    <span className="text-xs font-black uppercase tracking-widest text-gray-400">
+                    <span className="text-xs font-black uppercase tracking-widest text-[#7A938A]">
                       Case {i + 1} of 3
                     </span>
                   </div>
-                  <h3 className="font-display text-2xl font-black text-gray-900 leading-tight">{c.title}</h3>
-                  <p className="text-sm text-gray-600 leading-relaxed max-w-lg">{c.line}</p>
+                  <h3 className="font-display text-2xl font-black text-[#0B1F1B] leading-tight">{c.title}</h3>
+                  <p className="text-sm text-[#3D5A50] leading-relaxed max-w-lg">{c.line}</p>
                   <div className="flex flex-wrap gap-1.5">
                     {c.chips.map((chip) => (
                       <span key={chip} className={`inline-flex items-center gap-1 rounded-full border px-2.5 py-1 text-[11px] font-bold ${tone.chip}`}>
@@ -115,12 +115,12 @@ export default function CaseStack({ onSelect }: { onSelect: (caseId: "A" | "B") 
                       </span>
                     ))}
                   </div>
-                  <p className="text-sm font-bold text-gray-900">
-                    <span className="text-gray-400 font-semibold">Verdict: </span>
+                  <p className="text-sm font-bold text-[#0B1F1B]">
+                    <span className="text-[#7A938A] font-semibold">Verdict: </span>
                     {c.verdict}
                   </p>
-                  <p className="text-sm text-gray-600">
-                    <span className="font-bold text-gray-900">Next step: </span>
+                  <p className="text-sm text-[#3D5A50]">
+                    <span className="font-bold text-[#0B1F1B]">Next step: </span>
                     {c.action}
                   </p>
                   <button
@@ -135,12 +135,12 @@ export default function CaseStack({ onSelect }: { onSelect: (caseId: "A" | "B") 
 
                 {/* Verdict stamp — word + icon + colour, never colour alone */}
                 <div className="shrink-0 sm:pt-2">
-                  <div className={`stamp inline-flex flex-col items-center gap-1 rounded-2xl border-[3px] px-5 py-3 ${tone.stamp} bg-white/70`}>
+                  <div className={`stamp inline-flex flex-col items-center gap-1 rounded-2xl border-[3px] px-5 py-3 ${tone.stamp} bg-[#F4FBF6]/70`}>
                     <Icon className="h-6 w-6" aria-hidden />
                     <span className="text-2xl font-black tracking-widest">{c.stamp}</span>
                     <span className="text-[10px] font-bold uppercase tracking-wide opacity-80">{c.stampLabel}</span>
                   </div>
-                  <p className="mt-2 flex items-center gap-1 text-[11px] font-semibold text-gray-400">
+                  <p className="mt-2 flex items-center gap-1 text-[11px] font-semibold text-[#7A938A]">
                     <Clock3 className="h-3 w-3" aria-hidden /> 90-second demo
                   </p>
                 </div>

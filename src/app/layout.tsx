@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Plus_Jakarta_Sans } from "next/font/google";
+import Velaris from "@/components/ui/velaris";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
@@ -29,6 +30,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} ${jakarta.variable} ${inter.className} antialiased`}>
+        {/* Living gradient background for the whole page (fixed, borderless) */}
+        <Velaris fixed speed={1.2} grain={0.3} />
         {children}
       </body>
     </html>

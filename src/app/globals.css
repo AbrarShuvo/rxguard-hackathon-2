@@ -2,16 +2,21 @@
 
 /* ══════════════════════════════════════════════════════════
    RxGuard — Premium clinical design system
-   Deep teal/emerald + warm neutrals. Light, clinical, calm.
-   Severity: CRITICAL red · WARNING amber · INFO blue · OK emerald
+   ROUND 10 regrade: one green world. All neutrals are now
+   green-anchored (Black Moss ink, celadon surfaces, moss
+   hairlines, green-tinted shadows) so every panel sits well
+   on the living Velaris emerald background.
+   Severity colours are FUNCTIONAL and unchanged:
+   CRITICAL red · WARNING amber · INFO blue · OK emerald.
+   Velaris palette: #F0FBEF · #BFE3B0 · #22C79A · #0B5F51.
    ══════════════════════════════════════════════════════════ */
 :root {
-  --ink: #0b1220;
-  --ink-soft: #334155;
-  --ink-mute: #64748b;
-  --bg: #f4f7f6;
-  --surface: #ffffff;
-  --hairline: rgba(15, 23, 42, 0.08);
+  --ink: #0b1f1b;
+  --ink-soft: #2c4a42;
+  --ink-mute: #5a7268;
+  --bg: #f0fbef;
+  --surface: #f4fbf6;
+  --hairline: rgba(11, 95, 81, 0.14);
   --accent: #10b981;
   --accent-2: #0d9488;
   --accent-deep: #065f46;
@@ -19,8 +24,8 @@
   --teal-soft: #ccfbf1;
   --radius-card: 1.25rem;
   --radius-control: 0.75rem;
-  --shadow-card: 0 1px 2px rgba(15, 23, 42, 0.04), 0 4px 12px -2px rgba(15, 23, 42, 0.05), 0 12px 32px -8px rgba(15, 23, 42, 0.06);
-  --shadow-lift: 0 2px 4px rgba(15, 23, 42, 0.05), 0 12px 24px -6px rgba(15, 23, 42, 0.12), 0 24px 48px -12px rgba(13, 148, 136, 0.18);
+  --shadow-card: 0 1px 2px rgba(11, 31, 27, 0.05), 0 4px 12px -2px rgba(11, 95, 81, 0.08), 0 12px 32px -8px rgba(11, 95, 81, 0.10);
+  --shadow-lift: 0 2px 4px rgba(11, 31, 27, 0.06), 0 12px 24px -6px rgba(11, 95, 81, 0.16), 0 24px 48px -12px rgba(13, 148, 136, 0.20);
   --shadow-glow-teal: 0 8px 30px -6px rgba(16, 185, 129, 0.45);
   --shadow-glow-red: 0 8px 30px -6px rgba(220, 38, 38, 0.4);
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -59,21 +64,25 @@ p { text-wrap: pretty; }
   color: transparent;
 }
 
-/* ── Atmosphere: aurora mesh + fading dot grid ─────── */
+/* ── Atmosphere: soft emerald mesh (the Velaris canvas paints
+   the real gradient; this is only the no-WebGL fallback) ─── */
 body {
   background-image:
-    radial-gradient(60rem 36rem at 12% -8%, rgba(16, 185, 129, 0.12), transparent 60%),
-    radial-gradient(48rem 30rem at 92% 4%, rgba(56, 189, 248, 0.1), transparent 60%),
-    radial-gradient(40rem 28rem at 60% 100%, rgba(13, 148, 136, 0.07), transparent 65%);
+    radial-gradient(60rem 36rem at 12% -8%, rgba(34, 199, 154, 0.16), transparent 60%),
+    radial-gradient(48rem 30rem at 92% 4%, rgba(191, 227, 176, 0.35), transparent 60%),
+    radial-gradient(40rem 28rem at 60% 100%, rgba(11, 95, 81, 0.10), transparent 65%);
   background-attachment: fixed;
 }
+/* Dot-grid overlay disabled in Round 9: it sits above the full-page
+   Velaris canvas (z -1 vs -10) and would speckle the clean gradient. */
 body::before {
+  display: none;
   content: "";
   position: fixed;
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  background-image: radial-gradient(rgba(15, 23, 42, 0.09) 1px, transparent 1px);
+  background-image: radial-gradient(rgba(11, 95, 81, 0.09) 1px, transparent 1px);
   background-size: 22px 22px;
   -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), transparent 55%);
   mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), transparent 55%);
@@ -98,16 +107,16 @@ body::before {
 .aurora::after {
   width: 22rem; height: 22rem;
   top: -6rem; right: -4rem;
-  background: radial-gradient(circle, rgba(56, 189, 248, 0.22), transparent 65%);
+  background: radial-gradient(circle, rgba(34, 199, 154, 0.26), transparent 65%);
 }
 
-/* ── Surfaces ──────────────────────────────────────── */
+/* ── Surfaces: celadon-tinted glass, moss hairlines ────── */
 .card-surface {
-  background-color: rgba(255, 255, 255, 0.85);
+  background-color: rgba(244, 251, 246, 0.88);
   -webkit-backdrop-filter: blur(12px) saturate(1.2);
   backdrop-filter: blur(12px) saturate(1.2);
   border: 1px solid var(--hairline);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9), var(--shadow-card);
+  box-shadow: inset 0 1px 0 rgba(244, 251, 246, 0.9), var(--shadow-card);
 }
 .card-lift {
   transition: transform 0.25s var(--ease-out), box-shadow 0.25s var(--ease-out), border-color 0.25s ease;
@@ -118,7 +127,7 @@ body::before {
   border-color: rgba(16, 185, 129, 0.35);
 }
 .glass {
-  background: rgba(255, 255, 255, 0.78);
+  background: rgba(244, 251, 246, 0.82);
   -webkit-backdrop-filter: blur(16px) saturate(1.3);
   backdrop-filter: blur(16px) saturate(1.3);
 }
@@ -170,7 +179,7 @@ body::before {
   inset: -2px;
   border-radius: inherit;
   padding: 2px;
-  background: linear-gradient(135deg, #34d399, #0d9488 50%, #38bdf8);
+  background: linear-gradient(135deg, #34d399, #0d9488 50%, #22c79a);
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
   mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
@@ -188,7 +197,7 @@ body::before {
   box-shadow: 0 14px 30px -8px rgba(220, 38, 38, 0.35), 0 0 0 1px rgba(220, 38, 38, 0.3);
 }
 .sample-card--blue:hover {
-  box-shadow: 0 14px 30px -8px rgba(37, 99, 235, 0.35), 0 0 0 1px rgba(37, 99, 235, 0.3);
+  box-shadow: 0 14px 30px -8px rgba(13, 148, 136, 0.35), 0 0 0 1px rgba(13, 148, 136, 0.3);
 }
 
 /* ── Language switch: sliding active pill ──────────── */
@@ -199,8 +208,8 @@ body::before {
   left: 2px;
   width: calc((100% - 4px) / 3);
   border-radius: 0.5rem;
-  background: #fff;
-  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.12), 0 2px 6px -1px rgba(15, 23, 42, 0.08);
+  background: #f4fbf6;
+  box-shadow: 0 1px 2px rgba(11, 31, 27, 0.14), 0 2px 6px -1px rgba(11, 95, 81, 0.10);
   transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -212,8 +221,8 @@ body::before {
   left: 4px;
   width: calc((100% - 8px) / var(--tabs, 3));
   border-radius: 0.5rem;
-  background: #fff;
-  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.12), 0 2px 6px -1px rgba(15, 23, 42, 0.08);
+  background: #f4fbf6;
+  box-shadow: 0 1px 2px rgba(11, 31, 27, 0.14), 0 2px 6px -1px rgba(11, 95, 81, 0.10);
   transform: translateX(calc(var(--i, 0) * 100%));
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -240,7 +249,7 @@ button:focus-visible,
 a:focus-visible,
 input:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--accent), 0 0 14px 2px var(--accent-glow);
+  box-shadow: 0 0 0 2px #f4fbf6, 0 0 0 4px var(--accent), 0 0 14px 2px var(--accent-glow);
 }
 
 /* ── Hero verdict card ─────────────────────────────── */
@@ -249,11 +258,11 @@ input:focus-visible {
   --sev-glow: rgba(5, 150, 105, 0.32);
   border: 1.5px solid transparent !important;
   background:
-    linear-gradient(180deg, #ffffff 0%, color-mix(in srgb, var(--sev) 7%, #ffffff) 100%) padding-box,
-    linear-gradient(135deg, var(--sev), color-mix(in srgb, var(--sev) 25%, #ffffff) 55%, var(--sev)) border-box !important;
+    linear-gradient(180deg, #f4fbf6 0%, color-mix(in srgb, var(--sev) 7%, #f4fbf6) 100%) padding-box,
+    linear-gradient(135deg, var(--sev), color-mix(in srgb, var(--sev) 25%, #f4fbf6) 55%, var(--sev)) border-box !important;
   box-shadow:
     inset 0 0 44px -14px var(--sev-glow),
-    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    inset 0 1px 0 rgba(244, 251, 246, 0.9),
     var(--shadow-card);
 }
 .hero-card--critical { --sev: #dc2626; --sev-glow: rgba(220, 38, 38, 0.38); }
@@ -270,13 +279,13 @@ input:focus-visible {
   height: 2px;
   opacity: 0.75;
   pointer-events: none;
-  background: linear-gradient(90deg, transparent, #34d399, #38bdf8, #34d399, transparent) 0 0 / 50% 100% repeat-x;
+  background: linear-gradient(90deg, transparent, #34d399, #22c79a, #34d399, transparent) 0 0 / 50% 100% repeat-x;
 }
 
 /* Severity ring (SVG, animated stroke) */
 .sev-ring { transform: rotate(-90deg); transform-origin: center; }
 .sev-ring circle { fill: none; stroke-width: 8; stroke-linecap: round; }
-.sev-ring .ring-track { stroke: rgba(15, 23, 42, 0.08); }
+.sev-ring .ring-track { stroke: rgba(11, 95, 81, 0.12); }
 .sev-ring .ring-value {
   transition: stroke-dashoffset 1s var(--ease-out);
 }
@@ -322,7 +331,7 @@ input:focus-visible {
   .animate-soft-pulse { animation: softPulse 2.2s ease-in-out infinite; }
   .animate-check-pop { animation: checkPop 0.35s var(--ease-spring) both; }
   .animate-shimmer {
-    background: linear-gradient(90deg, #e5e7eb 25%, #f3f4f6 50%, #e5e7eb 75%);
+    background: linear-gradient(90deg, #dcebe1 25%, #eef8f1 50%, #dcebe1 75%);
     background-size: 200% 100%;
     animation: shimmer 1.5s infinite;
   }
@@ -389,7 +398,7 @@ input:focus-visible {
 
 /* Animated gradient text (hero accent word) */
 .text-gradient-animated {
-  background: linear-gradient(100deg, #0d9488, #10b981 25%, #38bdf8 50%, #10b981 75%, #0d9488);
+  background: linear-gradient(100deg, #0d9488, #10b981 25%, #22c79a 50%, #10b981 75%, #0d9488);
   background-size: 220% 100%;
   -webkit-background-clip: text;
   background-clip: text;
@@ -400,9 +409,9 @@ input:focus-visible {
 .hero-mesh {
   background:
     radial-gradient(38rem 22rem at 8% 0%, rgba(16, 185, 129, 0.22), transparent 60%),
-    radial-gradient(34rem 22rem at 95% 10%, rgba(56, 189, 248, 0.22), transparent 60%),
+    radial-gradient(34rem 22rem at 95% 10%, rgba(34, 199, 154, 0.22), transparent 60%),
     radial-gradient(30rem 20rem at 50% 110%, rgba(217, 119, 6, 0.10), transparent 60%),
-    linear-gradient(180deg, #eefaf4 0%, #f4f7f6 55%, #f4f7f6 100%);
+    linear-gradient(180deg, #eefaf4 0%, #f0fbef 55%, #f0fbef 100%);
 }
 .hero-grid {
   background-image:
@@ -416,7 +425,7 @@ input:focus-visible {
 /* Floating orbs */
 .orb { position: absolute; border-radius: 9999px; filter: blur(56px); pointer-events: none; }
 .orb-teal { width: 22rem; height: 22rem; background: rgba(16, 185, 129, 0.35); top: -6rem; left: -4rem; }
-.orb-sky { width: 18rem; height: 18rem; background: rgba(56, 189, 248, 0.32); top: -2rem; right: -2rem; }
+.orb-sky { width: 18rem; height: 18rem; background: rgba(34, 199, 154, 0.32); top: -2rem; right: -2rem; }
 .orb-rose { width: 14rem; height: 14rem; background: rgba(244, 63, 94, 0.22); top: 16rem; right: 12%; }
 
 /* Hero entrance choreography (delays set inline) */
@@ -424,13 +433,13 @@ input:focus-visible {
 
 /* Floating verdict mock */
 .mock-card {
-  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
-  border: 1px solid rgba(15, 23, 42, 0.08);
-  box-shadow: 0 2px 4px rgba(15, 23, 42, 0.05), 0 20px 44px -12px rgba(15, 23, 42, 0.18), 0 32px 64px -24px rgba(220, 38, 38, 0.25);
+  background: linear-gradient(180deg, #f4fbf6 0%, #eef8f1 100%);
+  border: 1px solid rgba(11, 95, 81, 0.14);
+  box-shadow: 0 2px 4px rgba(11, 31, 27, 0.05), 0 20px 44px -12px rgba(11, 95, 81, 0.20), 0 32px 64px -24px rgba(220, 38, 38, 0.25);
 }
 .mock-chip {
-  box-shadow: 0 10px 24px -8px rgba(15, 23, 42, 0.28), 0 2px 6px rgba(15, 23, 42, 0.08);
-  border: 1px solid rgba(15, 23, 42, 0.06);
+  box-shadow: 0 10px 24px -8px rgba(11, 31, 27, 0.28), 0 2px 6px rgba(11, 31, 27, 0.08);
+  border: 1px solid rgba(11, 95, 81, 0.10);
 }
 
 /* Sample card shine sweep */
@@ -451,7 +460,7 @@ input:focus-visible {
 @keyframes marchAnts { to { background-position: 0 0, 0 0, 0 0, 0 0; } }
 .dropzone-hot {
   border-color: #10b981 !important;
-  background: linear-gradient(180deg, #ecfdf5, #ffffff) !important;
+  background: linear-gradient(180deg, #ecfdf5, #f4fbf6) !important;
   box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.18), 0 18px 40px -12px rgba(16, 185, 129, 0.45) !important;
   transform: scale(1.015);
 }
@@ -469,7 +478,7 @@ input:focus-visible {
 }
 
 /* Alert: strong left color block */
-.alert-strong { box-shadow: 0 12px 32px -12px rgba(15, 23, 42, 0.22); }
+.alert-strong { box-shadow: 0 12px 32px -12px rgba(11, 31, 27, 0.22); }
 .alert-strong--critical { box-shadow: 0 16px 40px -12px rgba(220, 38, 38, 0.45); }
 .alert-strong--warning { box-shadow: 0 16px 40px -12px rgba(217, 119, 6, 0.4); }
 
@@ -485,8 +494,8 @@ input:focus-visible {
 }
 
 /* Lab bar: taller, bolder */
-.lab-bar { height: 1rem; border-radius: 9999px; box-shadow: inset 0 1px 2px rgba(15, 23, 42, 0.18); }
-.lab-marker { box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.9), 0 4px 10px rgba(15, 23, 42, 0.35); }
+.lab-bar { height: 1rem; border-radius: 9999px; box-shadow: inset 0 1px 2px rgba(11, 31, 27, 0.18); }
+.lab-marker { box-shadow: 0 0 0 3px rgba(244, 251, 246, 0.9), 0 4px 10px rgba(11, 31, 27, 0.35); }
 
 /* How-it-works connector line */
 .flow-line {
@@ -598,11 +607,11 @@ input:focus-visible {
 .stack-card:nth-child(3) { top: 124px; }
 
 /* Verdict stamp — rotated, word + icon + colour */
-.stamp { transform: rotate(-2deg); box-shadow: 0 10px 24px -10px rgba(15, 23, 42, 0.3); }
+.stamp { transform: rotate(-2deg); box-shadow: 0 10px 24px -10px rgba(11, 31, 27, 0.3); }
 
 /* Bento triage: filter pills */
 .triage-pill { transition: all 0.2s ease; }
-.triage-pill[data-active="true"] { background: #0f172a; color: #fff; border-color: #0f172a; box-shadow: 0 8px 20px -6px rgba(15, 23, 42, 0.5); }
+.triage-pill[data-active="true"] { background: #0b1f1b; color: #f4fbf6; border-color: #0b1f1b; box-shadow: 0 8px 20px -6px rgba(11, 31, 27, 0.5); }
 
 /* Unified day timeline strip */
 .day-strip { scroll-snap-type: x mandatory; scrollbar-width: none; }
@@ -650,11 +659,23 @@ input:focus-visible {
    generous spacing. Left-to-right entrances reuse the
    Reveal system (IO, 0.7s, cubic-bezier(0.22,1,0.36,1)).
    ══════════════════════════════════════════════════════════ */
+/* ══════════════════════════════════════════════════════════
+   ROUND 10 — finishing pass: the whole colour system is now
+   green-anchored. Tokens regraded in :root (moss ink,
+   celadon surfaces, moss hairlines, green-tinted shadows);
+   every cold slate/grey/white Tailwind class across the app
+   was remapped to the green scale (see git diff); decorative
+   sky/cyan/indigo/blue accents became teal/emerald/moss.
+   Severity colours (red/amber/blue) and the Velaris palette
+   are untouched. Print styles stay paper-white on purpose.
+   ══════════════════════════════════════════════════════════ */
 .dash-card {
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
+  background: rgba(244, 251, 246, 0.92);
+  border: 1px solid rgba(11, 95, 81, 0.14);
   border-radius: 20px;
-  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+  box-shadow: 0 1px 2px rgba(11, 31, 27, 0.05), 0 8px 24px -8px rgba(11, 95, 81, 0.14);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
 }
 .lab-bar--slim { height: 6px; }
 
@@ -687,7 +708,7 @@ input:focus-visible {
 
 /* Soft glow behind the headline — radial falloff, no blur filter */
 .hero-glow {
-  background: radial-gradient(closest-side, rgba(16, 185, 129, 0.22), rgba(56, 189, 248, 0.12) 55%, transparent 75%);
+  background: radial-gradient(closest-side, rgba(16, 185, 129, 0.22), rgba(34, 199, 154, 0.12) 55%, transparent 75%);
   will-change: transform;
 }
 

@@ -28,14 +28,14 @@ export default function LoadingAnalysis() {
         <div className="relative w-20 h-20 rounded-[1.75rem] bg-gradient-to-br from-emerald-500 to-teal-600 text-white flex items-center justify-center shadow-xl shadow-emerald-600/30 animate-float">
           <ShieldCheck className="w-10 h-10" />
         </div>
-        <span className="absolute -bottom-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-white shadow-md ring-1 ring-emerald-100">
+        <span className="absolute -bottom-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-[#F4FBF6] shadow-md ring-1 ring-emerald-100">
           <Loader2 className="w-3.5 h-3.5 text-emerald-600 animate-spin motion-reduce:animate-none" aria-hidden />
         </span>
       </div>
 
       <div className="text-center space-y-1.5">
-        <h2 className="font-display text-2xl font-extrabold tracking-tight text-gray-900">Analyzing your documents</h2>
-        <p className="text-sm text-gray-500">Vision AI is reading your prescription and lab report together — nothing is stored.</p>
+        <h2 className="font-display text-2xl font-extrabold tracking-tight text-[#0B1F1B]">Analyzing your documents</h2>
+        <p className="text-sm text-[#5A7268]">Vision AI is reading your prescription and lab report together — nothing is stored.</p>
       </div>
 
       {/* Progress chips — Upload → Parse → Verdict */}
@@ -46,23 +46,23 @@ export default function LoadingAnalysis() {
           { label: "Verdict", state: active >= 3 ? ("current" as const) : ("todo" as const) },
         ].map((chip, i) => (
           <span key={chip.label} className="flex items-center gap-1.5">
-            <span className={`rounded-full px-3 py-1.5 text-[11px] font-black uppercase tracking-wide ${chip.state === "done" ? "bg-emerald-600 text-white" : chip.state === "current" ? "bg-emerald-100 text-emerald-800 ring-1 ring-emerald-300" : "bg-gray-100 text-gray-400"}`}>
+            <span className={`rounded-full px-3 py-1.5 text-[11px] font-black uppercase tracking-wide ${chip.state === "done" ? "bg-emerald-600 text-white" : chip.state === "current" ? "bg-emerald-100 text-emerald-800 ring-1 ring-emerald-300" : "bg-[#E3F2E9] text-[#7A938A]"}`}>
               {chip.state === "done" ? "✓ " : ""}{chip.label}
             </span>
-            {i < 2 && <span className="text-gray-300">→</span>}
+            {i < 2 && <span className="text-[#9DB3A8]">→</span>}
           </span>
         ))}
       </div>
 
       {/* Progress bar */}
       <div className="w-full">
-        <div className="flex items-center justify-between text-xs font-semibold text-gray-600 mb-2">
+        <div className="flex items-center justify-between text-xs font-semibold text-[#3D5A50] mb-2">
           <span>{STEPS[active]?.label}…</span>
           <span className="tabular-nums text-emerald-700">{progress}%</span>
         </div>
-        <div className="h-2.5 w-full overflow-hidden rounded-full bg-gray-200/80">
+        <div className="h-2.5 w-full overflow-hidden rounded-full bg-[#CDE7D8]/80">
           <div
-            className="h-full rounded-full bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 transition-all duration-700 ease-out"
+            className="h-full rounded-full bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-400 transition-all duration-700 ease-out"
             style={{ width: `${progress}%` }}
           />
         </div>
@@ -81,8 +81,8 @@ export default function LoadingAnalysis() {
                 current
                   ? "border-emerald-300 bg-emerald-50/70 shadow-sm shadow-emerald-600/10 scale-[1.01]"
                   : done
-                  ? "border-gray-100 bg-white/70"
-                  : "border-gray-100 bg-white/40 opacity-60"
+                  ? "border-[#0B5F51]/10 bg-[#F4FBF6]/70"
+                  : "border-[#0B5F51]/10 bg-[#F4FBF6]/40 opacity-60"
               }`}
             >
               <span
@@ -90,8 +90,8 @@ export default function LoadingAnalysis() {
                   done
                     ? "bg-emerald-600 border-emerald-600 text-white"
                     : current
-                    ? "bg-white border-emerald-400 text-emerald-600 shadow-sm"
-                    : "bg-white border-gray-200 text-gray-400"
+                    ? "bg-[#F4FBF6] border-emerald-400 text-emerald-600 shadow-sm"
+                    : "bg-[#F4FBF6] border-[#0B5F51]/15 text-[#7A938A]"
                 }`}
               >
                 {done ? (
@@ -103,8 +103,8 @@ export default function LoadingAnalysis() {
                 )}
               </span>
               <span className="min-w-0">
-                <span className={`block text-sm font-semibold ${done || current ? "text-gray-900" : "text-gray-500"}`}>{step.label}</span>
-                <span className="block truncate text-xs text-gray-500">{step.sub}</span>
+                <span className={`block text-sm font-semibold ${done || current ? "text-[#0B1F1B]" : "text-[#5A7268]"}`}>{step.label}</span>
+                <span className="block truncate text-xs text-[#5A7268]">{step.sub}</span>
               </span>
               {current && <span className="ml-auto text-[10px] font-bold uppercase tracking-wider text-emerald-700 animate-soft-pulse">Working</span>}
               {done && <span className="ml-auto text-[10px] font-bold uppercase tracking-wider text-emerald-600">Done</span>}
@@ -115,13 +115,13 @@ export default function LoadingAnalysis() {
 
       {/* Skeleton preview of the dashboard to come */}
       <div className="w-full space-y-2" aria-hidden>
-        <div className="h-16 rounded-2xl border border-gray-100 bg-white/70 p-3">
+        <div className="h-16 rounded-2xl border border-[#0B5F51]/10 bg-[#F4FBF6]/70 p-3">
           <div className="h-3 w-2/3 rounded-full animate-shimmer" />
           <div className="mt-2.5 h-3 w-1/2 rounded-full animate-shimmer" />
         </div>
         <div className="grid grid-cols-3 gap-2">
           {[0, 1, 2].map((i) => (
-            <div key={i} className="h-12 rounded-xl border border-gray-100 bg-white/60 p-2">
+            <div key={i} className="h-12 rounded-xl border border-[#0B5F51]/10 bg-[#F4FBF6]/60 p-2">
               <div className="h-2.5 w-3/4 rounded-full animate-shimmer" />
               <div className="mt-2 h-2.5 w-1/2 rounded-full animate-shimmer" />
             </div>

@@ -19,7 +19,7 @@ export default function SampleCaseButtons({
   return (
     <div className="w-full pt-1">
       <div className="flex flex-wrap items-center justify-center gap-2">
-        <span className="text-xs font-semibold text-slate-400">No files handy?</span>
+        <span className="text-xs font-semibold text-[#7A938A]">No files handy?</span>
         <button
           onClick={() => onSelect("A")}
           disabled={disabled}
@@ -32,7 +32,7 @@ export default function SampleCaseButtons({
         <button
           onClick={() => onSelect("B")}
           disabled={disabled}
-          className="group inline-flex min-h-10 items-center gap-1.5 rounded-full border border-blue-200 bg-blue-50/70 px-3.5 py-2 text-xs font-bold text-blue-700 transition-all hover:bg-blue-50 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="group inline-flex min-h-10 items-center gap-1.5 rounded-full border border-amber-200 bg-amber-50/70 px-3.5 py-2 text-xs font-bold text-amber-700 transition-all hover:bg-amber-50 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 disabled:opacity-50 disabled:cursor-not-allowed"
         >
           <Pill className="h-3.5 w-3.5" aria-hidden />
           Try Case B — routine check

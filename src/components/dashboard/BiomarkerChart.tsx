@@ -31,21 +31,21 @@ export default function BiomarkerChart({ markers }: BiomarkerChartProps) {
 
   return (
     <div className="dash-card p-6 sm:p-8">
-      <div className="pb-5 border-b border-slate-100">
-        <h2 className="text-lg font-bold text-slate-900">
+      <div className="pb-5 border-b border-[#0B5F51]/10">
+        <h2 className="text-lg font-bold text-[#0B1F1B]">
           Your lab results
         </h2>
-        <p className="print-hide text-xs text-slate-500 mt-0.5">
+        <p className="print-hide text-xs text-[#5A7268] mt-0.5">
           Your numbers, next to the healthy range
         </p>
 
         {/* Filter tabs — quiet segmented control */}
-        <div className="relative flex w-full items-center bg-slate-100 p-1 rounded-xl text-xs font-medium no-print mt-4">
+        <div className="relative flex w-full items-center bg-[#E3F2E9] p-1 rounded-xl text-xs font-medium no-print mt-4">
           <span aria-hidden className="tab-pill" style={{ "--tabs": 3, "--i": ["all", "abnormal", "normal"].indexOf(filterType) } as React.CSSProperties} />
           <button
             onClick={() => setFilterType("all")}
             className={`relative z-10 flex-1 min-h-11 px-2.5 rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 ${
-              filterType === "all" ? "text-slate-900 font-bold" : "text-slate-500 hover:text-slate-900"
+              filterType === "all" ? "text-[#0B1F1B] font-bold" : "text-[#5A7268] hover:text-[#0B1F1B]"
             }`}
           >
             All ({markers.length})
@@ -53,7 +53,7 @@ export default function BiomarkerChart({ markers }: BiomarkerChartProps) {
           <button
             onClick={() => setFilterType("abnormal")}
             className={`relative z-10 flex-1 min-h-11 px-2.5 rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 ${
-              filterType === "abnormal" ? "text-red-700 font-bold" : "text-slate-500 hover:text-red-700"
+              filterType === "abnormal" ? "text-red-700 font-bold" : "text-[#5A7268] hover:text-red-700"
             }`}
           >
             Abnormal ({abnormalCount})
@@ -61,7 +61,7 @@ export default function BiomarkerChart({ markers }: BiomarkerChartProps) {
           <button
             onClick={() => setFilterType("normal")}
             className={`relative z-10 flex-1 min-h-11 px-2.5 rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 ${
-              filterType === "normal" ? "text-emerald-700 font-bold" : "text-slate-500 hover:text-emerald-700"
+              filterType === "normal" ? "text-emerald-700 font-bold" : "text-[#5A7268] hover:text-emerald-700"
             }`}
           >
             Normal ({markers.length - abnormalCount})
@@ -78,21 +78,21 @@ export default function BiomarkerChart({ markers }: BiomarkerChartProps) {
 
           return (
             <Reveal key={i} from="left" delay={i * 70}>
-              <div className={`${isNormal ? "print-hide " : ""}py-5 ${i > 0 ? "border-t border-slate-100" : ""}`}>
+              <div className={`${isNormal ? "print-hide " : ""}py-5 ${i > 0 ? "border-t border-[#0B5F51]/10" : ""}`}>
                 <div className="flex items-start justify-between gap-4">
                   <div className="min-w-0">
-                    <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
+                    <p className="text-[10px] font-bold uppercase tracking-wider text-[#7A938A]">
                       {getOrganLabel(marker.test_name)}
                       {marker.confidence !== "high" && (
                         <span className="ml-2 normal-case font-semibold text-amber-700">Review OCR</span>
                       )}
                     </p>
-                    <h4 className="text-sm font-bold text-slate-900 mt-1">
+                    <h4 className="text-sm font-bold text-[#0B1F1B] mt-1">
                       {marker.test_name}
                     </h4>
-                    <p className="text-xs text-slate-500 mt-0.5">
+                    <p className="text-xs text-[#5A7268] mt-0.5">
                       Reference:{" "}
-                      <span className="font-semibold text-slate-600 tabular-nums">
+                      <span className="font-semibold text-[#3D5A50] tabular-nums">
                         {marker.reference_range} {marker.unit}
                       </span>
                     </p>
@@ -100,10 +100,10 @@ export default function BiomarkerChart({ markers }: BiomarkerChartProps) {
 
                   <div className="text-right shrink-0">
                     <div className="flex items-baseline justify-end gap-1">
-                      <span className={`text-2xl font-bold tabular-nums ${isHigh ? "text-red-600" : isLow ? "text-amber-600" : "text-slate-900"}`}>
+                      <span className={`text-2xl font-bold tabular-nums ${isHigh ? "text-red-600" : isLow ? "text-amber-600" : "text-[#0B1F1B]"}`}>
                         {marker.value}
                       </span>
-                      <span className="text-xs text-slate-400 font-medium">
+                      <span className="text-xs text-[#7A938A] font-medium">
                         {marker.unit}
                       </span>
                     </div>
@@ -126,17 +126,17 @@ export default function BiomarkerChart({ markers }: BiomarkerChartProps) {
 
                 {/* One slim range bar — wipes in left to right */}
                 <div className="print-hide mt-4 space-y-1.5">
-                  <div className="flex justify-between text-[10px] text-slate-400 font-medium">
+                  <div className="flex justify-between text-[10px] text-[#7A938A] font-medium">
                     <span>LOW</span>
                     <span>Normal range</span>
                     <span>HIGH</span>
                   </div>
-                  <div className="lab-bar lab-bar--slim w-full bg-slate-100 rounded-full overflow-hidden flex relative">
+                  <div className="lab-bar lab-bar--slim w-full bg-[#E3F2E9] rounded-full overflow-hidden flex relative">
                     <div className="animate-bar-fill w-[25%] bg-amber-300/80" title="Low zone" />
                     <div className="animate-bar-fill w-[50%] bg-emerald-400/80" title="Normal zone" style={{ animationDelay: "80ms" }} />
                     <div className="animate-bar-fill w-[25%] bg-red-400/80" title="High zone" style={{ animationDelay: "160ms" }} />
                     <div
-                      className={`lab-marker marker-in absolute -top-[2px] -bottom-[2px] w-3.5 rounded-full border-2 border-white ${
+                      className={`lab-marker marker-in absolute -top-[2px] -bottom-[2px] w-3.5 rounded-full border-2 border-[#F4FBF6] ${
                         isHigh
                           ? "bg-red-600 left-[85%]"
                           : isLow
@@ -145,12 +145,12 @@ export default function BiomarkerChart({ markers }: BiomarkerChartProps) {
                       }`}
                     />
                   </div>
-                  <p className="text-[10px] text-slate-400">Single reading · no trend history yet</p>
+                  <p className="text-[10px] text-[#7A938A]">Single reading · no trend history yet</p>
                 </div>
 
                 {/* Plain-language interpretation — plain text, no box */}
-                <p className="print-hide text-xs text-slate-500 mt-3 leading-relaxed">
-                  <span className="font-bold text-slate-700">What this means: </span>
+                <p className="print-hide text-xs text-[#5A7268] mt-3 leading-relaxed">
+                  <span className="font-bold text-[#2C4A42]">What this means: </span>
                   {marker.plain_meaning}
                 </p>
               </div>

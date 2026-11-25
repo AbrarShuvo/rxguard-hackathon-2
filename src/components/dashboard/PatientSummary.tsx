@@ -55,8 +55,8 @@ export default function PatientSummary({ result, lang = "en" }: PatientSummaryPr
   const stats = [
     { label: t.statCritical, value: critical, tone: "text-red-600" },
     { label: t.statWarnings, value: warnings, tone: "text-amber-600" },
-    { label: t.statAbnormal, value: abnormal, tone: "text-slate-900" },
-    { label: t.statMeds, value: result.medications.length, tone: "text-slate-900" },
+    { label: t.statAbnormal, value: abnormal, tone: "text-[#0B1F1B]" },
+    { label: t.statMeds, value: result.medications.length, tone: "text-[#0B1F1B]" },
   ];
 
   const isCritical = result.overall_risk_level === "CRITICAL";
@@ -94,13 +94,13 @@ export default function PatientSummary({ result, lang = "en" }: PatientSummaryPr
           </svg>
           <div className="absolute inset-0 flex flex-col items-center justify-center">
             <Icon className={`h-6 w-6 ${config.iconColor}`} aria-hidden />
-            <span className="text-[9px] font-bold uppercase tracking-wider mt-0.5 text-slate-400">Risk</span>
+            <span className="text-[9px] font-bold uppercase tracking-wider mt-0.5 text-[#7A938A]">Risk</span>
           </div>
         </div>
 
         <div className="flex-1 min-w-0 text-center sm:text-left">
           <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
-            <h2 className="font-display text-xl sm:text-2xl font-bold text-slate-900">
+            <h2 className="font-display text-xl sm:text-2xl font-bold text-[#0B1F1B]">
               {t.overviewTitle}
             </h2>
             <span className={`inline-flex items-center gap-1.5 text-xs font-bold px-2.5 py-1 rounded-full ${config.accentSoft}`}>
@@ -108,12 +108,12 @@ export default function PatientSummary({ result, lang = "en" }: PatientSummaryPr
               {t[config.labelKey]}
             </span>
           </div>
-          <p className="text-sm sm:text-[15px] leading-relaxed mt-2 text-slate-600 max-w-2xl">{result.patient_summary}</p>
+          <p className="text-sm sm:text-[15px] leading-relaxed mt-2 text-[#3D5A50] max-w-2xl">{result.patient_summary}</p>
           {topAlert && (
-            <div className="mt-4 flex items-start gap-2.5 rounded-xl bg-slate-50 border-l-2 px-4 py-3 text-left" style={{ borderLeftColor: config.accent }}>
-              <OctagonAlert className="mt-0.5 h-4 w-4 shrink-0 text-slate-500" aria-hidden />
-              <p className="text-sm leading-relaxed text-slate-700">
-                <span className="block text-[10px] font-bold uppercase tracking-wider text-slate-400">One next step</span>
+            <div className="mt-4 flex items-start gap-2.5 rounded-xl bg-[#EFFAF3] border-l-2 px-4 py-3 text-left" style={{ borderLeftColor: config.accent }}>
+              <OctagonAlert className="mt-0.5 h-4 w-4 shrink-0 text-[#5A7268]" aria-hidden />
+              <p className="text-sm leading-relaxed text-[#2C4A42]">
+                <span className="block text-[10px] font-bold uppercase tracking-wider text-[#7A938A]">One next step</span>
                 {topAlert.action}
               </p>
             </div>
@@ -131,13 +131,13 @@ export default function PatientSummary({ result, lang = "en" }: PatientSummaryPr
       </div>
 
       {/* Stats — plain numbers, hairline dividers, no icon tiles */}
-      <dl className="mt-7 pt-6 grid grid-cols-2 sm:grid-cols-4 gap-6 border-t border-slate-100">
+      <dl className="mt-7 pt-6 grid grid-cols-2 sm:grid-cols-4 gap-6 border-t border-[#0B5F51]/10">
         {stats.map((s, i) => (
-          <div key={s.label} className={i > 0 ? "sm:border-l sm:border-slate-100 sm:pl-6" : ""}>
+          <div key={s.label} className={i > 0 ? "sm:border-l sm:border-[#0B5F51]/10 sm:pl-6" : ""}>
             <dd className={`font-bold tabular-nums text-3xl leading-none ${s.tone}`}>
               <CountUp to={s.value} />
             </dd>
-            <dt className="text-xs font-medium text-slate-500 mt-1.5">{s.label}</dt>
+            <dt className="text-xs font-medium text-[#5A7268] mt-1.5">{s.label}</dt>
           </div>
         ))}
       </dl>

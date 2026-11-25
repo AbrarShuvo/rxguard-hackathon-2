@@ -18,8 +18,8 @@ const severityConfig = {
     iconWrap: "bg-red-50 text-red-600",
     icon: ShieldAlert,
     badge: "bg-red-600 text-white",
-    titleColor: "text-slate-900",
-    textColor: "text-slate-600",
+    titleColor: "text-[#0B1F1B]",
+    textColor: "text-[#3D5A50]",
     actionColor: "text-red-700",
   },
   WARNING: {
@@ -27,8 +27,8 @@ const severityConfig = {
     iconWrap: "bg-amber-50 text-amber-600",
     icon: AlertTriangle,
     badge: "bg-amber-500 text-white",
-    titleColor: "text-slate-900",
-    textColor: "text-slate-600",
+    titleColor: "text-[#0B1F1B]",
+    textColor: "text-[#3D5A50]",
     actionColor: "text-amber-700",
   },
   INFO: {
@@ -36,8 +36,8 @@ const severityConfig = {
     iconWrap: "bg-sky-50 text-sky-600",
     icon: Info,
     badge: "bg-sky-500 text-white",
-    titleColor: "text-slate-900",
-    textColor: "text-slate-600",
+    titleColor: "text-[#0B1F1B]",
+    textColor: "text-[#3D5A50]",
     actionColor: "text-sky-700",
   },
 };
@@ -59,11 +59,11 @@ export default function AlertBanner({ alerts }: SafetyAlertProps) {
   return (
     <section aria-label="Safety alerts" className="space-y-4">
       <div className="flex flex-wrap items-baseline justify-between gap-2">
-        <h2 className="font-display text-lg font-bold text-slate-900 flex items-center gap-2">
+        <h2 className="font-display text-lg font-bold text-[#0B1F1B] flex items-center gap-2">
           <ShieldAlert className="h-5 w-5 text-red-600" aria-hidden />
           What needs your attention
         </h2>
-        <span className="text-xs text-slate-400 tabular-nums">
+        <span className="rounded-full bg-[#F4FBF6]/85 px-2.5 py-1 text-xs font-semibold text-[#5A7268] tabular-nums shadow-sm ring-1 ring-[#0B1F1B]/5">
           {sorted.length} {sorted.length === 1 ? "thing to know" : "things to know"} · worst first
         </span>
       </div>
@@ -76,7 +76,7 @@ export default function AlertBanner({ alerts }: SafetyAlertProps) {
             type="button"
             data-active={filter === f}
             onClick={() => setFilter(f)}
-            className="triage-pill inline-flex min-h-9 items-center gap-1.5 rounded-full border border-slate-200 bg-white px-3.5 py-1.5 text-xs font-semibold text-slate-600"
+            className="triage-pill inline-flex min-h-9 items-center gap-1.5 rounded-full border border-[#0B5F51]/15 bg-[#F4FBF6] px-3.5 py-1.5 text-xs font-semibold text-[#3D5A50]"
           >
             {f === "ALL" ? "All" : f.charAt(0) + f.slice(1).toLowerCase()} ({counts[f]})
           </button>
@@ -100,20 +100,20 @@ export default function AlertBanner({ alerts }: SafetyAlertProps) {
                       <span className={`text-[10px] font-bold uppercase tracking-wider ${config.badge} px-2 py-0.5 rounded-full`}>
                         {alert.severity}
                       </span>
-                      <span className="text-[11px] font-medium text-slate-400">
+                      <span className="text-[11px] font-medium text-[#7A938A]">
                         Alert {i + 1} of {sorted.length}
                         {alert.type !== "GENERAL" ? ` · ${alert.type.replace("_", "-")}` : ""}
                       </span>
                     </div>
                     <h3 className={`font-display text-base font-bold ${config.titleColor}`}>{alert.title}</h3>
                     <p className={`print-hide text-sm ${config.textColor} mt-1 leading-relaxed`}>{alert.explanation}</p>
-                    <div className="mt-4 pt-3 flex items-start gap-2 border-t border-slate-100">
+                    <div className="mt-4 pt-3 flex items-start gap-2 border-t border-[#0B5F51]/10">
                       <AlertCircle className={`mt-0.5 h-4 w-4 shrink-0 ${config.actionColor}`} aria-hidden />
-                      <p className="text-sm leading-relaxed text-slate-700">
-                        <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mr-1.5">What to do</span>
+                      <p className="text-sm leading-relaxed text-[#2C4A42]">
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-[#7A938A] mr-1.5">What to do</span>
                         {alert.action}
                       </p>
-                      <ArrowRight className="ml-auto mt-0.5 h-4 w-4 shrink-0 text-slate-300" aria-hidden />
+                      <ArrowRight className="ml-auto mt-0.5 h-4 w-4 shrink-0 text-[#9DB3A8]" aria-hidden />
                     </div>
                   </div>
                 </div>
