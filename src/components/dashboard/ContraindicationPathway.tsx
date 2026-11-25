@@ -41,7 +41,7 @@ export default function ContraindicationPathway({ alerts, lang = "en" }: Contrai
           <h3 className="font-display text-lg font-bold text-slate-900">
             {t.pathwayTitle}
           </h3>
-          <p className="text-xs text-slate-500">How each flagged medicine could lead to harm</p>
+          <p className="text-xs text-slate-500">How each flagged medicine could cause harm — step by step</p>
         </div>
         <span className="hidden sm:inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-slate-500">Drug → Lab → Harm</span>
       </div>
@@ -104,7 +104,7 @@ export default function ContraindicationPathway({ alerts, lang = "en" }: Contrai
                 </div>
 
                 <p className="text-xs text-slate-500 leading-relaxed">
-                  <span className="font-bold text-slate-700">Why: </span>
+                  <span className="font-bold text-slate-700">In plain words: </span>
                   {alert.explanation}
                 </p>
               </div>

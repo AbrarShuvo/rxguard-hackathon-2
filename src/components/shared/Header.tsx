@@ -24,7 +24,7 @@ export default function Header({
 }: HeaderProps) {
   return (
     <header className="app-header w-full border-b border-[color:var(--hairline)] bg-white/80 backdrop-blur-md sticky top-0 z-50 no-print">
-      <div className="max-w-6xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-x-3 gap-y-2">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-wrap items-center justify-between gap-x-3 gap-y-2">
         {/* Logo & Clinical Brand */}
         <div className="flex items-center gap-3">
           <div className="relative flex items-center justify-center w-10 h-10 rounded-2xl bg-gradient-to-br from-emerald-500 via-teal-600 to-cyan-600 text-white shadow-lg shadow-emerald-600/30 ring-1 ring-white/40">

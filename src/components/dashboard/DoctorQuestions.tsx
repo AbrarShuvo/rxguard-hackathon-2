@@ -30,7 +30,7 @@ export default function DoctorQuestions({ questions }: DoctorQuestionsProps) {
           <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-slate-100 text-slate-600" aria-hidden>
             <MessageSquareText className="h-4.5 w-4.5" />
           </span>
-          Doctor Follow-Up Questions
+          Questions for your doctor
         </h2>
         <button
           onClick={handleCopyAll}
@@ -41,7 +41,7 @@ export default function DoctorQuestions({ questions }: DoctorQuestionsProps) {
       </div>
 
       <p className="text-xs text-slate-500 mt-4">
-        Based on your extracted markers and medications, here are priority questions to ask at your next appointment:
+        Take these to your next visit — they come from your own medicines and lab results.
       </p>
 
       <div className="pt-2">

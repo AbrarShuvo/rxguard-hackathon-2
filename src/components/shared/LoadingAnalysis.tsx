@@ -25,9 +25,8 @@ export default function LoadingAnalysis() {
       {/* Animated scanner orb */}
       <div className="relative">
         <div className="absolute -inset-4 rounded-full bg-emerald-400/20 blur-xl animate-blob" aria-hidden />
-        <div className="relative w-20 h-20 rounded-[1.75rem] bg-gradient-to-br from-emerald-500 to-teal-600 text-white flex items-center justify-center shadow-xl shadow-emerald-600/30 animate-float overflow-hidden">
+        <div className="relative w-20 h-20 rounded-[1.75rem] bg-gradient-to-br from-emerald-500 to-teal-600 text-white flex items-center justify-center shadow-xl shadow-emerald-600/30 animate-float">
           <ShieldCheck className="w-10 h-10" />
-          <span className="absolute left-2 right-2 h-0.5 rounded bg-white/70 blur-[1px] animate-[scanLine_2.2s_ease-in-out_infinite] motion-reduce:animate-none" aria-hidden />
         </div>
         <span className="absolute -bottom-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-white shadow-md ring-1 ring-emerald-100">
           <Loader2 className="w-3.5 h-3.5 text-emerald-600 animate-spin motion-reduce:animate-none" aria-hidden />
@@ -114,9 +113,9 @@ export default function LoadingAnalysis() {
         })}
       </ol>
 
-      {/* Skeleton preview of the dashboard to come — scan line sweeps it */}
+      {/* Skeleton preview of the dashboard to come */}
       <div className="w-full space-y-2" aria-hidden>
-        <div className="scan-sweep h-16 rounded-2xl border border-gray-100 bg-white/70 p-3">
+        <div className="h-16 rounded-2xl border border-gray-100 bg-white/70 p-3">
           <div className="h-3 w-2/3 rounded-full animate-shimmer" />
           <div className="mt-2.5 h-3 w-1/2 rounded-full animate-shimmer" />
         </div>

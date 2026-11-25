@@ -33,10 +33,10 @@ export default function BiomarkerChart({ markers }: BiomarkerChartProps) {
     <div className="dash-card p-6 sm:p-8">
       <div className="pb-5 border-b border-slate-100">
         <h2 className="text-lg font-bold text-slate-900">
-          Lab Biomarkers
+          Your lab results
         </h2>
         <p className="print-hide text-xs text-slate-500 mt-0.5">
-          Values mapped against diagnostic reference intervals
+          Your numbers, next to the healthy range
         </p>
 
         {/* Filter tabs — quiet segmented control */}

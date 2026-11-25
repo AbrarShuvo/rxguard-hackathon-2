@@ -5,6 +5,8 @@ import { Upload, FileText, X, Camera } from "lucide-react";
 
 interface DropZoneProps {
   label: string;
+  /** Big, plain instruction shown in the empty state ("Drop your prescription here"). */
+  bigLabel?: string;
   icon: React.ReactNode;
   accept: string;
   file: File | null;
@@ -15,6 +17,7 @@ interface DropZoneProps {
 
 export default function DropZone({
   label,
+  bigLabel,
   icon,
   accept,
   file,
@@ -84,7 +87,7 @@ export default function DropZone({
       className={`
         upload-card ${isDragOver ? "is-drag dropzone-hot" : ""}
         relative flex flex-col items-center justify-center
-        w-full min-h-[190px] rounded-3xl border-2 border-dashed
+        w-full min-h-[220px] sm:min-h-[230px] rounded-3xl border-2 border-dashed
         transition-all duration-200 cursor-pointer group
         ${
           file
@@ -135,8 +138,8 @@ export default function DropZone({
             {icon}
           </div>
           <div className="text-center">
-            <p className="font-display text-sm font-bold text-gray-800">{label}</p>
-            <p className="text-xs text-gray-400 mt-1">
+            <p className="font-display text-lg sm:text-xl font-extrabold text-gray-900 leading-tight">{bigLabel ?? label}</p>
+            <p className="text-xs sm:text-sm text-gray-500 mt-1.5">
               {hint ?? "Drag & drop or click to browse"}
             </p>
           </div>

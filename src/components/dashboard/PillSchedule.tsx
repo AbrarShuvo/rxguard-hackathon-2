@@ -48,9 +48,9 @@ const cleanInstructions = (m: Medication) => {
 };
 
 const SLOTS: { id: SlotId; title: string; time: string; tab: string; iconBg: string; icon: React.ReactNode }[] = [
-  { id: "morning", title: "Morning Routine", time: "8:00 AM - 10:00 AM", tab: "Morning", iconBg: "bg-amber-50", icon: <Sun className="w-4 h-4 text-amber-500" /> },
-  { id: "afternoon", title: "Afternoon Routine", time: "1:00 PM - 2:00 PM", tab: "Afternoon", iconBg: "bg-orange-50", icon: <Sunset className="w-4 h-4 text-orange-500" /> },
-  { id: "night", title: "Night Routine", time: "8:00 PM - 10:00 PM", tab: "Night", iconBg: "bg-indigo-50", icon: <Moon className="w-4 h-4 text-indigo-500" /> },
+  { id: "morning", title: "Morning", time: "8:00 AM - 10:00 AM", tab: "Morning", iconBg: "bg-amber-50", icon: <Sun className="w-4 h-4 text-amber-500" /> },
+  { id: "afternoon", title: "Afternoon", time: "1:00 PM - 2:00 PM", tab: "Afternoon", iconBg: "bg-orange-50", icon: <Sunset className="w-4 h-4 text-orange-500" /> },
+  { id: "night", title: "Night", time: "8:00 PM - 10:00 PM", tab: "Night", iconBg: "bg-indigo-50", icon: <Moon className="w-4 h-4 text-indigo-500" /> },
 ];
 
 const slotIcon = (id: SlotId) =>
@@ -103,21 +103,24 @@ export default function PillSchedule({ medications, alerts = [] }: PillScheduleP
               }
             : undefined
         }
-        className={`p-4 rounded-xl border transition-all duration-200 select-none space-y-2.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 ${
+        className={`p-4 sm:p-5 rounded-xl border transition-all duration-200 select-none space-y-2.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 ${
           interactive ? "cursor-pointer" : ""
         } ${
           held
-            ? "border-red-200 bg-white"
+            ? "border-red-300 border-l-4 border-l-red-600 bg-red-50/40"
             : taken
             ? "bg-emerald-50/60 border-emerald-200"
             : "bg-white border-slate-200 hover:border-slate-300"
         } ${taken ? "animate-check-pop" : ""}`}
       >
         {held && (
-          <span className="inline-flex items-center gap-1.5 text-[11px] font-bold text-red-700 bg-red-50 border border-red-200 rounded-full px-2.5 py-1 uppercase tracking-wide">
-            <OctagonAlert className="w-3.5 h-3.5 shrink-0" aria-hidden />
-            Hold — ask your doctor first
-          </span>
+          <div className="flex items-start gap-2.5 rounded-xl bg-red-600 px-3.5 py-2.5 text-white shadow-sm shadow-red-600/30">
+            <OctagonAlert className="mt-0.5 h-4 w-4 shrink-0" aria-hidden />
+            <p className="leading-tight">
+              <span className="block text-xs font-black uppercase tracking-wide">Hold — don&apos;t take this one</span>
+              <span className="block text-[11px] text-red-100 mt-0.5">Ask your doctor first before taking it again.</span>
+            </p>
+          </div>
         )}
 
         <div className="flex items-start justify-between gap-2">
@@ -129,10 +132,14 @@ export default function PillSchedule({ medications, alerts = [] }: PillScheduleP
                 <Circle className="w-4 h-4 mt-0.5 shrink-0 text-slate-300" aria-hidden />
               ))}
             <div className="min-w-0">
-              <h4 className={`text-sm font-bold leading-tight ${taken ? "line-through text-slate-400" : "text-slate-900"}`}>
+              <h4 className={`text-base font-extrabold leading-tight ${taken ? "line-through text-slate-400" : held ? "text-red-900" : "text-slate-900"}`}>
                 {med.name}
               </h4>
-              <p className="text-[11px] text-slate-500">
+              {/* Dose first, big and plain — this is what you actually take */}
+              <p className={`text-sm font-bold mt-0.5 ${taken ? "text-slate-400" : "text-slate-700"}`}>
+                {med.raw_dosage}
+              </p>
+              <p className="text-[11px] text-slate-500 mt-0.5">
                 {med.generic_name} • <span className="text-slate-400">{med.drug_class}</span>
               </p>
             </div>
@@ -158,9 +165,6 @@ export default function PillSchedule({ medications, alerts = [] }: PillScheduleP
               <CalendarDays className="w-3 h-3" aria-hidden />× {duration}
             </span>
           )}
-          <span className="print-hide font-mono text-slate-400 bg-slate-50 px-1.5 py-0.5 rounded text-[10px]">
-            {med.raw_dosage}
-          </span>
           {taken && (
             <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full ml-auto">
               Taken
@@ -177,17 +181,18 @@ export default function PillSchedule({ medications, alerts = [] }: PillScheduleP
     );
   };
 
-  const card = (title: string, sub: string, icon: React.ReactNode, iconBg: string, count: number, children: React.ReactNode) => (
+  /* Slot card — the time is the headline, big and scannable. */
+  const card = (eyebrow: string, bigTime: string, icon: React.ReactNode, iconBg: string, count: number, children: React.ReactNode) => (
     <div className="dash-card p-5 sm:p-6 space-y-3">
-      <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-        <div className="flex items-center gap-2.5">
-          <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${iconBg}`}>{icon}</div>
+      <div className="flex items-center justify-between border-b border-slate-100 pb-4">
+        <div className="flex items-center gap-3">
+          <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${iconBg}`}>{icon}</div>
           <div>
-            <h3 className="text-sm font-bold text-slate-900">{title}</h3>
-            <p className="text-[11px] text-slate-500">{sub}</p>
+            <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400">{eyebrow}</p>
+            <h3 className="text-2xl font-black text-slate-900 tabular-nums leading-none mt-1">{bigTime}</h3>
           </div>
         </div>
-        <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-slate-100 text-slate-500">
+        <span className="text-xs font-medium px-2.5 py-1 rounded-full bg-slate-100 text-slate-500">
           {count} {count === 1 ? "pill" : "pills"}
         </span>
       </div>
@@ -209,9 +214,9 @@ export default function PillSchedule({ medications, alerts = [] }: PillScheduleP
             <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600" aria-hidden>
               <Pill className="w-4.5 h-4.5" />
             </span>
-            Daily Pill Timeline
+            Your day, planned
           </h2>
-          <p className="print-hide text-xs text-slate-500 mt-1">Tap a pill card to log the dose as taken</p>
+          <p className="print-hide text-xs text-slate-500 mt-1">Your medicines, in the order you take them — tap a pill when you&apos;ve taken it</p>
         </div>
         <div className="print-hide flex items-center gap-3">
           <div className="relative h-14 w-14 shrink-0" role="img" aria-label={`${takenCount} of ${totalDoses} doses taken`}>
@@ -223,13 +228,19 @@ export default function PillSchedule({ medications, alerts = [] }: PillScheduleP
           </div>
           <div>
             <span className="block text-sm font-bold text-slate-900 tabular-nums">{takenCount} of {totalDoses} taken</span>
-            <span className="block text-[11px] text-slate-500">{totalDoses - takenCount} dose{totalDoses - takenCount === 1 ? "" : "s"} left today</span>
+            <span className="block text-[11px] text-slate-500">{totalDoses - takenCount} left today</span>
           </div>
         </div>
       </div>
 
-      {/* Unified day timeline — quiet chips, HOLD in plain red text */}
-      <div className="day-strip no-print flex gap-2 overflow-x-auto pb-1" aria-label="Today's doses in order">
+      {/* Today at a glance — horizontal strip, with a fade + hint so the scroll is obvious */}
+      <div className="no-print">
+        <div className="flex items-baseline justify-between pb-2">
+          <p className="text-[11px] font-bold uppercase tracking-wider text-slate-400">Today at a glance</p>
+          <p className="text-[11px] font-semibold text-slate-400">Scroll for more →</p>
+        </div>
+        <div className="relative">
+          <div className="day-strip flex gap-2 overflow-x-auto pb-1" aria-label="Today's doses in order">
         {activeSlots.flatMap((s) =>
           slotMeds(s.id).map((m) => {
             const held = isHeld(m, alerts);
@@ -255,13 +266,17 @@ export default function PillSchedule({ medications, alerts = [] }: PillScheduleP
                   <span className="block text-[10px] font-semibold uppercase tracking-wide text-slate-400">{s.id} · {s.time.split(" - ")[0]}</span>
                   <span className={`block truncate text-xs font-bold ${taken ? "text-slate-400 line-through" : "text-slate-900"}`}>{m.name}</span>
                   <span className={`block text-[10px] font-semibold ${held ? "text-red-600" : taken ? "text-emerald-700" : "text-slate-500"}`}>
-                    {held ? "Hold — ask doctor first" : taken ? "Taken" : "Tap to log taken"}
+                    {held ? "Hold — ask doctor first" : taken ? "Taken" : "Tap when taken"}
                   </span>
                 </span>
               </button>
             );
           })
         )}
+          </div>
+          {/* Right-edge fade — signals there is more to scroll to */}
+          <div className="pointer-events-none absolute inset-y-0 right-0 w-10 bg-gradient-to-l from-[#f4f7f6] to-transparent" aria-hidden />
+        </div>
       </div>
 
       {activeSlots.length > 1 && (
@@ -285,7 +300,7 @@ export default function PillSchedule({ medications, alerts = [] }: PillScheduleP
             const meds = slotMeds(s.id);
             return (
               <Reveal key={s.id} from="left" delay={i * 100}>
-                {card(s.title, s.time, s.icon, s.iconBg, meds.length, meds.map((m) => renderMed(m, `${s.id}-${m.name}`, true)))}
+                {card(s.title, s.time.split(" - ")[0], s.icon, s.iconBg, meds.length, meds.map((m) => renderMed(m, `${s.id}-${m.name}`, true)))}
               </Reveal>
             );
           })}
@@ -293,8 +308,8 @@ export default function PillSchedule({ medications, alerts = [] }: PillScheduleP
         {periodic.length > 0 &&
           currentFilter === "all" &&
           card(
-            "Weekly / As-needed",
-            "Not part of the daily routine",
+            "Not every day",
+            "Weekly",
             <CalendarDays className="w-4 h-4 text-blue-500" />,
             "bg-blue-50",
             periodic.length,

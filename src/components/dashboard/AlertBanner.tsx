@@ -61,10 +61,10 @@ export default function AlertBanner({ alerts }: SafetyAlertProps) {
       <div className="flex flex-wrap items-baseline justify-between gap-2">
         <h2 className="font-display text-lg font-bold text-slate-900 flex items-center gap-2">
           <ShieldAlert className="h-5 w-5 text-red-600" aria-hidden />
-          Safety alerts
+          What needs your attention
         </h2>
         <span className="text-xs text-slate-400 tabular-nums">
-          {sorted.length} {sorted.length === 1 ? "flag" : "flags"} · most severe first
+          {sorted.length} {sorted.length === 1 ? "thing to know" : "things to know"} · worst first
         </span>
       </div>
 
